@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 2: My Best Friend - Focus & Try</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;900&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; overflow: hidden; background-color: #f3f4f6; }
+
+        .slide {
+            display: none;
+            height: 100vh;
+            width: 100vw;
+            padding: 20px 40px;
+            flex-direction: column;
+            align-items: center;
+        }
+        .slide.active { display: flex; }
+
+        /* タイトル背景：友達 */
+        .bg-friends {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=1600') center/cover;
+        }
+
+        .slide-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+        .content-box {
+            height: 600px;
+            width: 100%;
+            max-width: 1152px;
+            overflow-y: auto;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            background-color: white;
+        }
+
+        /* 隠し答え */
+        .hidden-answer {
+            display: inline-block;
+            color: transparent !important;
+            border-bottom: 3px solid #3b82f6 !important;
+            padding: 0 8px;
+            margin: 0 4px;
+            cursor: pointer;
+            min-width: 100px;
+            text-align: center;
+            vertical-align: baseline;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+        .hidden-answer.show {
+            color: #ef4444 !important;
+            font-weight: bold;
+        }
+
+        /* Focus スライド */
+        .example-sentence {
+            font-size: 2rem;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        .example-ja {
+            font-size: 1.3rem;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+        .keyword { color: #ef4444; font-weight: 900; }
+
+        .grammar-box {
+            background: #f0f9ff;
+            border-left: 6px solid #3b82f6;
+            padding: 1.2rem 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 1.2rem;
+            font-size: 1.25rem;
+            line-height: 1.8;
+        }
+        .qa-row {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin-bottom: 0.6rem;
+        }
+        .qa-label {
+            background: #3b82f6;
+            color: white;
+            font-size: 1rem;
+            font-weight: 900;
+            padding: 2px 10px;
+            border-radius: 6px;
+            white-space: nowrap;
+            margin-top: 4px;
+        }
+        .qa-label.neg { background: #ef4444; }
+        .qa-text { font-size: 1.5rem; font-weight: bold; line-height: 1.6; }
+        .qa-ja { font-size: 1.1rem; color: #6b7280; margin-left: 60px; margin-bottom: 0.8rem; }
+
+        /* 活用表 */
+        .conj-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+        }
+        .conj-table th {
+            background: #1e40af;
+            color: white;
+            padding: 8px 12px;
+            text-align: center;
+            font-weight: 900;
+        }
+        .conj-table td {
+            border: 1px solid #dbeafe;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        .conj-table tr:nth-child(even) td { background: #eff6ff; }
+        .conj-table .subj { text-align: left; font-weight: bold; }
+        .conj-table .be { color: #2563eb; font-weight: 900; }
+        .conj-table .verb { color: #16a34a; font-weight: bold; }
+        .conj-table .row-header {
+            background: #dbeafe;
+            color: #1e3a8a;
+            font-weight: 900;
+        }
+
+        /* Try スライド */
+        .try-q {
+            font-size: 1.8rem;
+            line-height: 1.7;
+            margin-bottom: 0.2rem;
+            font-weight: bold;
+        }
+        .try-ja {
+            font-size: 1.2rem;
+            color: #6b7280;
+            margin-bottom: 1.3rem;
+        }
+        .word-bank {
+            display: inline-flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 12px 20px;
+            background: #fef3c7;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .word-bank span {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #92400e;
+        }
+        .try-arrow {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin: 4px 0 4px 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide active bg-friends text-white justify-center text-center">
+        <h1 class="text-8xl font-black mb-8">Lesson 2: My Best Friend</h1>
+        <p class="text-4xl opacity-90">Focus & Try</p>
+    </div>
+
+    <!-- Slide 2: Focus ① be動詞の過去形 -->
+    <div class="slide bg-white">
+        <h2 class="slide-title text-teal-600">Focus ①</h2>
+        <div class="content-box bg-teal-50 border border-teal-100">
+            <p class="text-xl font-black text-teal-700 mb-4">「〜でした」「〜がいました，ありました」　be動詞の過去形</p>
+
+            <p class="example-sentence">Maruko <span class="keyword">was</span> happy about Tama-chan's words.</p>
+            <p class="example-ja">まる子はたまちゃんの言葉がうれしかったです。</p>
+
+            <div class="grammar-box">
+                be動詞の<strong>過去形</strong>は <strong>was / were</strong> を使います。主語によって使い分けます。
+            </div>
+
+            <div class="qa-row">
+                <span class="qa-label">疑問文</span>
+                <span class="qa-text"><span class="keyword">Were</span> you busy yesterday?</span>
+            </div>
+            <p class="qa-ja">あなたは昨日忙しかったですか。</p>
+
+            <div class="qa-row">
+                <span class="qa-label neg">否定文</span>
+                <span class="qa-text">I <span class="keyword">wasn't</span> busy yesterday.</span>
+            </div>
+            <p class="qa-ja">私は昨日忙しくありませんでした。</p>
+        </div>
+    </div>
+
+    <!-- Slide 3: Focus ② 一般動詞の過去形 + 活用表 -->
+    <div class="slide bg-white">
+        <h2 class="slide-title text-teal-600">Focus ②</h2>
+        <div class="content-box bg-teal-50 border border-teal-100" style="padding:2rem;">
+            <p class="text-xl font-black text-teal-700 mb-3">「〜しました」　一般動詞の過去形</p>
+
+            <p class="example-sentence">Maruko <span class="keyword">lost</span> her bankbook.</p>
+            <p class="example-ja" style="margin-bottom:0.8rem;">まる子は通帳をなくしました。</p>
+
+            <div class="grammar-box" style="margin-bottom:0.8rem;">
+                一般動詞の過去形は動詞を変化させます。<strong>-(e)d をつける</strong>もの，<strong>y → ied</strong> にするもの，<strong>不規則変化</strong>するものがあります。
+            </div>
+
+            <table class="conj-table">
+                <thead>
+                    <tr>
+                        <th>主語</th>
+                        <th>be動詞の過去形</th>
+                        <th>一般動詞の過去形の例</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="row-header" rowspan="3">単数</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td class="subj">I</td>
+                        <td class="be">was</td>
+                        <td class="verb">started / studied / went</td>
+                    </tr>
+                    <tr>
+                        <td class="subj">You</td>
+                        <td class="be">were</td>
+                        <td class="verb">started / studied / went</td>
+                    </tr>
+                    <tr>
+                        <td class="subj">He / She / It / Maruko など</td>
+                        <td class="be">was</td>
+                        <td class="verb">started / studied / went</td>
+                    </tr>
+                    <tr>
+                        <td class="row-header">複数</td>
+                        <td class="subj">We / You / They / Students など</td>
+                        <td class="be">were</td>
+                        <td class="verb">started / studied / went</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Slide 4: Try 1 - 過去形の穴埋め -->
+    <div class="slide bg-yellow-50">
+        <h2 class="slide-title text-orange-600">Try 1</h2>
+        <div class="content-box border border-orange-100">
+            <p class="text-xl font-black text-orange-600 mb-4">日本語に合うように，（　）内の語を<strong>過去形</strong>にしましょう。</p>
+
+            <div class="mb-6">
+                <p class="try-q">① My father ( <span class="hidden-answer" onclick="this.classList.toggle('show')">said</span> ), "Let's climb a mountain next Sunday."</p>
+                <p class="try-ja">　（say → ____）　父は「今度の日曜日に山登りに行こう」と言いました。</p>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">② But I ( <span class="hidden-answer" onclick="this.classList.toggle('show')">didn't</span> ) accept his idea.</p>
+                <p class="try-ja">　（don't → ____）　しかし，私は彼の考えを受け入れませんでした。</p>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">③ I ( <span class="hidden-answer" onclick="this.classList.toggle('show')">climbed</span> ) Mt. Takao with my friends last week.</p>
+                <p class="try-ja">　（climb → ____）　先週，友だちと高尾山に登ったからです。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Try 2 - 語句の並べかえ -->
+    <div class="slide bg-yellow-50">
+        <h2 class="slide-title text-orange-600">Try 2</h2>
+        <div class="content-box border border-orange-100">
+            <p class="text-xl font-black text-orange-600 mb-4">日本語に合うように，（　）内の語を並べかえましょう。</p>
+
+            <div class="mb-5">
+                <p class="try-q">① One day, Emma ( helped / with / me ) my homework.</p>
+                <p class="try-arrow">→ One day, Emma <span class="hidden-answer" onclick="this.classList.toggle('show')">helped me with</span> my homework.</p>
+                <p class="try-ja">ある日，エマが宿題を手伝ってくれました。</p>
+            </div>
+            <div class="mb-5">
+                <p class="try-q">② I ( about / happy / felt ) her kindness.</p>
+                <p class="try-arrow">→ I <span class="hidden-answer" onclick="this.classList.toggle('show')">felt happy about</span> her kindness.</p>
+                <p class="try-ja">彼女の優しさがうれしかったです。</p>
+            </div>
+            <div class="mb-5">
+                <p class="try-q">③ She is ( best / my / friend ).</p>
+                <p class="try-arrow">→ She is <span class="hidden-answer" onclick="this.classList.toggle('show')">my best friend</span>.</p>
+                <p class="try-ja">彼女は私の親友です。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Try 3 - 語句選択 -->
+    <div class="slide bg-yellow-50">
+        <h2 class="slide-title text-orange-600">Try 3</h2>
+        <div class="content-box border border-orange-100">
+            <p class="text-xl font-black text-orange-600 mb-3">日本語に合うように，最も適する語を下から選び，（　）に入れましょう。</p>
+            <div class="word-bank mb-5">
+                <span>half</span><span>/</span><span>while</span><span>/</span><span>lost</span>
+            </div>
+
+            <div class="mb-5">
+                <p class="try-q">① Kenji ( <span class="hidden-answer" onclick="this.classList.toggle('show')">lost</span> ) his pencil case.</p>
+                <p class="try-ja">健二は筆箱をなくしました。</p>
+            </div>
+            <div class="mb-5">
+                <p class="try-q">② I gave him ( <span class="hidden-answer" onclick="this.classList.toggle('show')">half</span> ) of my pens and pencils.</p>
+                <p class="try-ja">私のペンと鉛筆の半分を彼にあげました。</p>
+            </div>
+            <div class="mb-5">
+                <p class="try-q">③ After a ( <span class="hidden-answer" onclick="this.classList.toggle('show')">while</span> ), he found the pencil case at home.</p>
+                <p class="try-ja">しばらくして，彼は家で筆箱を見つけました。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-6 left-0 right-0 flex justify-center space-x-4">
+        <button onclick="prevSlide()" class="bg-black/70 text-white px-6 py-2 rounded-xl font-bold hover:bg-black transition">PREV</button>
+        <div id="slide-indicator" class="bg-white px-6 py-2 rounded-xl font-bold border shadow-sm">1 / 6</div>
+        <button onclick="nextSlide()" class="bg-black/70 text-white px-6 py-2 rounded-xl font-bold hover:bg-black transition">NEXT</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 6;
+        function updateSlideDisplay() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+            document.getElementById('slide-indicator').innerText = `${currentSlide + 1} / ${totalSlides}`;
+        }
+        function nextSlide() { if (currentSlide < totalSlides - 1) { currentSlide++; updateSlideDisplay(); } }
+        function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlideDisplay(); } }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
