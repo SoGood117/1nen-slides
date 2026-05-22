@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 2 音読シート</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
+      background: #fff;
+      color: #222;
+      padding: 28px 36px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .lesson-label { font-size: 12px; color: #999; margin-bottom: 4px; }
+    h1 { font-size: 20px; border-bottom: 3px solid #e07a8b; padding-bottom: 6px; margin-bottom: 8px; }
+    .note { font-size: 12px; color: #888; margin-bottom: 24px; }
+    .section-label {
+      display: inline-block;
+      background: #e07a8b;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 14px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      margin-top: 20px;
+    }
+    .sentence {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin: 12px 0;
+      font-size: 18px;
+      line-height: 2.1;
+    }
+    .num { font-weight: 700; color: #e07a8b; min-width: 24px; font-size: 14px; flex-shrink: 0; }
+    .text { flex: 1; }
+    .hint {
+      display: inline-block;
+      color: #c0392b;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 4px;
+      padding: 0 2px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .hint:hover { background: #fde8e8; }
+    .hint.revealed {
+      color: #1b5e20;
+      background: #e8f5e9;
+      font-size: 16px;
+      margin: 0 4px;
+      padding: 0 5px;
+    }
+    .speaker {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      align-self: center;
+    }
+    .maruko   { background: #fce4ec; color: #b71c1c; border: 1px solid #e07a8b; }
+    .tamachan { background: #e3f2fd; color: #0d47a1; border: 1px solid #64b5f6; }
+
+    @media print {
+      body { padding: 12mm 15mm; font-size: 13px; }
+      h1 { font-size: 17px; }
+      .sentence { font-size: 15px; }
+      .hint { cursor: default; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="lesson-label">Amity 1 — Lesson 2</div>
+  <h1>My Best Friend　音読シート</h1>
+  <p class="note">（　）のヒントを見て英文を言いましょう。タップすると英語が出てきます。</p>
+
+  <div class="section-label">Section 1</div>
+
+  <div class="sentence">
+    <span class="num">①</span>
+    <span class="text">One day, Maruko <span class="hint" data-en="lost">（失くした①）</span>her <span class="hint" data-en="bankbook">（通帳①）</span>.</span>
+  </div>
+
+  <div class="sentence">
+    <span class="num">②</span>
+    <span class="text">Her best friend Tama-chan <span class="hint" data-en="had no words">（言葉がなかった③）</span>for her then.</span>
+  </div>
+
+  <div class="sentence">
+    <span class="num">③</span>
+    <span class="text"><span class="hint" data-en="After a while">（しばらくして③）</span>, Tama-chan <span class="hint" data-en="said">（言った①）</span>, "I want to give <span class="hint" data-en="half">（半分①）</span>of my money to you."</span>
+  </div>
+
+  <div class="sentence">
+    <span class="num">④</span>
+    <span class="text">Maruko <span class="hint" data-en="was happy">（うれしかった②）</span>about Tama-chan's words.</span>
+  </div>
+
+  <div class="section-label">Section 2</div>
+
+  <div class="sentence">
+    <span class="num">①</span>
+    <span class="speaker maruko">まる子</span>
+    <span class="text">Please <span class="hint" data-en="choose">（選んで①）</span>any of these <span class="hint" data-en="sweets">（お菓子①）</span>.</span>
+  </div>
+
+  <div class="sentence">
+    <span class="num">②</span>
+    <span class="speaker tamachan">たまちゃん</span>
+    <span class="text">I like this one.</span>
+  </div>
+
+  <div class="sentence">
+    <span class="num">③</span>
+    <span class="speaker maruko">まる子</span>
+    <span class="text">You <span class="hint" data-en="chose">（選んだ①）</span>only one chocolate?</span>
+  </div>
+
+  <div class="sentence">
+    <span class="num">④</span>
+    <span class="speaker tamachan">たまちゃん</span>
+    <span class="text">Yes.  I <span class="hint" data-en="felt happy">（うれしかった②）</span>about your <span class="hint" data-en="kindness">（優しさ①）</span>.  I want to give it to you.</span>
+  </div>
+
+  <div class="sentence">
+    <span class="num">⑤</span>
+    <span class="speaker maruko">まる子</span>
+    <span class="text">Well, I want to buy two chocolates.  One for me and one for you.</span>
+  </div>
+
+  <script>
+    document.querySelectorAll('.hint').forEach(el => {
+      el.addEventListener('click', () => {
+        if (el.classList.contains('revealed')) {
+          el.textContent = el.dataset.ja;
+          el.classList.remove('revealed');
+        } else {
+          el.dataset.ja = el.textContent;
+          el.textContent = el.dataset.en;
+          el.classList.add('revealed');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
