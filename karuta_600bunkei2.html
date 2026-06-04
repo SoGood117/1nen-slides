@@ -64,6 +64,10 @@
       </ol>
     </div>
 
+    <button onclick="showSheet()" class="text-indigo-500 font-bold mb-4 text-sm underline underline-offset-2">
+      📋 全文・音声を確認する
+    </button>
+
     <!-- 音声選択 -->
     <div class="bg-white rounded-2xl shadow-md p-4 mb-6 text-left max-w-sm w-full">
       <label class="font-bold text-gray-700 text-sm block mb-2">🎙️ 読み上げ音声を選択</label>
@@ -133,6 +137,15 @@
     </button>
   </div>
 
+  <!-- ===== 確認シート画面 ===== -->
+  <div id="sheetScreen" class="hidden flex-col min-h-screen bg-gray-50">
+    <div class="sticky top-0 bg-indigo-700 text-white px-4 py-3 flex items-center gap-3 shadow z-10">
+      <button onclick="show('startScreen')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold px-3 py-1 rounded-full transition">← もどる</button>
+      <h2 class="font-black text-lg">📋 確認シート</h2>
+    </div>
+    <div id="sheetList" class="p-4 space-y-3 pb-10"></div>
+  </div>
+
   <script>
     const PAIRS = [
       { jp: "私は彼女たち全員を知っています。",                   en: "I know all of them." },
@@ -151,6 +164,37 @@
     let currentPair = null;
     let correct = 0;
     let answered = false;
+
+    function showSheet() {
+      show('sheetScreen');
+      const list = document.getElementById('sheetList');
+      list.innerHTML = '';
+      PAIRS.forEach((p, i) => {
+        const div = document.createElement('div');
+        div.className = 'bg-white border border-indigo-100 rounded-2xl p-4 shadow-sm';
+        div.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex-1 min-w-0">
+              <span class="inline-block bg-indigo-100 text-indigo-600 text-xs font-black px-2 py-0.5 rounded-full mb-2">${i + 1}</span>
+              <p class="font-black text-indigo-900 leading-snug mb-1" style="font-size:1.5rem;">${p.en}</p>
+              <p class="text-gray-500" style="font-size:1.1rem;">${p.jp}</p>
+            </div>
+            <button class="speak-btn bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-full w-12 h-12 flex items-center justify-center text-xl flex-shrink-0 mt-1 transition">🔊</button>
+          </div>
+        `;
+        div.querySelector('.speak-btn').addEventListener('click', () => speakSheet(p.jp));
+        list.appendChild(div);
+      });
+    }
+
+    function speakSheet(text) {
+      if (!window.speechSynthesis) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.85;
+      if (voices[selectedVoiceIdx]) u.voice = voices[selectedVoiceIdx];
+      speechSynthesis.speak(u);
+    }
 
     // QRコード生成
     new QRCode(document.getElementById('qrcode'), {
@@ -293,11 +337,11 @@
     }
 
     function show(id) {
-      ['startScreen', 'gameScreen', 'resultScreen'].forEach(s => {
+      ['startScreen', 'gameScreen', 'resultScreen', 'sheetScreen'].forEach(s => {
         const el = document.getElementById(s);
         if (s === id) {
           el.classList.remove('hidden');
-          if (s === 'gameScreen') el.classList.add('flex');
+          if (s === 'gameScreen' || s === 'sheetScreen') el.classList.add('flex');
           else el.classList.remove('flex');
         } else {
           el.classList.add('hidden');

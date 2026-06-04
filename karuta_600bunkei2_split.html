@@ -72,6 +72,10 @@
       </div>
     </div>
 
+    <button onclick="showSheet()" class="text-purple-500 font-bold mb-4 text-sm underline underline-offset-2">
+      📋 全文・音声を確認する
+    </button>
+
     <!-- 音声選択 -->
     <div class="bg-white rounded-2xl shadow-md p-4 mb-6 text-left max-w-sm w-full">
       <label class="font-bold text-gray-700 text-sm block mb-2">🎙️ 読み上げ音声を選択</label>
@@ -147,6 +151,15 @@
     <button onclick="startGame()" class="bg-purple-600 hover:bg-purple-700 active:scale-95 text-white text-xl font-black py-4 px-12 rounded-full shadow-xl transition">
       もう一度！
     </button>
+  </div>
+
+  <!-- ===== 確認シート画面 ===== -->
+  <div id="sheetScreen" class="hidden flex-col min-h-screen bg-gray-50">
+    <div class="sticky top-0 bg-purple-700 text-white px-4 py-3 flex items-center gap-3 shadow z-10">
+      <button onclick="show('startScreen')" class="bg-purple-600 hover:bg-purple-500 text-white text-sm font-bold px-3 py-1 rounded-full transition">← もどる</button>
+      <h2 class="font-black text-lg">📋 確認シート</h2>
+    </div>
+    <div id="sheetList" class="p-4 space-y-3 pb-10"></div>
   </div>
 
   <script>
@@ -331,17 +344,52 @@
     }
 
     function show(id) {
-      ['startScreen', 'gameScreen', 'resultScreen'].forEach(s => {
+      ['startScreen', 'gameScreen', 'resultScreen', 'sheetScreen'].forEach(s => {
         const el = document.getElementById(s);
         if (s === id) {
           el.classList.remove('hidden');
-          if (s === 'gameScreen') el.classList.add('flex');
+          if (s === 'gameScreen' || s === 'sheetScreen') el.classList.add('flex');
           else el.classList.remove('flex');
         } else {
           el.classList.add('hidden');
           el.classList.remove('flex');
         }
       });
+    }
+
+    function showSheet() {
+      show('sheetScreen');
+      const list = document.getElementById('sheetList');
+      list.innerHTML = '';
+      PAIRS.forEach((p, i) => {
+        const full = p.prompt + ' ' + p.answer;
+        const div = document.createElement('div');
+        div.className = 'bg-white border border-purple-100 rounded-2xl p-4 shadow-sm';
+        div.innerHTML = `
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex-1 min-w-0">
+              <span class="inline-block bg-purple-100 text-purple-600 text-xs font-black px-2 py-0.5 rounded-full mb-2">${i + 1}</span>
+              <div class="leading-snug mb-1" style="font-size:1.5rem;">
+                <span class="font-black text-purple-700">${p.prompt}</span>
+                <span class="font-black text-gray-800"> ${p.answer}</span>
+              </div>
+              <p class="text-gray-500" style="font-size:1.1rem;">${p.jp}</p>
+            </div>
+            <button class="speak-btn bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-full w-12 h-12 flex items-center justify-center text-xl flex-shrink-0 mt-1 transition">🔊</button>
+          </div>
+        `;
+        div.querySelector('.speak-btn').addEventListener('click', () => speakSheet(full));
+        list.appendChild(div);
+      });
+    }
+
+    function speakSheet(text) {
+      if (!window.speechSynthesis) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.85;
+      if (voices[selectedVoiceIdx]) u.voice = voices[selectedVoiceIdx];
+      speechSynthesis.speak(u);
     }
 
     // QRコード生成
