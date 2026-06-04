@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>英文かるた｜600文型②</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Noto Sans JP', sans-serif; }
@@ -64,28 +63,9 @@
       </ol>
     </div>
 
-    <button onclick="showSheet()" class="text-indigo-500 font-bold mb-4 text-sm underline underline-offset-2">
-      📋 全文・音声を確認する
-    </button>
-
-    <!-- 音声選択 -->
-    <div class="bg-white rounded-2xl shadow-md p-4 mb-6 text-left max-w-sm w-full">
-      <label class="font-bold text-gray-700 text-sm block mb-2">🎙️ 読み上げ音声を選択</label>
-      <select class="voice-select w-full border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-700 bg-gray-50" onchange="onVoiceChange(this.value)">
-        <option>（読み込み中...）</option>
-      </select>
-    </div>
-
     <button onclick="startGame()" class="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xl font-black py-4 px-12 rounded-full shadow-xl transition">
       スタート！
     </button>
-
-    <!-- QRコード -->
-    <div class="mt-8 bg-white rounded-2xl shadow-md p-5 text-center">
-      <p class="text-xs text-gray-400 font-bold mb-3 tracking-widest">📱 スマホで読み取って遊ぼう！</p>
-      <div id="qrcode" class="flex justify-center mb-2"></div>
-      <p class="text-xs text-gray-400 break-all">sogood117.github.io/1nen-slides/karuta_600bunkei2.html</p>
-    </div>
   </div>
 
   <!-- ===== ゲーム画面 ===== -->
@@ -95,7 +75,10 @@
     <div class="bg-indigo-700 text-white px-4 pt-4 pb-3">
       <div class="flex justify-between items-center mb-2">
         <span class="text-xs font-bold opacity-80">600文型②かるた</span>
-        <span class="text-xs font-bold">✅ <span id="correctCount">0</span> / <span id="totalCount">10</span></span>
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-bold">🃏 <span id="correctCount">0</span> / <span id="totalCount">10</span></span>
+          <span class="text-sm font-black bg-yellow-400 text-indigo-900 px-2 py-0.5 rounded-full">⭐ <span id="scoreDisplay">0</span>点</span>
+        </div>
       </div>
       <!-- プログレスバー -->
       <div class="bg-indigo-500 rounded-full h-2">
@@ -106,15 +89,10 @@
     <!-- 問題エリア -->
     <div class="bg-white mx-3 mt-3 rounded-2xl shadow-md p-4 text-center">
       <p class="text-xs text-gray-400 mb-1 font-bold tracking-widest">この英文を探してタップ！</p>
-      <p id="questionText" class="text-2xl font-black text-indigo-900 leading-snug mb-3">　</p>
-      <div class="flex items-center justify-center gap-2 flex-wrap">
-        <button onclick="speak()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm font-bold px-4 py-2 rounded-full transition">
-          🔊 もう一度読む
-        </button>
-        <select class="voice-select border border-gray-200 rounded-xl px-2 py-2 text-xs text-gray-600 bg-gray-50 max-w-[160px] truncate" onchange="onVoiceChange(this.value)">
-          <option>（読み込み中...）</option>
-        </select>
-      </div>
+      <p id="questionText" class="text-xl font-black text-indigo-900 leading-snug mb-3">　</p>
+      <button onclick="speak()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm font-bold px-4 py-2 rounded-full transition">
+        🔊 もう一度読む
+      </button>
     </div>
 
     <!-- フィードバック -->
@@ -130,20 +108,15 @@
   <div id="resultScreen" class="hidden flex flex-col items-center justify-center min-h-screen p-6 text-center">
     <div id="resultEmoji" class="text-6xl mb-4">🎉</div>
     <h2 class="text-3xl font-black text-indigo-900 mb-2">ゲームクリア！</h2>
-    <p class="text-2xl font-black text-green-600 mb-1"><span id="finalCorrect">0</span> / <span id="finalTotal">10</span> 正解</p>
+    <div class="bg-white rounded-2xl shadow-lg px-10 py-6 mb-4">
+      <p class="text-gray-500 text-sm mb-1">最終スコア</p>
+      <p class="text-5xl font-black text-indigo-700 mb-1"><span id="finalScore">0</span><span class="text-2xl text-gray-400"> / 30</span></p>
+      <p class="text-sm text-gray-400">（<span id="finalCorrect">0</span> / <span id="finalTotal">10</span> 問正解）</p>
+    </div>
     <p id="resultMsg" class="text-gray-500 mb-8 text-sm"></p>
     <button onclick="startGame()" class="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xl font-black py-4 px-12 rounded-full shadow-xl transition">
       もう一度！
     </button>
-  </div>
-
-  <!-- ===== 確認シート画面 ===== -->
-  <div id="sheetScreen" class="hidden flex-col min-h-screen bg-gray-50">
-    <div class="sticky top-0 bg-indigo-700 text-white px-4 py-3 flex items-center gap-3 shadow z-10">
-      <button onclick="show('startScreen')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold px-3 py-1 rounded-full transition">← もどる</button>
-      <h2 class="font-black text-lg">📋 確認シート</h2>
-    </div>
-    <div id="sheetList" class="p-4 space-y-3 pb-10"></div>
   </div>
 
   <script>
@@ -163,47 +136,9 @@
     let remaining = [];
     let currentPair = null;
     let correct = 0;
+    let score = 0;
+    let wrongCount = 0;
     let answered = false;
-
-    function showSheet() {
-      show('sheetScreen');
-      const list = document.getElementById('sheetList');
-      list.innerHTML = '';
-      PAIRS.forEach((p, i) => {
-        const div = document.createElement('div');
-        div.className = 'bg-white border border-indigo-100 rounded-2xl p-4 shadow-sm';
-        div.innerHTML = `
-          <div class="flex items-start justify-between gap-3">
-            <div class="flex-1 min-w-0">
-              <span class="inline-block bg-indigo-100 text-indigo-600 text-xs font-black px-2 py-0.5 rounded-full mb-2">${i + 1}</span>
-              <p class="font-black text-indigo-900 leading-snug mb-1" style="font-size:1.5rem;">${p.en}</p>
-              <p class="text-gray-500" style="font-size:1.1rem;">${p.jp}</p>
-            </div>
-            <button class="speak-btn bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-full w-12 h-12 flex items-center justify-center text-xl flex-shrink-0 mt-1 transition">🔊</button>
-          </div>
-        `;
-        div.querySelector('.speak-btn').addEventListener('click', () => speakSheet(p.jp));
-        list.appendChild(div);
-      });
-    }
-
-    function speakSheet(text) {
-      if (!window.speechSynthesis) return;
-      speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.rate = 0.85;
-      if (voices[selectedVoiceIdx]) u.voice = voices[selectedVoiceIdx];
-      speechSynthesis.speak(u);
-    }
-
-    // QRコード生成
-    new QRCode(document.getElementById('qrcode'), {
-      text: 'https://sogood117.github.io/1nen-slides/karuta_600bunkei2.html',
-      width: 160,
-      height: 160,
-      colorDark: '#3730a3',
-      colorLight: '#ffffff',
-    });
 
     function shuffle(arr) {
       return [...arr].sort(() => Math.random() - 0.5);
@@ -212,6 +147,8 @@
     function startGame() {
       remaining = [...PAIRS];
       correct = 0;
+      score = 0;
+      wrongCount = 0;
       answered = false;
 
       show('gameScreen');
@@ -228,7 +165,7 @@
         btn.className = 'card-btn bg-white border-2 border-indigo-100 rounded-xl shadow p-3 text-center';
         btn.dataset.en = pair.en;
         btn.textContent = pair.en;
-        btn.style.cssText = 'font-size:1.64rem; font-weight:700; color:#1e1b4b; line-height:1.4;';
+        btn.style.cssText = 'font-size:0.82rem; font-weight:700; color:#1e1b4b; line-height:1.4;';
         btn.addEventListener('click', () => onCardClick(btn));
         grid.appendChild(btn);
       });
@@ -236,6 +173,7 @@
 
     function nextQuestion() {
       hideFeedback();
+      wrongCount = 0;
       if (remaining.length === 0) { showResult(); return; }
 
       currentPair = remaining[Math.floor(Math.random() * remaining.length)];
@@ -250,9 +188,11 @@
       if (btn.dataset.en === currentPair.en) {
         // 正解！
         answered = true;
-        btn.classList.add('correct');
-        showFeedback('⭕ 正解！', 'bg-green-100 text-green-700');
+        const earned = 3 - wrongCount;
+        score += earned;
         correct++;
+        btn.classList.add('correct');
+        showFeedback(`⭕ 正解！ +${earned}点`, 'bg-green-100 text-green-700');
         remaining = remaining.filter(p => p.en !== currentPair.en);
         updateProgress();
 
@@ -263,35 +203,30 @@
         }, 1000);
 
       } else {
-        // 不正解
+        // 不正解（お手つき）
+        wrongCount++;
         btn.classList.add('wrong');
-        showFeedback('❌ ちがう！もう一度！', 'bg-red-100 text-red-700');
         setTimeout(() => btn.classList.remove('wrong'), 450);
+
+        if (wrongCount >= 3) {
+          // 3回お手つき → 0点で次へ
+          answered = true;
+          remaining = remaining.filter(p => p.en !== currentPair.en);
+          updateProgress();
+          showFeedback('❌ 3回お手つき…0点で次へ！', 'bg-red-100 text-red-700');
+          setTimeout(() => {
+            // 正解カードも消す
+            document.querySelectorAll('.card-btn').forEach(b => {
+              if (b.dataset.en === currentPair.en) b.classList.add('taken');
+            });
+            nextQuestion();
+          }, 1200);
+        } else {
+          const left = 3 - wrongCount;
+          showFeedback(`❌ お手つき！あと${left}回で0点になるよ`, 'bg-red-100 text-red-700');
+        }
       }
     }
-
-    let voices = [];
-    let selectedVoiceIdx = 0;
-
-    function loadVoices() {
-      const all = speechSynthesis.getVoices().filter(v => v.lang.startsWith('ja'));
-      if (all.length === 0) return;
-      voices = all;
-      document.querySelectorAll('.voice-select').forEach(sel => {
-        sel.innerHTML = voices.map((v, i) =>
-          `<option value="${i}">${v.name}</option>`
-        ).join('');
-        sel.value = selectedVoiceIdx;
-      });
-    }
-
-    function onVoiceChange(val) {
-      selectedVoiceIdx = parseInt(val);
-      document.querySelectorAll('.voice-select').forEach(sel => sel.value = selectedVoiceIdx);
-    }
-
-    speechSynthesis.onvoiceschanged = loadVoices;
-    loadVoices();
 
     function speak() {
       if (!currentPair || !window.speechSynthesis) return;
@@ -299,7 +234,6 @@
       const u = new SpeechSynthesisUtterance(currentPair.jp);
       u.lang = 'ja-JP';
       u.rate = 0.85;
-      if (voices[selectedVoiceIdx]) u.voice = voices[selectedVoiceIdx];
       speechSynthesis.speak(u);
     }
 
@@ -307,6 +241,7 @@
       const total = PAIRS.length;
       document.getElementById('correctCount').textContent = correct;
       document.getElementById('totalCount').textContent = total;
+      document.getElementById('scoreDisplay').textContent = score;
       document.getElementById('progressBar').style.width = (correct / total * 100) + '%';
     }
 
@@ -322,14 +257,15 @@
 
     function showResult() {
       const total = PAIRS.length;
+      document.getElementById('finalScore').textContent = score;
       document.getElementById('finalCorrect').textContent = correct;
       document.getElementById('finalTotal').textContent = total;
 
       let emoji = '🎉', msg = '';
-      if (correct === total)        { emoji = '🏆'; msg = '完璧！！天才やん！！'; }
-      else if (correct >= total * 0.8) { emoji = '😄'; msg = 'すごい！あともう少し！'; }
-      else if (correct >= total * 0.5) { emoji = '😊'; msg = 'いい感じ！もう一回チャレンジ！'; }
-      else                           { emoji = '💪'; msg = 'まだまだこれから！頑張れ！'; }
+      if (score === 30)        { emoji = '🏆'; msg = '満点！！完璧すぎる！天才やん！！'; }
+      else if (score >= 24)    { emoji = '😄'; msg = 'すごい！あともう少しで満点！'; }
+      else if (score >= 15)    { emoji = '😊'; msg = 'いい感じ！もう一回チャレンジ！'; }
+      else                     { emoji = '💪'; msg = 'まだまだこれから！頑張れ！'; }
 
       document.getElementById('resultEmoji').textContent = emoji;
       document.getElementById('resultMsg').textContent = msg;
@@ -337,11 +273,11 @@
     }
 
     function show(id) {
-      ['startScreen', 'gameScreen', 'resultScreen', 'sheetScreen'].forEach(s => {
+      ['startScreen', 'gameScreen', 'resultScreen'].forEach(s => {
         const el = document.getElementById(s);
         if (s === id) {
           el.classList.remove('hidden');
-          if (s === 'gameScreen' || s === 'sheetScreen') el.classList.add('flex');
+          if (s === 'gameScreen') el.classList.add('flex');
           else el.classList.remove('flex');
         } else {
           el.classList.add('hidden');
