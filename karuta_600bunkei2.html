@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英文かるた｜600文型②</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans JP', sans-serif; }
+    .card-btn {
+      transition: transform 0.15s, box-shadow 0.15s, background 0.2s, opacity 0.4s;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .card-btn:active { transform: scale(0.96); }
+    .card-btn.correct {
+      background: #16a34a !important;
+      color: white !important;
+      box-shadow: 0 0 0 4px #86efac;
+      transform: scale(1.04);
+    }
+    .card-btn.wrong {
+      background: #dc2626 !important;
+      color: white !important;
+      animation: shake 0.4s;
+    }
+    .card-btn.taken {
+      opacity: 0.2;
+      pointer-events: none;
+      cursor: default;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .pop { animation: pop 0.3s ease-out; }
+    .progress-bar { transition: width 0.5s ease; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+
+  <!-- ===== スタート画面 ===== -->
+  <div id="startScreen" class="flex flex-col items-center justify-center min-h-screen p-6 text-center">
+    <div class="text-6xl mb-4">🎴</div>
+    <h1 class="text-4xl font-black text-indigo-900 mb-1">英文かるた</h1>
+    <p class="text-indigo-600 font-bold mb-1">600文型 ②</p>
+    <p class="text-gray-500 text-sm mb-8">日本語を読んで、正しい英文カードをタップ！</p>
+
+    <div class="bg-white rounded-2xl shadow-md p-5 mb-8 text-left max-w-sm w-full">
+      <p class="font-bold text-gray-700 mb-3">🕹 あそびかた</p>
+      <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
+        <li>日本語が画面に表示（&amp; 読み上げ）されます</li>
+        <li>その英訳カードをタップ！</li>
+        <li>正解したカードは消えます</li>
+        <li>全部なくなったらゴール！</li>
+      </ol>
+    </div>
+
+    <button onclick="startGame()" class="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xl font-black py-4 px-12 rounded-full shadow-xl transition">
+      スタート！
+    </button>
+  </div>
+
+  <!-- ===== ゲーム画面 ===== -->
+  <div id="gameScreen" class="hidden flex-col min-h-screen">
+
+    <!-- ヘッダー -->
+    <div class="bg-indigo-700 text-white px-4 pt-4 pb-3">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-xs font-bold opacity-80">600文型②かるた</span>
+        <span class="text-xs font-bold">✅ <span id="correctCount">0</span> / <span id="totalCount">10</span></span>
+      </div>
+      <!-- プログレスバー -->
+      <div class="bg-indigo-500 rounded-full h-2">
+        <div id="progressBar" class="bg-green-400 h-2 rounded-full progress-bar" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- 問題エリア -->
+    <div class="bg-white mx-3 mt-3 rounded-2xl shadow-md p-4 text-center">
+      <p class="text-xs text-gray-400 mb-1 font-bold tracking-widest">この英文を探してタップ！</p>
+      <p id="questionText" class="text-xl font-black text-indigo-900 leading-snug mb-3">　</p>
+      <button onclick="speak()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm font-bold px-4 py-2 rounded-full transition">
+        🔊 もう一度読む
+      </button>
+    </div>
+
+    <!-- フィードバック -->
+    <div id="feedback" class="hidden mx-3 mt-2 py-2 px-4 rounded-xl text-center font-bold text-sm"></div>
+
+    <!-- カードグリッド -->
+    <div id="cardsGrid" class="grid grid-cols-2 gap-3 p-3 pb-6">
+    </div>
+
+  </div>
+
+  <!-- ===== リザルト画面 ===== -->
+  <div id="resultScreen" class="hidden flex flex-col items-center justify-center min-h-screen p-6 text-center">
+    <div id="resultEmoji" class="text-6xl mb-4">🎉</div>
+    <h2 class="text-3xl font-black text-indigo-900 mb-2">ゲームクリア！</h2>
+    <p class="text-2xl font-black text-green-600 mb-1"><span id="finalCorrect">0</span> / <span id="finalTotal">10</span> 正解</p>
+    <p id="resultMsg" class="text-gray-500 mb-8 text-sm"></p>
+    <button onclick="startGame()" class="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xl font-black py-4 px-12 rounded-full shadow-xl transition">
+      もう一度！
+    </button>
+  </div>
+
+  <script>
+    const PAIRS = [
+      { jp: "私は彼女たち全員を知っています。",                   en: "I know all of them." },
+      { jp: "私はその本をナンシーから借りました。",                 en: "I borrowed the book from Nancy." },
+      { jp: "パーティーは楽しかったですか。",                       en: "Did you enjoy yourself at the party?" },
+      { jp: "彼のおじさんはマイアミでレストランを経営しています。", en: "His uncle runs a restaurant in Miami." },
+      { jp: "彼女の弟は外国の雑誌をたくさん持っています。",         en: "Her brother has a lot of foreign magazines." },
+      { jp: "牛は私たちにミルクを与えてくれる。",                   en: "Cows give us milk." },
+      { jp: "誰があなたにそんな大金を貸したのですか。",             en: "Who lent you so much money?" },
+      { jp: "先日、おばさんが私に辞書を買ってくれました。",         en: "My aunt bought me a dictionary the other day." },
+      { jp: "この薬はいくらか効くでしょう。",                       en: "This medicine will do you some good." },
+      { jp: "あなたの写真をいつか私に見せてくれませんか。",         en: "Will you show me your photos sometime?" },
+    ];
+
+    let remaining = [];
+    let currentPair = null;
+    let correct = 0;
+    let answered = false;
+
+    function shuffle(arr) {
+      return [...arr].sort(() => Math.random() - 0.5);
+    }
+
+    function startGame() {
+      remaining = [...PAIRS];
+      correct = 0;
+      answered = false;
+
+      show('gameScreen');
+      updateProgress();
+      buildCards();
+      nextQuestion();
+    }
+
+    function buildCards() {
+      const grid = document.getElementById('cardsGrid');
+      grid.innerHTML = '';
+      shuffle(PAIRS).forEach(pair => {
+        const btn = document.createElement('button');
+        btn.className = 'card-btn bg-white border-2 border-indigo-100 rounded-xl shadow p-3 text-center';
+        btn.dataset.en = pair.en;
+        btn.textContent = pair.en;
+        btn.style.cssText = 'font-size:0.82rem; font-weight:700; color:#1e1b4b; line-height:1.4;';
+        btn.addEventListener('click', () => onCardClick(btn));
+        grid.appendChild(btn);
+      });
+    }
+
+    function nextQuestion() {
+      hideFeedback();
+      if (remaining.length === 0) { showResult(); return; }
+
+      currentPair = remaining[Math.floor(Math.random() * remaining.length)];
+      document.getElementById('questionText').textContent = currentPair.jp;
+      answered = false;
+      setTimeout(speak, 300);
+    }
+
+    function onCardClick(btn) {
+      if (answered || btn.classList.contains('taken')) return;
+
+      if (btn.dataset.en === currentPair.en) {
+        // 正解！
+        answered = true;
+        btn.classList.add('correct');
+        showFeedback('⭕ 正解！', 'bg-green-100 text-green-700');
+        correct++;
+        remaining = remaining.filter(p => p.en !== currentPair.en);
+        updateProgress();
+
+        setTimeout(() => {
+          btn.classList.remove('correct');
+          btn.classList.add('taken');
+          nextQuestion();
+        }, 1000);
+
+      } else {
+        // 不正解
+        btn.classList.add('wrong');
+        showFeedback('❌ ちがう！もう一度！', 'bg-red-100 text-red-700');
+        setTimeout(() => btn.classList.remove('wrong'), 450);
+      }
+    }
+
+    function speak() {
+      if (!currentPair || !window.speechSynthesis) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(currentPair.jp);
+      u.lang = 'ja-JP';
+      u.rate = 0.85;
+      speechSynthesis.speak(u);
+    }
+
+    function updateProgress() {
+      const total = PAIRS.length;
+      document.getElementById('correctCount').textContent = correct;
+      document.getElementById('totalCount').textContent = total;
+      document.getElementById('progressBar').style.width = (correct / total * 100) + '%';
+    }
+
+    function showFeedback(msg, cls) {
+      const el = document.getElementById('feedback');
+      el.textContent = msg;
+      el.className = `mx-3 mt-2 py-2 px-4 rounded-xl text-center font-bold text-sm pop ${cls}`;
+    }
+
+    function hideFeedback() {
+      document.getElementById('feedback').className = 'hidden';
+    }
+
+    function showResult() {
+      const total = PAIRS.length;
+      document.getElementById('finalCorrect').textContent = correct;
+      document.getElementById('finalTotal').textContent = total;
+
+      let emoji = '🎉', msg = '';
+      if (correct === total)        { emoji = '🏆'; msg = '完璧！！天才やん！！'; }
+      else if (correct >= total * 0.8) { emoji = '😄'; msg = 'すごい！あともう少し！'; }
+      else if (correct >= total * 0.5) { emoji = '😊'; msg = 'いい感じ！もう一回チャレンジ！'; }
+      else                           { emoji = '💪'; msg = 'まだまだこれから！頑張れ！'; }
+
+      document.getElementById('resultEmoji').textContent = emoji;
+      document.getElementById('resultMsg').textContent = msg;
+      show('resultScreen');
+    }
+
+    function show(id) {
+      ['startScreen', 'gameScreen', 'resultScreen'].forEach(s => {
+        const el = document.getElementById(s);
+        if (s === id) {
+          el.classList.remove('hidden');
+          if (s === 'gameScreen') el.classList.add('flex');
+          else el.classList.remove('flex');
+        } else {
+          el.classList.add('hidden');
+          el.classList.remove('flex');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
