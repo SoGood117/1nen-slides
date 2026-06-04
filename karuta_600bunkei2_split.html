@@ -28,9 +28,12 @@
       animation: shake 0.4s;
     }
     .card-btn.taken {
-      opacity: 0.2;
+      opacity: 0.55;
       pointer-events: none;
       cursor: default;
+      background: #f0fdf4 !important;
+      color: #15803d !important;
+      border-color: #bbf7d0 !important;
     }
     @keyframes shake {
       0%,100% { transform: translateX(0); }
@@ -147,18 +150,18 @@
   </div>
 
   <script>
-    // prompt = 読み上げる前半、answer = カードに書かれる後半
+    // prompt = 読み上げる前半、answer = カードに書かれる後半、jp = 日本語訳
     const PAIRS = [
-      { prompt: "I know",                    answer: "all of them." },
-      { prompt: "I borrowed the book",       answer: "from Nancy." },
-      { prompt: "Did you enjoy yourself",    answer: "at the party?" },
-      { prompt: "His uncle runs a restaurant", answer: "in Miami." },
-      { prompt: "Her brother has",           answer: "a lot of foreign magazines." },
-      { prompt: "Cows give",                 answer: "us milk." },
-      { prompt: "Who lent you",              answer: "so much money?" },
-      { prompt: "My aunt bought me",         answer: "a dictionary the other day." },
-      { prompt: "This medicine will do",     answer: "you some good." },
-      { prompt: "Will you show me",          answer: "your photos sometime?" },
+      { prompt: "I know",                      answer: "all of them.",                jp: "私は彼女たち全員を知っています。" },
+      { prompt: "I borrowed the book",         answer: "from Nancy.",                 jp: "私はその本をナンシーから借りました。" },
+      { prompt: "Did you enjoy yourself",      answer: "at the party?",               jp: "パーティーは楽しかったですか。" },
+      { prompt: "His uncle runs a restaurant", answer: "in Miami.",                   jp: "彼のおじさんはマイアミでレストランを経営しています。" },
+      { prompt: "Her brother has",             answer: "a lot of foreign magazines.", jp: "彼女の弟は外国の雑誌をたくさん持っています。" },
+      { prompt: "Cows give",                   answer: "us milk.",                    jp: "牛は私たちにミルクを与えてくれる。" },
+      { prompt: "Who lent you",                answer: "so much money?",              jp: "誰があなたにそんな大金を貸したのですか。" },
+      { prompt: "My aunt bought me",           answer: "a dictionary the other day.", jp: "先日、おばさんが私に辞書を買ってくれました。" },
+      { prompt: "This medicine will do",       answer: "you some good.",              jp: "この薬はいくらか効くでしょう。" },
+      { prompt: "Will you show me",            answer: "your photos sometime?",       jp: "あなたの写真をいつか私に見せてくれませんか。" },
     ];
 
     let remaining = [];
@@ -187,7 +190,9 @@
         const btn = document.createElement('button');
         btn.className = 'card-btn bg-white border-2 border-purple-100 rounded-xl shadow p-3 text-center';
         btn.dataset.answer = pair.answer;
-        btn.textContent = pair.answer;
+        btn.dataset.jp = pair.jp;
+        btn.dataset.prompt = pair.prompt;
+        btn.innerHTML = `<span class="en">${pair.answer}</span>`;
         btn.style.cssText = 'font-size:0.82rem; font-weight:700; color:#3b0764; line-height:1.4;';
         btn.addEventListener('click', () => onCardClick(btn));
         grid.appendChild(btn);
@@ -209,7 +214,11 @@
       if (btn.dataset.answer === currentPair.answer) {
         answered = true;
         btn.classList.add('correct');
-        showFeedback(`⭕ 正解！ "${currentPair.prompt} ${currentPair.answer}"`, 'bg-green-100 text-green-700');
+        btn.innerHTML = `
+          <span style="display:block;font-size:0.78rem;font-weight:700;line-height:1.3;color:white;">${btn.dataset.prompt} ${btn.dataset.answer}</span>
+          <span style="display:block;font-size:0.68rem;margin-top:4px;color:rgba(255,255,255,0.9);font-weight:400;">${btn.dataset.jp}</span>
+        `;
+        showFeedback('⭕ 正解！', 'bg-green-100 text-green-700');
         correct++;
         remaining = remaining.filter(p => p.answer !== currentPair.answer);
         updateProgress();
