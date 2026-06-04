@@ -193,7 +193,7 @@
         btn.dataset.jp = pair.jp;
         btn.dataset.prompt = pair.prompt;
         btn.innerHTML = `<span class="en">${pair.answer}</span>`;
-        btn.style.cssText = 'font-size:0.82rem; font-weight:700; color:#3b0764; line-height:1.4;';
+        btn.style.cssText = 'font-size:1.64rem; font-weight:700; color:#3b0764; line-height:1.4;';
         btn.addEventListener('click', () => onCardClick(btn));
         grid.appendChild(btn);
       });
@@ -215,8 +215,8 @@
         answered = true;
         btn.classList.add('correct');
         btn.innerHTML = `
-          <span style="display:block;font-size:0.78rem;font-weight:700;line-height:1.3;color:white;">${btn.dataset.prompt} ${btn.dataset.answer}</span>
-          <span style="display:block;font-size:0.68rem;margin-top:4px;color:rgba(255,255,255,0.9);font-weight:400;">${btn.dataset.jp}</span>
+          <span style="display:block;font-size:1.56rem;font-weight:700;line-height:1.3;color:white;">${btn.dataset.prompt} ${btn.dataset.answer}</span>
+          <span style="display:block;font-size:1.36rem;margin-top:4px;color:rgba(255,255,255,0.9);font-weight:400;">${btn.dataset.jp}</span>
         `;
         showFeedback('⭕ 正解！', 'bg-green-100 text-green-700');
         correct++;
