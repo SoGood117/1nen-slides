@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>並べ替えクイズ｜600文型②</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans JP', sans-serif; }
+    .tile {
+      transition: transform 0.1s, opacity 0.3s;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .tile:active { transform: scale(0.93); }
+    .tile.wrong-shake { animation: shake 0.4s; }
+    .tile.placed { opacity: 0.2; pointer-events: none; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-7px); }
+      75% { transform: translateX(7px); }
+    }
+    @keyframes pop {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .pop { animation: pop 0.2s ease-out; }
+    .progress-bar { transition: width 0.5s ease; }
+    #answerArea { min-height: 4rem; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-emerald-50 to-teal-100 min-h-screen">
+
+  <!-- ===== スタート画面 ===== -->
+  <div id="startScreen" class="flex flex-col items-center justify-center min-h-screen p-6 text-center">
+    <div class="text-6xl mb-4">🧩</div>
+    <h1 class="text-4xl font-black text-teal-900 mb-1">並べ替えクイズ</h1>
+    <p class="text-teal-600 font-bold mb-1">600文型 ②</p>
+    <p class="text-gray-500 text-sm mb-6">日本語を見て、英単語を正しい順番にタップ！</p>
+
+    <div class="bg-white rounded-2xl shadow-md p-5 mb-6 text-left max-w-sm w-full">
+      <p class="font-bold text-gray-700 mb-3">🕹 あそびかた</p>
+      <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
+        <li>日本語の意味が表示されます</li>
+        <li>シャッフルされたカードを正しい順にタップ！</li>
+        <li>✅ 正解 → ピンポン！次の問題へ</li>
+        <li>❌ 間違い → ブブブ！もう一回タップ</li>
+      </ol>
+    </div>
+
+    <button onclick="startGame()" class="bg-teal-600 hover:bg-teal-700 active:scale-95 text-white text-xl font-black py-4 px-12 rounded-full shadow-xl transition mb-6">
+      スタート！
+    </button>
+
+    <!-- QRコード -->
+    <div class="bg-white rounded-2xl shadow-md p-5 text-center">
+      <p class="text-xs text-gray-400 font-bold mb-3 tracking-widest">📱 スマホで読み取って遊ぼう！</p>
+      <div id="qrcode" class="flex justify-center mb-2"></div>
+      <p class="text-xs text-gray-400 break-all">sogood117.github.io/1nen-slides/narabe_600bunkei2.html</p>
+    </div>
+  </div>
+
+  <!-- ===== ゲーム画面 ===== -->
+  <div id="gameScreen" class="hidden flex-col min-h-screen">
+
+    <!-- ヘッダー -->
+    <div class="bg-teal-700 text-white px-4 pt-4 pb-3">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-xs font-bold opacity-80">並べ替えクイズ</span>
+        <span class="text-xs font-bold"><span id="qNum">1</span> / <span id="qTotal">10</span></span>
+      </div>
+      <div class="bg-teal-500 rounded-full h-2">
+        <div id="progressBar" class="bg-green-400 h-2 rounded-full progress-bar" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- 日本語 -->
+    <div class="bg-white mx-3 mt-3 rounded-2xl shadow-md p-4 text-center">
+      <p class="text-xs text-gray-400 mb-1 font-bold tracking-widest">日本語に合うように並べ替えよう！</p>
+      <p id="jpText" class="text-2xl font-black text-teal-900 leading-snug">　</p>
+    </div>
+
+    <!-- 答えエリア -->
+    <div class="mx-3 mt-3">
+      <p class="text-xs text-gray-400 font-bold mb-1 tracking-widest">あなたの答え：</p>
+      <div id="answerArea" class="bg-white border-2 border-dashed border-teal-300 rounded-2xl p-3 flex flex-wrap gap-2 items-center">
+        <span id="placeholder" class="text-gray-300 text-sm font-bold">カードをタップすると並んでいきます</span>
+      </div>
+    </div>
+
+    <!-- フィードバック -->
+    <div id="feedback" class="hidden mx-3 mt-2 py-2 px-4 rounded-xl text-center font-bold text-sm"></div>
+
+    <!-- 単語タイル -->
+    <div id="tilesArea" class="p-4 flex flex-wrap gap-3 justify-center"></div>
+
+  </div>
+
+  <!-- ===== リザルト画面 ===== -->
+  <div id="resultScreen" class="hidden flex flex-col items-center justify-center min-h-screen p-6 text-center">
+    <div class="text-6xl mb-4">🏆</div>
+    <h2 class="text-3xl font-black text-teal-900 mb-2">全問クリア！</h2>
+    <p class="text-gray-500 mb-8">全10問の並べ替えができました！</p>
+    <button onclick="startGame()" class="bg-teal-600 hover:bg-teal-700 active:scale-95 text-white text-xl font-black py-4 px-12 rounded-full shadow-xl transition">
+      もう一度！
+    </button>
+  </div>
+
+  <script>
+    const QUESTIONS = [
+      { jp: "私は彼女たち全員を知っています。",                   words: ["I", "know", "all of them."] },
+      { jp: "私はその本をナンシーから借りました。",                words: ["I", "borrowed", "the book", "from Nancy."] },
+      { jp: "パーティーは楽しかったですか。",                     words: ["Did you", "enjoy yourself", "at the party?"] },
+      { jp: "彼のおじさんはマイアミでレストランを経営しています。", words: ["His uncle", "runs", "a restaurant", "in Miami."] },
+      { jp: "彼女の弟は外国の雑誌をたくさん持っています。",       words: ["Her brother", "has", "a lot of", "foreign magazines."] },
+      { jp: "牛は私たちにミルクを与えてくれる。",                 words: ["Cows", "give", "us", "milk."] },
+      { jp: "誰があなたにそんな大金を貸したのですか。",           words: ["Who", "lent", "you", "so much money?"] },
+      { jp: "先日、おばさんが私に辞書を買ってくれました。",       words: ["My aunt", "bought me", "a dictionary", "the other day."] },
+      { jp: "この薬はいくらか効くでしょう。",                     words: ["This medicine", "will do", "you", "some good."] },
+      { jp: "あなたの写真をいつか私に見せてくれませんか。",       words: ["Will you", "show me", "your photos", "sometime?"] },
+    ];
+
+    let questionOrder = [];
+    let currentIdx = 0;
+    let nextWordIdx = 0;
+
+    function shuffle(arr) {
+      return [...arr].sort(() => Math.random() - 0.5);
+    }
+
+    function startGame() {
+      questionOrder = shuffle(QUESTIONS.map((_, i) => i));
+      currentIdx = 0;
+      show('gameScreen');
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      nextWordIdx = 0;
+      hideFeedback();
+
+      const q = QUESTIONS[questionOrder[currentIdx]];
+      document.getElementById('qNum').textContent = currentIdx + 1;
+      document.getElementById('qTotal').textContent = QUESTIONS.length;
+      document.getElementById('progressBar').style.width = (currentIdx / QUESTIONS.length * 100) + '%';
+      document.getElementById('jpText').textContent = q.jp;
+
+      // 答えエリアをリセット
+      const answerArea = document.getElementById('answerArea');
+      answerArea.innerHTML = '<span id="placeholder" class="text-gray-300 text-sm font-bold">カードをタップすると並んでいきます</span>';
+
+      // タイルをシャッフルして配置
+      const tilesArea = document.getElementById('tilesArea');
+      tilesArea.innerHTML = '';
+      shuffle(q.words).forEach(word => {
+        const btn = document.createElement('button');
+        btn.className = 'tile bg-white border-2 border-teal-200 text-teal-900 font-black rounded-2xl px-4 py-3 shadow-md';
+        btn.style.fontSize = '1.5rem';
+        btn.textContent = word;
+        btn.dataset.word = word;
+        btn.addEventListener('click', () => onTileClick(btn));
+        tilesArea.appendChild(btn);
+      });
+    }
+
+    function onTileClick(btn) {
+      if (btn.classList.contains('placed')) return;
+
+      const q = QUESTIONS[questionOrder[currentIdx]];
+      const expected = q.words[nextWordIdx];
+
+      if (btn.dataset.word === expected) {
+        // 正解！
+        btn.classList.add('placed');
+
+        const answerArea = document.getElementById('answerArea');
+        const placeholder = document.getElementById('placeholder');
+        if (placeholder) placeholder.remove();
+
+        const chip = document.createElement('span');
+        chip.className = 'pop bg-teal-600 text-white font-black rounded-xl px-3 py-2';
+        chip.style.fontSize = '1.5rem';
+        chip.textContent = expected;
+        answerArea.appendChild(chip);
+
+        nextWordIdx++;
+
+        if (nextWordIdx === q.words.length) {
+          // 全部揃った！
+          playPingPong();
+          showFeedback('⭕ 正解！', 'bg-green-100 text-green-700');
+          setTimeout(() => {
+            currentIdx++;
+            if (currentIdx >= QUESTIONS.length) {
+              show('resultScreen');
+            } else {
+              loadQuestion();
+            }
+          }, 1300);
+        }
+
+      } else {
+        // 不正解
+        playBuzzer();
+        btn.classList.add('wrong-shake');
+        showFeedback('❌ ちがう！正しい順番でタップしよう', 'bg-red-100 text-red-700');
+        setTimeout(() => {
+          btn.classList.remove('wrong-shake');
+          hideFeedback();
+        }, 650);
+      }
+    }
+
+    function playPingPong() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        [[880, 0], [1100, 0.22]].forEach(([freq, offset]) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.4, ctx.currentTime + offset);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + offset + 0.35);
+          osc.start(ctx.currentTime + offset);
+          osc.stop(ctx.currentTime + offset + 0.36);
+        });
+      } catch(e) {}
+    }
+
+    function playBuzzer() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        [0, 0.22, 0.44].forEach(offset => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sawtooth';
+          osc.frequency.value = 110;
+          gain.gain.setValueAtTime(0.35, ctx.currentTime + offset);
+          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + offset + 0.18);
+          osc.start(ctx.currentTime + offset);
+          osc.stop(ctx.currentTime + offset + 0.19);
+        });
+      } catch(e) {}
+    }
+
+    function showFeedback(msg, cls) {
+      const el = document.getElementById('feedback');
+      el.textContent = msg;
+      el.className = `mx-3 mt-2 py-2 px-4 rounded-xl text-center font-bold text-sm pop ${cls}`;
+    }
+
+    function hideFeedback() {
+      document.getElementById('feedback').className = 'hidden';
+    }
+
+    function show(id) {
+      ['startScreen', 'gameScreen', 'resultScreen'].forEach(s => {
+        const el = document.getElementById(s);
+        if (s === id) {
+          el.classList.remove('hidden');
+          if (s === 'gameScreen') el.classList.add('flex');
+          else el.classList.remove('flex');
+        } else {
+          el.classList.add('hidden');
+          el.classList.remove('flex');
+        }
+      });
+    }
+
+    // QRコード生成
+    new QRCode(document.getElementById('qrcode'), {
+      text: 'https://sogood117.github.io/1nen-slides/narabe_600bunkei2.html',
+      width: 160,
+      height: 160,
+      colorDark: '#0f766e',
+      colorLight: '#ffffff',
+    });
+  </script>
+</body>
+</html>
