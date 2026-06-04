@@ -121,6 +121,8 @@
         <span class="text-xs bg-purple-100 text-purple-700 font-bold px-2 py-0.5 rounded-full">前半</span>
         <p id="promptText" class="text-2xl font-black text-purple-900 leading-snug">　</p>
       </div>
+      <!-- 日本語訳 -->
+      <p id="questionJp" class="text-sm text-gray-400 mb-2">　</p>
       <!-- 後半ヒント（点線） -->
       <div class="flex items-center justify-center gap-2 mb-3">
         <span class="text-xs bg-gray-100 text-gray-400 font-bold px-2 py-0.5 rounded-full">後半</span>
@@ -229,6 +231,7 @@
       if (remaining.length === 0) { showResult(); return; }
       currentPair = remaining[Math.floor(Math.random() * remaining.length)];
       document.getElementById('promptText').textContent = currentPair.prompt;
+      document.getElementById('questionJp').textContent = currentPair.jp;
       answered = false;
       setTimeout(speak, 300);
     }
