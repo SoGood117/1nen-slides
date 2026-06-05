@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 3: Love for Dance - Focus & Try</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;900&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; overflow: hidden; background-color: #f3f4f6; }
+        .slide { display: none; height: 100vh; width: 100vw; padding: 20px 16px 80px; flex-direction: column; align-items: center; }
+        .slide.active { display: flex; }
+        .bg-dance {
+            background: linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)),
+                url('https://images.unsplash.com/photo-1504609813442-a9c286f89f35?auto=format&fit=crop&q=80&w=1600') center/cover;
+        }
+        .slide-title { font-size: 3.5rem; font-weight: 900; margin-bottom: 0.75rem; text-align: center; }
+        .content-box { flex: 1; width: 100%; max-width: 100%; overflow-y: auto; border-radius: 1.5rem; padding: 2.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); background-color: white; }
+        .hidden-answer { display: inline-block; color: transparent !important; border-bottom: 3px solid #3b82f6 !important; padding: 0 8px; margin: 0 4px; cursor: pointer; min-width: 100px; text-align: center; vertical-align: baseline; white-space: nowrap; transition: color 0.2s; }
+        .hidden-answer.show { color: #ef4444 !important; font-weight: bold; }
+        .example-sentence { font-size: 2.4rem; line-height: 1.6; margin-bottom: 0.5rem; font-weight: bold; color: #1f2937; }
+        .example-ja { font-size: 1.7rem; color: #6b7280; margin-bottom: 1.5rem; }
+        .keyword { color: #ef4444; font-weight: 900; }
+        .grammar-box { background: #f0f9ff; border-left: 6px solid #3b82f6; padding: 1.2rem 1.5rem; border-radius: 0 12px 12px 0; margin-bottom: 1.2rem; font-size: 2.0rem; line-height: 1.8; }
+        .qa-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 0.6rem; }
+        .qa-label { background: #3b82f6; color: white; font-size: 1rem; font-weight: 900; padding: 2px 10px; border-radius: 6px; white-space: nowrap; margin-top: 4px; }
+        .qa-label.neg { background: #ef4444; }
+        .qa-text { font-size: 2.2rem; font-weight: bold; line-height: 1.6; }
+        .qa-ja { font-size: 1.5rem; color: #6b7280; margin-left: 60px; margin-bottom: 0.8rem; }
+        .conj-table { width: 100%; border-collapse: collapse; font-size: 1.8rem; margin-top: 0.8rem; }
+        .conj-table th { background: #1e40af; color: white; padding: 8px 12px; text-align: center; font-weight: 900; }
+        .conj-table td { border: 1px solid #dbeafe; padding: 8px 12px; text-align: center; }
+        .conj-table tr:nth-child(even) td { background: #eff6ff; }
+        .conj-table .subj { text-align: left; font-weight: bold; }
+        .conj-table .be { color: #2563eb; font-weight: 900; }
+        .conj-table .verb { color: #16a34a; font-weight: bold; }
+        .conj-table .row-header { background: #dbeafe; color: #1e3a8a; font-weight: 900; }
+        .try-q { font-size: 2.4rem; line-height: 1.7; margin-bottom: 0.2rem; font-weight: bold; }
+        .try-ja { font-size: 1.7rem; color: #6b7280; margin-bottom: 1.3rem; }
+        .word-bank { display: inline-flex; gap: 12px; flex-wrap: wrap; padding: 12px 20px; background: #fef3c7; border-radius: 12px; margin-bottom: 1.5rem; }
+        .word-bank span { font-size: 2.0rem; font-weight: bold; color: #92400e; }
+        .try-arrow { font-size: 2.0rem; font-weight: bold; margin: 4px 0 4px 24px; }
+        .modal-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem; }
+        .modal-chip { background: #eff6ff; border: 2px solid #bfdbfe; border-radius: 10px; padding: 6px 18px; font-size: 1.7rem; font-weight: bold; color: #1e40af; }
+        .modal-chip .chip-ja { font-size: 1.2rem; color: #6b7280; font-weight: 500; display: block; }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide active bg-dance text-white justify-center text-center">
+        <h1 class="text-8xl font-black mb-8">Lesson 3: Love for Dance</h1>
+        <p class="text-4xl opacity-90">Focus & Try</p>
+    </div>
+
+    <!-- Slide 2: Focus ① 現在進行形 -->
+    <div class="slide bg-white">
+        <h2 class="slide-title text-teal-600">Focus ①</h2>
+        <div class="content-box bg-teal-50 border border-teal-100">
+            <p class="text-xl font-black text-teal-700 mb-4">「〜しています」　現在進行形</p>
+
+            <p class="example-sentence">I'm <span class="keyword">watch</span><span class="keyword">ing</span> a video clip.</p>
+            <p class="example-ja">私は動画クリップを見ています。</p>
+
+            <div class="grammar-box">
+                今まさに起きている進行中の動作は，<strong>be動詞 ＋ 動詞のing形</strong>で表します。
+            </div>
+
+            <div class="qa-row">
+                <span class="qa-label">疑問文</span>
+                <span class="qa-text"><span class="keyword">Are</span> you listen<span class="keyword">ing</span> to music?</span>
+            </div>
+            <p class="qa-ja">あなたは音楽を聞いていますか。</p>
+
+            <div class="qa-row">
+                <span class="qa-label neg">否定文</span>
+                <span class="qa-text">I'm <span class="keyword">not</span> listen<span class="keyword">ing</span> to music.</span>
+            </div>
+            <p class="qa-ja">私は音楽を聞いていません。</p>
+
+            <p class="text-lg font-black text-gray-500 mt-2 mb-2">動詞のing形の作り方</p>
+            <table class="conj-table">
+                <thead>
+                    <tr><th>もとの形</th><th>ルール</th><th>ing形</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="subj">start</td><td>そのまま ing をつける</td><td class="verb">starting</td></tr>
+                    <tr><td class="subj">take</td><td>語末の e をとって ing をつける</td><td class="verb">taking</td></tr>
+                    <tr><td class="subj">run</td><td>語末の子音を重ねて ing をつける</td><td class="verb">running</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Slide 3: Focus ② 助動詞 -->
+    <div class="slide bg-white">
+        <h2 class="slide-title text-teal-600">Focus ②</h2>
+        <div class="content-box bg-teal-50 border border-teal-100" style="padding:2rem;">
+            <p class="text-xl font-black text-teal-700 mb-3">「〜できます，〜するつもりです」など　助動詞</p>
+
+            <p class="example-sentence">You <span class="keyword">can</span> do it.</p>
+            <p class="example-ja" style="margin-bottom:0.8rem;">あなたはできるよ。</p>
+
+            <div class="grammar-box" style="margin-bottom:0.8rem;">
+                助動詞は，動詞に意味を付け加える働きをします。助動詞のあとの動詞は<strong>原形</strong>を使います。
+            </div>
+
+            <div class="qa-row">
+                <span class="qa-label">疑問文</span>
+                <span class="qa-text"><span class="keyword">Can</span> you play the piano?</span>
+            </div>
+            <p class="qa-ja">あなたはピアノを弾くことができますか。</p>
+
+            <div class="qa-row">
+                <span class="qa-label neg">否定文</span>
+                <span class="qa-text">I <span class="keyword">cannot</span> [can't] play the piano.</span>
+            </div>
+            <p class="qa-ja" style="margin-bottom:1rem;">私はピアノを弾くことができません。</p>
+
+            <p class="text-lg font-black text-gray-500 mb-2">主な助動詞</p>
+            <div class="modal-list">
+                <div class="modal-chip">can<span class="chip-ja">〜できます</span></div>
+                <div class="modal-chip">could<span class="chip-ja">〜できました</span></div>
+                <div class="modal-chip">will<span class="chip-ja">〜するつもりです</span></div>
+                <div class="modal-chip">may<span class="chip-ja">〜してもよいです・〜かもしれません</span></div>
+                <div class="modal-chip">should<span class="chip-ja">〜するべきです</span></div>
+                <div class="modal-chip">must<span class="chip-ja">〜しなければなりません・〜にちがいありません</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Try 1 - 現在進行形 -->
+    <div class="slide bg-yellow-50">
+        <h2 class="slide-title text-orange-600">Try 1</h2>
+        <div class="content-box border border-orange-100">
+            <p class="text-xl font-black text-orange-600 mb-4">日本語に合うように，[ ]内の語を適切な形（現在進行形）に変えましょう。</p>
+
+            <div class="mb-6">
+                <p class="try-q">① It ( <span class="hidden-answer" onclick="this.classList.toggle('show')">is raining</span> ) outside.</p>
+                <p class="try-ja">　[ rain ]　外は雨が降っています。</p>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">② I ( <span class="hidden-answer" onclick="this.classList.toggle('show')">am watching</span> ) TV at home.</p>
+                <p class="try-ja">　[ watch ]　私は家でテレビを見ています。</p>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">③ Some people ( <span class="hidden-answer" onclick="this.classList.toggle('show')">are dancing</span> ) on TV.</p>
+                <p class="try-ja">　[ dance ]　テレビでは何人かの人が踊っています。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Try 2 - will / can / must -->
+    <div class="slide bg-yellow-50">
+        <h2 class="slide-title text-orange-600">Try 2</h2>
+        <div class="content-box border border-orange-100">
+            <p class="text-xl font-black text-orange-600 mb-4">日本語に合うように，[　] に will, can, must のいずれかを入れましょう。</p>
+
+            <div class="mb-5">
+                <p class="try-q">① Tom ( <span class="hidden-answer" onclick="this.classList.toggle('show')">can</span> ) sing songs very well.</p>
+                <p class="try-ja">　トムはとても上手に歌を歌うことができます。</p>
+            </div>
+            <div class="mb-5">
+                <p class="try-q">② He ( <span class="hidden-answer" onclick="this.classList.toggle('show')">must</span> ) be a professional singer.</p>
+                <p class="try-ja">　彼はプロの歌手にちがいありません。</p>
+            </div>
+            <div class="mb-5">
+                <p class="try-q">③ He ( <span class="hidden-answer" onclick="this.classList.toggle('show')">will</span> ) hold a concert in Japan soon.</p>
+                <p class="try-ja">　彼は近いうちに日本でコンサートを開くでしょう。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Try 3 - 語句選択 -->
+    <div class="slide bg-yellow-50">
+        <h2 class="slide-title text-orange-600">Try 3</h2>
+        <div class="content-box border border-orange-100">
+            <p class="text-xl font-black text-orange-600 mb-3">日本語に合うように，最も適する語を下から選んで，[　] に入れましょう。</p>
+            <div class="word-bank mb-5">
+                <span>must</span><span>/</span><span>unison</span><span>/</span><span>practice</span>
+            </div>
+
+            <div class="mb-5">
+                <p class="try-q">① In Mr. Smith's class, we ( <span class="hidden-answer" onclick="this.classList.toggle('show')">practice</span> ) English very hard.</p>
+                <p class="try-ja">スミス先生の授業では私たちは一生懸命英語を練習します。</p>
+            </div>
+            <div class="mb-5">
+                <p class="try-q">② We ( <span class="hidden-answer" onclick="this.classList.toggle('show')">must</span> ) talk to our friends in English.</p>
+                <p class="try-ja">私たちは友だちに英語で話しかけなければなりません。</p>
+            </div>
+            <div class="mb-5">
+                <p class="try-q">③ Sometimes we sing English songs in ( <span class="hidden-answer" onclick="this.classList.toggle('show')">unison</span> ).</p>
+                <p class="try-ja">ときどき，私たちは声をそろえて英語の歌を歌います。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-6 left-0 right-0 flex justify-center space-x-4">
+        <button onclick="prevSlide()" class="bg-black/70 text-white px-6 py-2 rounded-xl font-bold hover:bg-black transition">PREV</button>
+        <div id="slide-indicator" class="bg-white px-6 py-2 rounded-xl font-bold border shadow-sm">1 / 6</div>
+        <button onclick="nextSlide()" class="bg-black/70 text-white px-6 py-2 rounded-xl font-bold hover:bg-black transition">NEXT</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 6;
+        function updateSlideDisplay() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+            document.getElementById('slide-indicator').innerText = `${currentSlide + 1} / ${totalSlides}`;
+        }
+        function nextSlide() { if (currentSlide < totalSlides - 1) { currentSlide++; updateSlideDisplay(); } }
+        function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlideDisplay(); } }
+        document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') nextSlide(); if (e.key === 'ArrowLeft') prevSlide(); });
+    </script>
+</body>
+</html>
