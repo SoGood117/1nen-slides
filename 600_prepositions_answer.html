@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>600 前置詞 解答スライド</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #1e3a5f;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .slide-container {
+            width: 100%;
+            max-width: 820px;
+        }
+
+        .slide-header {
+            background-color: #152b47;
+            color: #ffffff;
+            padding: 16px 28px;
+            border-radius: 14px 14px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .slide-counter {
+            font-size: 1rem;
+            opacity: 0.75;
+        }
+
+        .slide-card {
+            background-color: #ffffff;
+            padding: 52px 44px 44px;
+            border-radius: 0 0 14px 14px;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        .sentence-area {
+            text-align: center;
+        }
+
+        .sentence {
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: #1a2f4e;
+            line-height: 1.7;
+        }
+
+        .sentence em {
+            font-style: normal;
+            font-weight: 700;
+            color: #c85500;
+            border-bottom: 3px solid #f4900c;
+        }
+
+        .points-area {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .point-box {
+            background-color: #fff8f0;
+            border-left: 6px solid #f4900c;
+            border-radius: 8px;
+            padding: 16px 22px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .point-expr {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #c85500;
+            font-family: 'Courier New', monospace;
+            min-width: 180px;
+        }
+
+        .point-arrow {
+            color: #f4900c;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .point-meaning {
+            font-size: 1.1rem;
+            color: #1a2f4e;
+            font-weight: 500;
+        }
+
+        .nav-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin-top: 28px;
+        }
+
+        .nav-btn {
+            background-color: #ffffff;
+            color: #1e3a5f;
+            border: none;
+            border-radius: 50px;
+            padding: 13px 36px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Noto Sans JP', sans-serif;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background-color: #f4900c;
+            color: #ffffff;
+            transform: scale(1.03);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.35;
+            cursor: default;
+        }
+
+        .dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.35);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dot.active {
+            background-color: #f4900c;
+            transform: scale(1.4);
+        }
+
+        @media (max-width: 600px) {
+            .sentence { font-size: 1.25rem; }
+            .point-expr { min-width: unset; font-size: 0.95rem; }
+            .point-meaning { font-size: 0.95rem; }
+            .slide-card { padding: 32px 20px; }
+            .nav-btn { padding: 11px 24px; font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <div class="slide-header">
+        <span class="section-title" id="sectionTitle"></span>
+        <span class="slide-counter" id="slideCounter"></span>
+    </div>
+    <div class="slide-card">
+        <div class="sentence-area">
+            <p class="sentence" id="sentenceText"></p>
+        </div>
+        <div class="points-area" id="pointsArea"></div>
+    </div>
+</div>
+
+<div class="nav-area">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ 前へ</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">次へ ▶</button>
+</div>
+
+<script>
+const SLIDES = [
+    {
+        section: "前置詞（1） No.1",
+        sentence: "I will <em>call on</em> him <em>at</em> his office this afternoon.",
+        points: [
+            { expr: "call on 人",   meaning: "（人を）訪ねる" },
+            { expr: "call at 場所", meaning: "（場所に）立ち寄る" }
+        ]
+    },
+    {
+        section: "前置詞（1） No.2",
+        sentence: "They worked <em>from</em> morning <em>till</em> night.",
+        points: [
+            { expr: "from A till B", meaning: "A から B まで（期間・継続）" }
+        ]
+    },
+    {
+        section: "前置詞（1） No.3",
+        sentence: "He was <em>born</em> <em>on</em> the morning of November 1st, 2015.",
+        points: [
+            { expr: "be born",           meaning: "生まれる" },
+            { expr: "on ＋ 特定の日・朝晩", meaning: "〜に（日時の表現）" }
+        ]
+    },
+    {
+        section: "前置詞（1） No.4",
+        sentence: "She will <em>leave</em> Kagoshima <em>for</em> Tokyo on May 3rd.",
+        points: [
+            { expr: "leave A for B", meaning: "A を出発して B へ向かう" }
+        ]
+    },
+    {
+        section: "前置詞（1） No.5",
+        sentence: "You must be back <em>by</em> seven.",
+        points: [
+            { expr: "by ＋ 時刻・期限", meaning: "〜までに（締め切り・期限）" }
+        ]
+    },
+    {
+        section: "前置詞（2） No.1",
+        sentence: "This bag is <em>made of</em> leather.",
+        points: [
+            { expr: "be made of 〜",  meaning: "〜でできている（素材が見てわかる）" },
+            { expr: "leather",        meaning: "革（かわ）" }
+        ]
+    },
+    {
+        section: "前置詞（2） No.2",
+        sentence: "Wine is <em>made from</em> grapes.",
+        points: [
+            { expr: "be made from 〜", meaning: "〜から作られる（素材が変化している）" }
+        ]
+    },
+    {
+        section: "前置詞（2） No.3",
+        sentence: "Our sports day was <em>called off</em> <em>due to</em> heavy rain.",
+        points: [
+            { expr: "call off",    meaning: "〜を中止する" },
+            { expr: "due to 〜",  meaning: "〜が原因で、〜のせいで" }
+        ]
+    },
+    {
+        section: "前置詞（2） No.4",
+        sentence: "Milk can be <em>made into</em> butter and cheese.",
+        points: [
+            { expr: "be made into 〜", meaning: "〜に作り変えられる" }
+        ]
+    },
+    {
+        section: "前置詞（2） No.5",
+        sentence: "My opinion <em>on</em> that is <em>different from</em> yours.",
+        points: [
+            { expr: "on",                  meaning: "〜について" },
+            { expr: "be different from 〜", meaning: "〜と異なる、〜と違う" }
+        ]
+    }
+];
+
+let current = 0;
+
+function render() {
+    const s = SLIDES[current];
+    document.getElementById('sectionTitle').textContent = `600 ${s.section}`;
+    document.getElementById('slideCounter').textContent = `${current + 1} / ${SLIDES.length}`;
+    document.getElementById('sentenceText').innerHTML = s.sentence;
+
+    document.getElementById('pointsArea').innerHTML = s.points.map(p => `
+        <div class="point-box">
+            <span class="point-expr">${p.expr}</span>
+            <span class="point-arrow">→</span>
+            <span class="point-meaning">「${p.meaning}」</span>
+        </div>
+    `).join('');
+
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === SLIDES.length - 1;
+
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+}
+
+function changeSlide(dir) {
+    current = Math.max(0, Math.min(SLIDES.length - 1, current + dir));
+    render();
+}
+
+// ドット生成
+const dotsEl = document.getElementById('dots');
+SLIDES.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => { current = i; render(); };
+    dotsEl.appendChild(d);
+});
+
+// キーボード操作
+document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  changeSlide(-1);
+    if (e.key === 'ArrowRight') changeSlide(1);
+});
+
+render();
+</script>
+</body>
+</html>
