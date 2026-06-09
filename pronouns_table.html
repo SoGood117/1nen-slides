@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代名詞 Pronouns</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: #0f172a;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            gap: 14px;
+        }
+
+        .table-wrap {
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 18px;
+            padding: 14px;
+            border: 2px solid rgba(255,255,255,0.08);
+        }
+
+        table { border-collapse: collapse; width: 100%; }
+
+        th, td {
+            border: 2px solid rgba(255,255,255,0.1);
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .th-col {
+            padding: 10px 14px;
+            font-weight: 900;
+            font-size: 1.05rem;
+            background: rgba(255,255,255,0.07);
+        }
+
+        .td-num {
+            background: rgba(255,255,255,0.06);
+            color: #94a3b8;
+            font-size: 1.1rem;
+            font-weight: 900;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            text-align: center;
+            width: 36px;
+            letter-spacing: 4px;
+        }
+
+        .td-person {
+            background: rgba(255,255,255,0.04);
+            color: #94a3b8;
+            font-size: 1.0rem;
+            font-weight: 900;
+            padding: 8px 10px;
+            width: 60px;
+        }
+
+        .td-ja {
+            color: #e2e8f0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 10px 16px;
+            background: rgba(255,255,255,0.03);
+            width: 130px;
+        }
+
+        /* クリックで表示できる代名詞セル */
+        .pronoun-cell {
+            cursor: pointer;
+            padding: 8px 6px;
+            transition: background 0.15s;
+            width: 130px;
+        }
+        .pronoun-cell:hover { background: rgba(255,255,255,0.07) !important; }
+
+        .answer {
+            display: inline-block;
+            min-width: 74px;
+            padding: 5px 14px;
+            border-radius: 8px;
+            font-size: 1.75rem;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            /* 非表示状態 */
+            color: transparent;
+            border-bottom: 3px solid rgba(255,255,255,0.22);
+            transition: color 0.22s, border-color 0.22s, background 0.22s;
+        }
+
+        /* 表示状態 */
+        .pronoun-cell.show .answer {
+            border-bottom-color: transparent;
+            background: rgba(255,255,255,0.09);
+        }
+        .row-1.show .answer { color: #60a5fa; }   /* 私         青 */
+        .row-2.show .answer { color: #4ade80; }   /* あなた     緑 */
+        .row-3.show .answer { color: #fb923c; }   /* 彼         オレンジ */
+        .row-4.show .answer { color: #f472b6; }   /* 彼女       ピンク */
+        .row-5.show .answer { color: #94a3b8; }   /* それ       グレー */
+        .row-6.show .answer { color: #818cf8; }   /* 私たち     インディゴ */
+        .row-7.show .answer { color: #2dd4bf; }   /* あなたたち ティール */
+        .row-8.show .answer { color: #c084fc; }   /* 彼ら       パープル */
+
+        .td-dash {
+            color: #475569;
+            font-size: 1.5rem;
+            font-weight: 900;
+            padding: 8px;
+        }
+
+        .ctrl-btn {
+            border: none;
+            border-radius: 12px;
+            padding: 10px 30px;
+            font-size: 1.15rem;
+            font-weight: 900;
+            cursor: pointer;
+            font-family: 'Noto Sans JP', sans-serif;
+            transition: opacity 0.15s, transform 0.1s;
+        }
+        .ctrl-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+        .ctrl-btn:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <!-- タイトル -->
+    <h1 style="font-size:2.6rem; font-weight:900; color:white; letter-spacing:3px; text-align:center; text-shadow:0 2px 10px rgba(0,0,0,0.5);">
+        代名詞 <span style="color:#60a5fa; font-style:italic;">Pronouns</span>
+    </h1>
+
+    <!-- テーブル -->
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2" class="th-col" style="color:#475569;"></th>
+                    <th class="th-col" style="color:#94a3b8;">意味</th>
+                    <th class="th-col" style="color:#93c5fd;">
+                        〜は<br><span style="font-size:0.72rem; font-weight:400; opacity:0.7;">主格</span>
+                    </th>
+                    <th class="th-col" style="color:#6ee7b7;">
+                        〜の<br><span style="font-size:0.72rem; font-weight:400; opacity:0.7;">所有格</span>
+                    </th>
+                    <th class="th-col" style="color:#fca5a5;">
+                        〜を<br><span style="font-size:0.72rem; font-weight:400; opacity:0.7;">目的格</span>
+                    </th>
+                    <th class="th-col" style="color:#d8b4fe;">
+                        〜のもの<br><span style="font-size:0.72rem; font-weight:400; opacity:0.7;">所有代名詞</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ===== 単数 ===== -->
+                <tr>
+                    <td class="td-num" rowspan="5">単数</td>
+                    <td class="td-person">1人称</td>
+                    <td class="td-ja">私</td>
+                    <td class="pronoun-cell row-1" onclick="toggle(this)"><span class="answer">I</span></td>
+                    <td class="pronoun-cell row-1" onclick="toggle(this)"><span class="answer">my</span></td>
+                    <td class="pronoun-cell row-1" onclick="toggle(this)"><span class="answer">me</span></td>
+                    <td class="pronoun-cell row-1" onclick="toggle(this)"><span class="answer">mine</span></td>
+                </tr>
+                <tr>
+                    <td class="td-person">2人称</td>
+                    <td class="td-ja">あなた</td>
+                    <td class="pronoun-cell row-2" onclick="toggle(this)"><span class="answer">you</span></td>
+                    <td class="pronoun-cell row-2" onclick="toggle(this)"><span class="answer">your</span></td>
+                    <td class="pronoun-cell row-2" onclick="toggle(this)"><span class="answer">you</span></td>
+                    <td class="pronoun-cell row-2" onclick="toggle(this)"><span class="answer">yours</span></td>
+                </tr>
+                <tr>
+                    <td class="td-person" rowspan="3">3人称</td>
+                    <td class="td-ja">彼</td>
+                    <td class="pronoun-cell row-3" onclick="toggle(this)"><span class="answer">he</span></td>
+                    <td class="pronoun-cell row-3" onclick="toggle(this)"><span class="answer">his</span></td>
+                    <td class="pronoun-cell row-3" onclick="toggle(this)"><span class="answer">him</span></td>
+                    <td class="pronoun-cell row-3" onclick="toggle(this)"><span class="answer">his</span></td>
+                </tr>
+                <tr>
+                    <td class="td-ja">彼女</td>
+                    <td class="pronoun-cell row-4" onclick="toggle(this)"><span class="answer">she</span></td>
+                    <td class="pronoun-cell row-4" onclick="toggle(this)"><span class="answer">her</span></td>
+                    <td class="pronoun-cell row-4" onclick="toggle(this)"><span class="answer">her</span></td>
+                    <td class="pronoun-cell row-4" onclick="toggle(this)"><span class="answer">hers</span></td>
+                </tr>
+                <tr>
+                    <td class="td-ja">それ</td>
+                    <td class="pronoun-cell row-5" onclick="toggle(this)"><span class="answer">it</span></td>
+                    <td class="pronoun-cell row-5" onclick="toggle(this)"><span class="answer">its</span></td>
+                    <td class="pronoun-cell row-5" onclick="toggle(this)"><span class="answer">it</span></td>
+                    <td class="td-dash">×</td>
+                </tr>
+                <!-- ===== 複数 ===== -->
+                <tr>
+                    <td class="td-num" rowspan="3">複数</td>
+                    <td class="td-person">1人称</td>
+                    <td class="td-ja">私たち</td>
+                    <td class="pronoun-cell row-6" onclick="toggle(this)"><span class="answer">we</span></td>
+                    <td class="pronoun-cell row-6" onclick="toggle(this)"><span class="answer">our</span></td>
+                    <td class="pronoun-cell row-6" onclick="toggle(this)"><span class="answer">us</span></td>
+                    <td class="pronoun-cell row-6" onclick="toggle(this)"><span class="answer">ours</span></td>
+                </tr>
+                <tr>
+                    <td class="td-person">2人称</td>
+                    <td class="td-ja">あなたたち</td>
+                    <td class="pronoun-cell row-7" onclick="toggle(this)"><span class="answer">you</span></td>
+                    <td class="pronoun-cell row-7" onclick="toggle(this)"><span class="answer">your</span></td>
+                    <td class="pronoun-cell row-7" onclick="toggle(this)"><span class="answer">you</span></td>
+                    <td class="pronoun-cell row-7" onclick="toggle(this)"><span class="answer">yours</span></td>
+                </tr>
+                <tr>
+                    <td class="td-person">3人称</td>
+                    <td class="td-ja">彼ら・彼女ら</td>
+                    <td class="pronoun-cell row-8" onclick="toggle(this)"><span class="answer">they</span></td>
+                    <td class="pronoun-cell row-8" onclick="toggle(this)"><span class="answer">their</span></td>
+                    <td class="pronoun-cell row-8" onclick="toggle(this)"><span class="answer">them</span></td>
+                    <td class="pronoun-cell row-8" onclick="toggle(this)"><span class="answer">theirs</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- コントロール -->
+    <div style="display:flex; gap:16px; align-items:center;">
+        <button class="ctrl-btn" onclick="revealAll()" style="background:#3b82f6; color:white;">
+            全部表示
+        </button>
+        <span style="color:#475569; font-size:0.9rem;">← クリックで個別に表示 / 非表示</span>
+        <button class="ctrl-btn" onclick="resetAll()" style="background:#1e293b; color:#94a3b8; border:2px solid #334155;">
+            リセット
+        </button>
+    </div>
+
+    <script>
+        function toggle(cell) {
+            cell.classList.toggle('show');
+        }
+        function revealAll() {
+            document.querySelectorAll('.pronoun-cell').forEach(c => c.classList.add('show'));
+        }
+        function resetAll() {
+            document.querySelectorAll('.pronoun-cell').forEach(c => c.classList.remove('show'));
+        }
+        // キーボード操作: スペースで全部表示、Rでリセット
+        document.addEventListener('keydown', e => {
+            if (e.code === 'Space') { e.preventDefault(); revealAll(); }
+            if (e.key === 'r' || e.key === 'R') resetAll();
+        });
+    </script>
+</body>
+</html>
