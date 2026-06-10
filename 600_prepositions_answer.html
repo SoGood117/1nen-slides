@@ -73,6 +73,24 @@
             border-bottom: 3px solid #f4900c;
         }
 
+        .reveal-word {
+            font-style: normal;
+            font-weight: 700;
+            color: #c85500;
+            border-bottom: 3px solid #f4900c;
+            cursor: pointer;
+            border-radius: 3px;
+            padding: 0 1px;
+            transition: all 0.15s;
+        }
+
+        .reveal-word.masked {
+            background-color: #d1d5db;
+            color: transparent;
+            border-bottom-color: transparent;
+            border-radius: 4px;
+        }
+
         .points-area {
             display: flex;
             flex-direction: column;
@@ -298,6 +316,11 @@ const SLIDES = [
 
 let current = 0;
 
+function toRevealable(html) {
+    return html.replace(/<em>(.*?)<\/em>/g,
+        '<span class="reveal-word masked" onclick="this.classList.toggle(\'masked\')">$1</span>');
+}
+
 function render() {
     const s = SLIDES[current];
 
@@ -311,11 +334,11 @@ function render() {
         document.getElementById('sentenceText').innerHTML = '';
         const allSentences = SLIDES.slice(0, -1);
         document.getElementById('pointsArea').innerHTML = `
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px 24px;">
+            <div style="display:flex; flex-direction:column; gap:0;">
                 ${allSentences.map((sl, i) => `
-                    <div style="display:flex; gap:10px; align-items:baseline; padding:8px 0; border-bottom:1px solid #f0e8e0;">
-                        <span style="font-size:0.85rem; font-weight:700; color:#f4900c; min-width:22px;">${i + 1}.</span>
-                        <span style="font-size:0.95rem; color:#1a2f4e; line-height:1.55;">${sl.sentence}</span>
+                    <div style="display:flex; gap:12px; align-items:baseline; padding:10px 0; border-bottom:1px solid #f0e8e0;">
+                        <span style="font-size:0.9rem; font-weight:700; color:#f4900c; min-width:24px; flex-shrink:0;">${i + 1}.</span>
+                        <span style="font-size:1rem; color:#1a2f4e; line-height:1.6;">${toRevealable(sl.sentence)}</span>
                     </div>
                 `).join('')}
             </div>
