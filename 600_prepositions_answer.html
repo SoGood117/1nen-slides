@@ -239,6 +239,7 @@ const SLIDES = [
     {
         section: "前置詞（1） No.1",
         sentence: "I will <em>call on</em> him <em>at</em> his office this afternoon.",
+        translation: "私は今日の午後に事務所にいる彼を訪ねるつもりです。",
         points: [
             { expr: "call on 人",   meaning: "（人を）訪ねる" },
             { expr: "call at 場所", meaning: "（場所に）立ち寄る" }
@@ -247,6 +248,7 @@ const SLIDES = [
     {
         section: "前置詞（1） No.2",
         sentence: "They worked <em>from</em> morning <em>till</em> night.",
+        translation: "彼らは朝から晩まで働きました。",
         points: [
             { expr: "from A till B", meaning: "A から B まで（期間・継続）" }
         ]
@@ -254,6 +256,7 @@ const SLIDES = [
     {
         section: "前置詞（1） No.3",
         sentence: "He was <em>born</em> <em>on</em> the morning of November 1st, 2015.",
+        translation: "彼は2015年11月1日の朝生まれました。",
         points: [
             { expr: "be born",           meaning: "生まれる" },
             { expr: "on ＋ 特定の日・朝晩", meaning: "〜に（日時の表現）" }
@@ -262,6 +265,7 @@ const SLIDES = [
     {
         section: "前置詞（1） No.4",
         sentence: "She will <em>leave</em> Kagoshima <em>for</em> Tokyo on May 3rd.",
+        translation: "彼女は5月3日に東京へ向けて鹿児島を出発するでしょう。",
         points: [
             { expr: "leave A for B", meaning: "A を出発して B へ向かう" }
         ]
@@ -269,6 +273,7 @@ const SLIDES = [
     {
         section: "前置詞（1） No.5",
         sentence: "You must be back <em>by</em> seven.",
+        translation: "あなたは7時までに帰って来なければなりません。",
         points: [
             { expr: "by ＋ 時刻・期限", meaning: "〜までに（締め切り・期限）" }
         ]
@@ -276,6 +281,7 @@ const SLIDES = [
     {
         section: "前置詞（2） No.1",
         sentence: "This bag is <em>made of</em> leather.",
+        translation: "このかばんは革製です。",
         points: [
             { expr: "be made of 〜",  meaning: "〜でできている（素材が見てわかる）" },
             { expr: "leather",        meaning: "革（かわ）" }
@@ -284,6 +290,7 @@ const SLIDES = [
     {
         section: "前置詞（2） No.2",
         sentence: "Wine is <em>made from</em> grapes.",
+        translation: "ワインはぶどうから作られます。",
         points: [
             { expr: "be made from 〜", meaning: "〜から作られる（素材が変化している）" }
         ]
@@ -291,6 +298,7 @@ const SLIDES = [
     {
         section: "前置詞（2） No.3",
         sentence: "Our sports day was <em>called off</em> <em>due to</em> heavy rain.",
+        translation: "激しい雨のために私たちの体育祭は中止になりました。",
         points: [
             { expr: "call off",    meaning: "〜を中止する" },
             { expr: "due to 〜",  meaning: "〜が原因で、〜のせいで" }
@@ -299,6 +307,7 @@ const SLIDES = [
     {
         section: "前置詞（2） No.4",
         sentence: "Milk can be <em>made into</em> butter and cheese.",
+        translation: "牛乳はバターやチーズに加工されることがあります。",
         points: [
             { expr: "be made into 〜", meaning: "〜に作り変えられる" }
         ]
@@ -306,6 +315,7 @@ const SLIDES = [
     {
         section: "前置詞（2） No.5",
         sentence: "My opinion <em>on</em> that is <em>different from</em> yours.",
+        translation: "それについての私の意見は、あなたの意見と違います。",
         points: [
             { expr: "on",                  meaning: "〜について" },
             { expr: "be different from 〜", meaning: "〜と異なる、〜と違う" }
@@ -321,6 +331,10 @@ function toRevealable(html) {
         '<span class="reveal-word masked" onclick="this.classList.toggle(\'masked\')">$1</span>');
 }
 
+function revealAll() {
+    document.querySelectorAll('.reveal-word.masked').forEach(el => el.classList.remove('masked'));
+}
+
 function render() {
     const s = SLIDES[current];
 
@@ -331,14 +345,21 @@ function render() {
     if (s.type === 'all') {
         document.getElementById('sectionTitle').textContent = '600 前置詞 全文一覧';
         document.getElementById('slideCounter').textContent = `${current + 1} / ${SLIDES.length}`;
-        document.getElementById('sentenceText').innerHTML = '';
+        document.getElementById('sentenceText').innerHTML = `
+            <div style="text-align:right; margin-bottom:4px;">
+                <button onclick="revealAll()" style="background:#f4900c; color:#fff; border:none; border-radius:20px; padding:7px 20px; font-size:0.85rem; font-weight:700; cursor:pointer; font-family:inherit;">重要語句を一斉表示</button>
+            </div>
+        `;
         const allSentences = SLIDES.slice(0, -1);
         document.getElementById('pointsArea').innerHTML = `
             <div style="display:flex; flex-direction:column; gap:0;">
                 ${allSentences.map((sl, i) => `
-                    <div style="display:flex; gap:12px; align-items:baseline; padding:10px 0; border-bottom:1px solid #f0e8e0;">
-                        <span style="font-size:0.9rem; font-weight:700; color:#f4900c; min-width:24px; flex-shrink:0;">${i + 1}.</span>
-                        <span style="font-size:1rem; color:#1a2f4e; line-height:1.6;">${toRevealable(sl.sentence)}</span>
+                    <div style="display:flex; gap:12px; align-items:flex-start; padding:14px 0; border-bottom:1px solid #f0e8e0;">
+                        <span style="font-size:0.9rem; font-weight:700; color:#f4900c; min-width:24px; flex-shrink:0; padding-top:2px;">${i + 1}.</span>
+                        <div style="display:flex; flex-direction:column; gap:4px;">
+                            <span style="font-size:1rem; color:#1a2f4e; line-height:1.65;">${toRevealable(sl.sentence)}</span>
+                            <span style="font-size:0.88rem; color:#6b7280; line-height:1.5;">${sl.translation}</span>
+                        </div>
                     </div>
                 `).join('')}
             </div>
