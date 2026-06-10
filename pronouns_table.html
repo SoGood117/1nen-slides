@@ -12,7 +12,7 @@
 
         body {
             font-family: 'Noto Sans JP', sans-serif;
-            background: #0f172a;
+            background: #ffffff;
             height: 100vh;
             overflow: hidden;
             display: flex;
@@ -26,16 +26,16 @@
         .table-wrap {
             width: 100%;
             max-width: 1100px;
-            background: rgba(255,255,255,0.04);
+            background: #ffffff;
             border-radius: 18px;
             padding: 14px;
-            border: 2px solid rgba(255,255,255,0.08);
+            border: 3px solid #1e293b;
         }
 
         table { border-collapse: collapse; width: 100%; }
 
         th, td {
-            border: 2px solid rgba(255,255,255,0.1);
+            border: 2px solid #334155;
             text-align: center;
             vertical-align: middle;
         }
@@ -44,12 +44,12 @@
             padding: 10px 14px;
             font-weight: 900;
             font-size: 1.05rem;
-            background: rgba(255,255,255,0.07);
+            background: #f1f5f9;
         }
 
         .td-num {
-            background: rgba(255,255,255,0.06);
-            color: #94a3b8;
+            background: #e2e8f0;
+            color: #1e293b;
             font-size: 1.1rem;
             font-weight: 900;
             writing-mode: vertical-rl;
@@ -60,8 +60,8 @@
         }
 
         .td-person {
-            background: rgba(255,255,255,0.04);
-            color: #94a3b8;
+            background: #f1f5f9;
+            color: #1e293b;
             font-size: 1.0rem;
             font-weight: 900;
             padding: 8px 10px;
@@ -69,11 +69,11 @@
         }
 
         .td-ja {
-            color: #e2e8f0;
+            color: #0f172a;
             font-size: 1.2rem;
             font-weight: 700;
             padding: 10px 16px;
-            background: rgba(255,255,255,0.03);
+            background: #f8fafc;
             width: 130px;
         }
 
@@ -84,7 +84,7 @@
             transition: background 0.15s;
             width: 130px;
         }
-        .pronoun-cell:hover { background: rgba(255,255,255,0.07) !important; }
+        .pronoun-cell:hover { background: #f1f5f9 !important; }
 
         .answer {
             display: inline-block;
@@ -96,26 +96,26 @@
             letter-spacing: 0.5px;
             /* 非表示状態 */
             color: transparent;
-            border-bottom: 3px solid rgba(255,255,255,0.22);
+            border-bottom: 3px solid #94a3b8;
             transition: color 0.22s, border-color 0.22s, background 0.22s;
         }
 
         /* 表示状態 */
         .pronoun-cell.show .answer {
             border-bottom-color: transparent;
-            background: rgba(255,255,255,0.09);
+            background: #f8fafc;
         }
-        .row-1.show .answer { color: #60a5fa; }   /* 私         青 */
-        .row-2.show .answer { color: #4ade80; }   /* あなた     緑 */
-        .row-3.show .answer { color: #fb923c; }   /* 彼         オレンジ */
-        .row-4.show .answer { color: #f472b6; }   /* 彼女       ピンク */
-        .row-5.show .answer { color: #94a3b8; }   /* それ       グレー */
-        .row-6.show .answer { color: #818cf8; }   /* 私たち     インディゴ */
-        .row-7.show .answer { color: #2dd4bf; }   /* あなたたち ティール */
-        .row-8.show .answer { color: #c084fc; }   /* 彼ら       パープル */
+        .row-1.show .answer { color: #1d4ed8; }   /* 私         青 */
+        .row-2.show .answer { color: #15803d; }   /* あなた     緑 */
+        .row-3.show .answer { color: #c2410c; }   /* 彼         オレンジ */
+        .row-4.show .answer { color: #be185d; }   /* 彼女       ピンク */
+        .row-5.show .answer { color: #475569; }   /* それ       グレー */
+        .row-6.show .answer { color: #4338ca; }   /* 私たち     インディゴ */
+        .row-7.show .answer { color: #0f766e; }   /* あなたたち ティール */
+        .row-8.show .answer { color: #7e22ce; }   /* 彼ら       パープル */
 
         .td-dash {
-            color: #475569;
+            color: #64748b;
             font-size: 1.5rem;
             font-weight: 900;
             padding: 8px;
@@ -138,8 +138,8 @@
 <body>
 
     <!-- タイトル -->
-    <h1 style="font-size:2.6rem; font-weight:900; color:white; letter-spacing:3px; text-align:center; text-shadow:0 2px 10px rgba(0,0,0,0.5);">
-        代名詞 <span style="color:#60a5fa; font-style:italic;">Pronouns</span>
+    <h1 style="font-size:2.6rem; font-weight:900; color:#0f172a; letter-spacing:3px; text-align:center;">
+        代名詞 <span style="color:#1d4ed8; font-style:italic;">Pronouns</span>
     </h1>
 
     <!-- テーブル -->
@@ -147,18 +147,18 @@
         <table>
             <thead>
                 <tr>
-                    <th colspan="2" class="th-col" style="color:#475569;"></th>
-                    <th class="th-col" style="color:#94a3b8;">意味</th>
-                    <th class="th-col" style="color:#93c5fd;">
+                    <th colspan="2" class="th-col" style="color:#64748b;"></th>
+                    <th class="th-col" style="color:#1e293b;">意味</th>
+                    <th class="th-col" style="color:#1d4ed8;">
                         〜は<br><span style="font-size:0.72rem; font-weight:400; opacity:0.7;">主格</span>
                     </th>
-                    <th class="th-col" style="color:#6ee7b7;">
+                    <th class="th-col" style="color:#15803d;">
                         〜の<br><span style="font-size:0.72rem; font-weight:400; opacity:0.7;">所有格</span>
                     </th>
-                    <th class="th-col" style="color:#fca5a5;">
+                    <th class="th-col" style="color:#dc2626;">
                         〜を<br><span style="font-size:0.72rem; font-weight:400; opacity:0.7;">目的格</span>
                     </th>
-                    <th class="th-col" style="color:#d8b4fe;">
+                    <th class="th-col" style="color:#7e22ce;">
                         〜のもの<br><span style="font-size:0.72rem; font-weight:400; opacity:0.7;">所有代名詞</span>
                     </th>
                 </tr>
@@ -236,11 +236,11 @@
 
     <!-- コントロール -->
     <div style="display:flex; gap:16px; align-items:center;">
-        <button class="ctrl-btn" onclick="revealAll()" style="background:#3b82f6; color:white;">
+        <button class="ctrl-btn" onclick="revealAll()" style="background:#1d4ed8; color:white;">
             全部表示
         </button>
-        <span style="color:#475569; font-size:0.9rem;">← クリックで個別に表示 / 非表示</span>
-        <button class="ctrl-btn" onclick="resetAll()" style="background:#1e293b; color:#94a3b8; border:2px solid #334155;">
+        <span style="color:#64748b; font-size:0.9rem;">← クリックで個別に表示 / 非表示</span>
+        <button class="ctrl-btn" onclick="resetAll()" style="background:#ffffff; color:#475569; border:2px solid #94a3b8;">
             リセット
         </button>
     </div>
