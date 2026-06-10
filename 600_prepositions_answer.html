@@ -292,13 +292,37 @@ const SLIDES = [
             { expr: "on",                  meaning: "〜について" },
             { expr: "be different from 〜", meaning: "〜と異なる、〜と違う" }
         ]
-    }
+    },
+    { type: 'all' }
 ];
 
 let current = 0;
 
 function render() {
     const s = SLIDES[current];
+
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === SLIDES.length - 1;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+
+    if (s.type === 'all') {
+        document.getElementById('sectionTitle').textContent = '600 前置詞 全文一覧';
+        document.getElementById('slideCounter').textContent = `${current + 1} / ${SLIDES.length}`;
+        document.getElementById('sentenceText').innerHTML = '';
+        const allSentences = SLIDES.slice(0, -1);
+        document.getElementById('pointsArea').innerHTML = `
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px 24px;">
+                ${allSentences.map((sl, i) => `
+                    <div style="display:flex; gap:10px; align-items:baseline; padding:8px 0; border-bottom:1px solid #f0e8e0;">
+                        <span style="font-size:0.85rem; font-weight:700; color:#f4900c; min-width:22px;">${i + 1}.</span>
+                        <span style="font-size:0.95rem; color:#1a2f4e; line-height:1.55;">${sl.sentence}</span>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        return;
+    }
+
     document.getElementById('sectionTitle').textContent = `600 ${s.section}`;
     document.getElementById('slideCounter').textContent = `${current + 1} / ${SLIDES.length}`;
     document.getElementById('sentenceText').innerHTML = s.sentence;
@@ -311,11 +335,6 @@ function render() {
             <span class="point-hint">タップして表示</span>
         </div>
     `).join('');
-
-    document.getElementById('prevBtn').disabled = current === 0;
-    document.getElementById('nextBtn').disabled = current === SLIDES.length - 1;
-
-    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
 }
 
 function changeSlide(dir) {
