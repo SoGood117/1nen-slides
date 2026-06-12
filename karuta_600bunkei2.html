@@ -82,6 +82,7 @@
       <div class="flex justify-between items-center mb-2">
         <span class="text-xs font-bold opacity-80">600文型②かるた</span>
         <div class="flex items-center gap-3">
+          <span class="text-xs font-bold">⏱ <span id="timerDisplay">0:00</span></span>
           <span class="text-xs font-bold">🃏 <span id="correctCount">0</span> / <span id="totalCount">10</span></span>
           <span class="text-sm font-black bg-yellow-400 text-indigo-900 px-2 py-0.5 rounded-full">⭐ <span id="scoreDisplay">0</span>点</span>
         </div>
@@ -118,6 +119,7 @@
       <p class="text-gray-500 text-sm mb-1">最終スコア</p>
       <p class="text-5xl font-black text-indigo-700 mb-1"><span id="finalScore">0</span><span class="text-2xl text-gray-400"> / 30</span></p>
       <p class="text-sm text-gray-400">（<span id="finalCorrect">0</span> / <span id="finalTotal">10</span> 問正解）</p>
+      <p class="text-sm text-gray-400 mt-1">⏱ タイム：<span id="finalTime">0:00</span></p>
     </div>
     <p id="resultMsg" class="text-gray-500 mb-8 text-sm"></p>
     <button onclick="startGame()" class="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xl font-black py-4 px-12 rounded-full shadow-xl transition">
@@ -145,6 +147,24 @@
     let score = 0;
     let wrongCount = 0;
     let answered = false;
+    let timerInterval = null;
+    let startTime = 0;
+
+    function formatTime(ms) {
+      const sec = Math.floor(ms / 1000);
+      return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0');
+    }
+
+    function updateTimer() {
+      document.getElementById('timerDisplay').textContent = formatTime(Date.now() - startTime);
+    }
+
+    function startTimer() {
+      startTime = Date.now();
+      clearInterval(timerInterval);
+      timerInterval = setInterval(updateTimer, 1000);
+      updateTimer();
+    }
 
     function shuffle(arr) {
       return [...arr].sort(() => Math.random() - 0.5);
@@ -158,6 +178,7 @@
       answered = false;
 
       show('gameScreen');
+      startTimer();
       updateProgress();
       buildCards();
       nextQuestion();
@@ -299,6 +320,8 @@
     }
 
     function showResult() {
+      clearInterval(timerInterval);
+      document.getElementById('finalTime').textContent = formatTime(Date.now() - startTime);
       const total = PAIRS.length;
       document.getElementById('finalScore').textContent = score;
       document.getElementById('finalCorrect').textContent = correct;

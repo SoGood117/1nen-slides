@@ -70,7 +70,10 @@
     <div class="bg-teal-700 text-white px-4 pt-4 pb-3">
       <div class="flex justify-between items-center mb-2">
         <span class="text-xs font-bold opacity-80">並べ替えクイズ</span>
-        <span class="text-xs font-bold"><span id="qNum">1</span> / <span id="qTotal">10</span></span>
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-bold">⏱ <span id="timerDisplay">0:00</span></span>
+          <span class="text-xs font-bold"><span id="qNum">1</span> / <span id="qTotal">10</span></span>
+        </div>
       </div>
       <div class="bg-teal-500 rounded-full h-2">
         <div id="progressBar" class="bg-green-400 h-2 rounded-full progress-bar" style="width:0%"></div>
@@ -103,7 +106,8 @@
   <div id="resultScreen" class="hidden flex flex-col items-center justify-center min-h-screen p-6 text-center">
     <div class="text-6xl mb-4">🏆</div>
     <h2 class="text-3xl font-black text-teal-900 mb-2">全問クリア！</h2>
-    <p class="text-gray-500 mb-8">全10問の並べ替えができました！</p>
+    <p class="text-gray-500 mb-2">全10問の並べ替えができました！</p>
+    <p class="text-gray-400 text-sm mb-8">⏱ タイム：<span id="finalTime">0:00</span></p>
     <button onclick="startGame()" class="bg-teal-600 hover:bg-teal-700 active:scale-95 text-white text-xl font-black py-4 px-12 rounded-full shadow-xl transition">
       もう一度！
     </button>
@@ -126,6 +130,24 @@
     let questionOrder = [];
     let currentIdx = 0;
     let nextWordIdx = 0;
+    let timerInterval = null;
+    let startTime = 0;
+
+    function formatTime(ms) {
+      const sec = Math.floor(ms / 1000);
+      return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0');
+    }
+
+    function updateTimer() {
+      document.getElementById('timerDisplay').textContent = formatTime(Date.now() - startTime);
+    }
+
+    function startTimer() {
+      startTime = Date.now();
+      clearInterval(timerInterval);
+      timerInterval = setInterval(updateTimer, 1000);
+      updateTimer();
+    }
 
     function shuffle(arr) {
       return [...arr].sort(() => Math.random() - 0.5);
@@ -135,6 +157,7 @@
       questionOrder = shuffle(QUESTIONS.map((_, i) => i));
       currentIdx = 0;
       show('gameScreen');
+      startTimer();
       loadQuestion();
     }
 
@@ -195,6 +218,8 @@
           setTimeout(() => {
             currentIdx++;
             if (currentIdx >= QUESTIONS.length) {
+              clearInterval(timerInterval);
+              document.getElementById('finalTime').textContent = formatTime(Date.now() - startTime);
               show('resultScreen');
             } else {
               loadQuestion();
