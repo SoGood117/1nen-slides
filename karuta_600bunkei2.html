@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>英文かるた｜600文型②</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Noto Sans JP', sans-serif; }
@@ -58,9 +59,14 @@
       <ol class="text-sm text-gray-600 space-y-2 list-decimal list-inside">
         <li>日本語が画面に表示（&amp; 読み上げ）されます</li>
         <li>その英訳カードをタップ！</li>
-        <li>正解したカードは消えます</li>
+        <li>1問3点。お手つき1回で−1点、2回で0点</li>
         <li>全部なくなったらゴール！</li>
       </ol>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-md p-4 mb-8 flex flex-col items-center">
+      <div id="qrcode" class="p-1"></div>
+      <p class="text-xs text-gray-400 font-bold mt-2">📱 スマホで読み取って自分の端末で挑戦！</p>
     </div>
 
     <button onclick="startGame()" class="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white text-xl font-black py-4 px-12 rounded-full shadow-xl transition">
@@ -188,6 +194,7 @@
       if (btn.dataset.en === currentPair.en) {
         // 正解！
         answered = true;
+        playPingPong();
         const earned = 3 - wrongCount;
         score += earned;
         correct++;
@@ -205,15 +212,16 @@
       } else {
         // 不正解（お手つき）
         wrongCount++;
+        playBuzzer();
         btn.classList.add('wrong');
         setTimeout(() => btn.classList.remove('wrong'), 450);
 
-        if (wrongCount >= 3) {
-          // 3回お手つき → 0点で次へ
+        if (wrongCount >= 2) {
+          // 2回お手つき → 0点で次へ
           answered = true;
           remaining = remaining.filter(p => p.en !== currentPair.en);
           updateProgress();
-          showFeedback('❌ 3回お手つき…0点で次へ！', 'bg-red-100 text-red-700');
+          showFeedback('❌ 2回お手つき…0点で次へ！', 'bg-red-100 text-red-700');
           setTimeout(() => {
             // 正解カードも消す
             document.querySelectorAll('.card-btn').forEach(b => {
@@ -222,10 +230,45 @@
             nextQuestion();
           }, 1200);
         } else {
-          const left = 3 - wrongCount;
-          showFeedback(`❌ お手つき！あと${left}回で0点になるよ`, 'bg-red-100 text-red-700');
+          showFeedback('❌ お手つき！−1点。次間違えたら0点だよ', 'bg-red-100 text-red-700');
         }
       }
+    }
+
+    function playPingPong() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        [[880, 0], [1100, 0.22]].forEach(([freq, offset]) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0.4, ctx.currentTime + offset);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + offset + 0.35);
+          osc.start(ctx.currentTime + offset);
+          osc.stop(ctx.currentTime + offset + 0.36);
+        });
+      } catch(e) {}
+    }
+
+    function playBuzzer() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        [0, 0.22, 0.44].forEach(offset => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sawtooth';
+          osc.frequency.value = 110;
+          gain.gain.setValueAtTime(0.35, ctx.currentTime + offset);
+          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + offset + 0.18);
+          osc.start(ctx.currentTime + offset);
+          osc.stop(ctx.currentTime + offset + 0.19);
+        });
+      } catch(e) {}
     }
 
     function speak() {
@@ -271,6 +314,14 @@
       document.getElementById('resultMsg').textContent = msg;
       show('resultScreen');
     }
+
+    // 表紙にQRコードを表示（このページのURL）
+    try {
+      new QRCode(document.getElementById('qrcode'), {
+        text: 'https://sogood117.github.io/1nen-slides/karuta_600bunkei2.html',
+        width: 110, height: 110,
+      });
+    } catch(e) {}
 
     function show(id) {
       ['startScreen', 'gameScreen', 'resultScreen'].forEach(s => {
