@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 4: The Capsule Toys - Focus & Try</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;900&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; overflow: hidden; background-color: #f3f4f6; }
+        .slide { display: none; height: 100vh; width: 100vw; padding: 20px 16px 80px; flex-direction: column; align-items: center; }
+        .slide.active { display: flex; }
+        .bg-capsule {
+            background: linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)),
+                linear-gradient(135deg, #f59e0b 0%, #ec4899 50%, #3b82f6 100%);
+        }
+        .slide-title { font-size: clamp(2.0rem, 4.5vh, 3.5rem); font-weight: 900; margin-bottom: 0.75rem; text-align: center; }
+        .content-box { flex: 1; width: 100%; max-width: 100%; overflow-y: auto; border-radius: 1.5rem; padding: 2.5rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); background-color: white; }
+        .hidden-answer { display: inline-block; color: transparent !important; border-bottom: 3px solid #3b82f6 !important; padding: 0 8px; margin: 0 4px; cursor: pointer; min-width: 100px; text-align: center; vertical-align: baseline; white-space: nowrap; transition: color 0.2s; }
+        .hidden-answer.show { color: #ef4444 !important; font-weight: bold; }
+        .example-sentence { font-size: 2.4rem; line-height: 1.6; margin-bottom: 0.5rem; font-weight: bold; color: #1f2937; }
+        .example-ja { font-size: 1.7rem; color: #6b7280; margin-bottom: 1.5rem; }
+        .keyword { color: #ef4444; font-weight: 900; }
+        .grammar-box { background: #f0f9ff; border-left: 6px solid #3b82f6; padding: 1.2rem 1.5rem; border-radius: 0 12px 12px 0; margin-bottom: 1.2rem; font-size: 2.0rem; line-height: 1.8; }
+        .qa-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 0.6rem; }
+        .qa-label { background: #3b82f6; color: white; font-size: 1rem; font-weight: 900; padding: 2px 10px; border-radius: 6px; white-space: nowrap; margin-top: 4px; }
+        .qa-text { font-size: 2.2rem; font-weight: bold; line-height: 1.6; }
+        .qa-ja { font-size: 1.5rem; color: #6b7280; margin-left: 60px; margin-bottom: 0.8rem; }
+        .use-table { width: 100%; border-collapse: collapse; font-size: 1.5rem; margin-top: 0.8rem; }
+        .use-table th { background: #1e40af; color: white; padding: 10px 12px; text-align: center; font-weight: 900; }
+        .use-table td { border: 1px solid #dbeafe; padding: 10px 14px; vertical-align: top; }
+        .use-table tr:nth-child(even) td { background: #eff6ff; }
+        .use-table .use-name { font-weight: 900; color: #1e3a8a; white-space: nowrap; }
+        .use-table .use-ja { font-size: 1.15rem; color: #6b7280; }
+        .use-table .to { color: #ef4444; font-weight: 900; }
+        .try-q { font-size: 2.4rem; line-height: 1.7; margin-bottom: 0.2rem; font-weight: bold; }
+        .try-ja { font-size: 1.7rem; color: #6b7280; margin-bottom: 1.3rem; }
+        .word-bank { display: inline-flex; gap: 12px; flex-wrap: wrap; padding: 12px 20px; background: #fef3c7; border-radius: 12px; margin-bottom: 1.5rem; }
+        .word-bank span { font-size: 2.0rem; font-weight: bold; color: #92400e; }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide active bg-capsule text-white justify-center text-center">
+        <h1 class="text-8xl font-black mb-8">Lesson 4: The Capsule Toys</h1>
+        <p class="text-4xl opacity-90">Focus &amp; Try &mdash; 不定詞</p>
+    </div>
+
+    <!-- Slide 2: Focus ① 不定詞 名詞的用法 -->
+    <div class="slide bg-white">
+        <h2 class="slide-title text-teal-600">Focus ①</h2>
+        <div class="content-box bg-teal-50 border border-teal-100">
+            <p class="text-xl font-black text-teal-700 mb-4">「〜すること」　不定詞・名詞的用法</p>
+
+            <p class="example-sentence"><span class="keyword">To play</span> the guitar is fun.</p>
+            <p class="example-ja">ギターを弾くことは楽しいです。</p>
+
+            <div class="grammar-box">
+                不定詞は <strong>&lt;to ＋ 動詞の原形&gt;</strong> の形。名詞のように「<strong>〜すること</strong>」の意味を表し，文の主語や目的語になります。
+            </div>
+
+            <div class="qa-row">
+                <span class="qa-label">目的語</span>
+                <span class="qa-text">I want <span class="keyword">to become</span> a famous musician.</span>
+            </div>
+            <p class="qa-ja">私は有名な音楽家になりたいです。（＝なることを望む）</p>
+
+            <div class="qa-row">
+                <span class="qa-label">本文から</span>
+                <span class="qa-text">They use them <span class="keyword">to get</span> small gifts.</span>
+            </div>
+            <p class="qa-ja">彼らはちょっとしたお土産を手に入れるためにそれらを使います。</p>
+        </div>
+    </div>
+
+    <!-- Slide 3: Focus ② 副詞的用法・形容詞的用法 -->
+    <div class="slide bg-white">
+        <h2 class="slide-title text-teal-600">Focus ②</h2>
+        <div class="content-box bg-teal-50 border border-teal-100" style="padding:2rem;">
+            <p class="text-xl font-black text-teal-700 mb-3">「〜するために」「〜するための」　副詞的・形容詞的用法</p>
+
+            <div class="qa-row">
+                <span class="qa-label">副詞的</span>
+                <span class="qa-text">I get up early <span class="keyword">to practice</span> the piano.</span>
+            </div>
+            <p class="qa-ja">ピアノを練習するために，私は早起きをします。</p>
+
+            <div class="qa-row">
+                <span class="qa-label">形容詞的</span>
+                <span class="qa-text">I have a lot of homework <span class="keyword">to do</span> today.</span>
+            </div>
+            <p class="qa-ja" style="margin-bottom:1rem;">私には今日やるべき宿題がたくさんあります。</p>
+
+            <p class="text-lg font-black text-gray-500 mb-2">不定詞の3つの使い方</p>
+            <table class="use-table">
+                <thead>
+                    <tr><th>用法</th><th>意味</th><th>例文</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="use-name">名詞的用法</td>
+                        <td>〜すること</td>
+                        <td><span class="to">To play</span> the guitar is fun.<br><span class="use-ja">ギターを弾くことは楽しいです。</span></td>
+                    </tr>
+                    <tr>
+                        <td class="use-name">副詞的用法</td>
+                        <td>〜するために<br>〜して</td>
+                        <td>I get up early <span class="to">to practice</span> the piano.<br><span class="use-ja">練習するために早起きします。</span></td>
+                    </tr>
+                    <tr>
+                        <td class="use-name">形容詞的用法</td>
+                        <td>〜するための<br>〜するべき</td>
+                        <td>I have homework <span class="to">to do</span> today.<br><span class="use-ja">やるべき宿題があります。</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Slide 4: Try 1 - 不定詞 -->
+    <div class="slide bg-yellow-50">
+        <h2 class="slide-title text-orange-600">Try 1</h2>
+        <div class="content-box border border-orange-100">
+            <p class="text-xl font-black text-orange-600 mb-4">日本語に合うように，下から不定詞を選んで（　）に入れましょう。</p>
+            <div class="word-bank mb-5">
+                <span>to go</span><span>/</span><span>to keep</span><span>/</span><span>to see</span>
+            </div>
+
+            <div class="mb-6">
+                <p class="try-q">① I like ( <span class="hidden-answer" onclick="this.classList.toggle('show')">to go</span> ) to the zoo.</p>
+                <p class="try-ja">　私は動物園に行くことが好きです。</p>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">② I go there ( <span class="hidden-answer" onclick="this.classList.toggle('show')">to see</span> ) many kinds of animals.</p>
+                <p class="try-ja">　私はたくさんの種類の動物を見るために，そこへ行きます。</p>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">③ Many of them are not the animals ( <span class="hidden-answer" onclick="this.classList.toggle('show')">to keep</span> ) at home.</p>
+                <p class="try-ja">　それらの多くは家で飼うための動物ではありません。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Try 2 - 語句選択 -->
+    <div class="slide bg-yellow-50">
+        <h2 class="slide-title text-orange-600">Try 2</h2>
+        <div class="content-box border border-orange-100">
+            <p class="text-xl font-black text-orange-600 mb-3">日本語に合うように，最も適する語を下から選んで（　）に入れましょう。</p>
+            <div class="word-bank mb-5">
+                <span>symbol</span><span>/</span><span>popular</span><span>/</span><span>as</span>
+            </div>
+
+            <div class="mb-5">
+                <p class="try-q">① Paper cranes are ( <span class="hidden-answer" onclick="this.classList.toggle('show')">popular</span> ) among tourists from abroad.</p>
+                <p class="try-ja">折り鶴は海外からの観光客に人気があります。</p>
+            </div>
+            <div class="mb-5">
+                <p class="try-q">② They often get paper cranes ( <span class="hidden-answer" onclick="this.classList.toggle('show')">as</span> ) presents for their families.</p>
+                <p class="try-ja">彼らはしばしば折り鶴を家族へのプレゼントとして手に入れます。</p>
+            </div>
+            <div class="mb-5">
+                <p class="try-q">③ They think paper cranes are a ( <span class="hidden-answer" onclick="this.classList.toggle('show')">symbol</span> ) of Japanese culture.</p>
+                <p class="try-ja">彼らは折り鶴が日本文化の象徴であると考えています。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Try 3 - 語句選択 -->
+    <div class="slide bg-yellow-50">
+        <h2 class="slide-title text-orange-600">Try 3</h2>
+        <div class="content-box border border-orange-100">
+            <p class="text-xl font-black text-orange-600 mb-3">日本語に合うように，最も適する語を下から選んで（　）に入れましょう。</p>
+            <div class="word-bank mb-5">
+                <span>gifts</span><span>/</span><span>airport</span><span>/</span><span>tourists</span>
+            </div>
+
+            <div class="mb-5">
+                <p class="try-q">① There are a lot of stores at the ( <span class="hidden-answer" onclick="this.classList.toggle('show')">airport</span> ).</p>
+                <p class="try-ja">その空港にはたくさんのお店があります。</p>
+            </div>
+            <div class="mb-5">
+                <p class="try-q">② Many ( <span class="hidden-answer" onclick="this.classList.toggle('show')">tourists</span> ) come to see the stores.</p>
+                <p class="try-ja">多くの旅行客がお店を見に来ます。</p>
+            </div>
+            <div class="mb-5">
+                <p class="try-q">③ They often buy some ( <span class="hidden-answer" onclick="this.classList.toggle('show')">gifts</span> ) there.</p>
+                <p class="try-ja">彼らはしばしばそこでお土産を買います。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-6 left-0 right-0 flex justify-center space-x-4">
+        <button onclick="prevSlide()" class="bg-black/70 text-white px-6 py-2 rounded-xl font-bold hover:bg-black transition">PREV</button>
+        <div id="slide-indicator" class="bg-white px-6 py-2 rounded-xl font-bold border shadow-sm">1 / 6</div>
+        <button onclick="nextSlide()" class="bg-black/70 text-white px-6 py-2 rounded-xl font-bold hover:bg-black transition">NEXT</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 6;
+        function updateSlideDisplay() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+            document.getElementById('slide-indicator').innerText = `${currentSlide + 1} / ${totalSlides}`;
+        }
+        function nextSlide() { if (currentSlide < totalSlides - 1) { currentSlide++; updateSlideDisplay(); } }
+        function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlideDisplay(); } }
+        document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') nextSlide(); if (e.key === 'ArrowLeft') prevSlide(); });
+    </script>
+</body>
+</html>
