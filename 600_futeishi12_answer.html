@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>600不定詞(1)(2)解説</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #1e3a5f;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .slide-container {
+            width: 100%;
+            max-width: 820px;
+        }
+
+        .slide-header {
+            background-color: #152b47;
+            color: #ffffff;
+            padding: 16px 28px;
+            border-radius: 14px 14px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .slide-counter {
+            font-size: 1rem;
+            opacity: 0.75;
+        }
+
+        .slide-card {
+            background-color: #ffffff;
+            padding: 52px 44px 44px;
+            border-radius: 0 0 14px 14px;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        .sentence-area {
+            text-align: center;
+        }
+
+        .sentence {
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: #1a2f4e;
+            line-height: 1.7;
+        }
+
+        .sentence em {
+            font-style: normal;
+            font-weight: 700;
+            color: #c85500;
+            border-bottom: 3px solid #f4900c;
+        }
+
+        .reveal-word {
+            font-style: normal;
+            font-weight: 700;
+            color: #c85500;
+            border-bottom: 3px solid #f4900c;
+            cursor: pointer;
+            border-radius: 3px;
+            padding: 0 1px;
+            transition: all 0.15s;
+        }
+
+        .reveal-word.masked {
+            background-color: #d1d5db;
+            color: transparent;
+            border-bottom-color: transparent;
+            border-radius: 4px;
+        }
+
+        .points-area {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .point-box {
+            background-color: #fff8f0;
+            border-left: 6px solid #f4900c;
+            border-radius: 8px;
+            padding: 16px 22px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.15s;
+        }
+
+        .point-box:hover {
+            background-color: #fff0dc;
+        }
+
+        .point-expr {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #c85500;
+            font-family: 'Courier New', monospace;
+            min-width: 180px;
+        }
+
+        .point-arrow {
+            color: #f4900c;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .point-meaning {
+            font-size: 1.1rem;
+            color: #1a2f4e;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .point-meaning.hidden {
+            background-color: #d1d5db;
+            color: transparent;
+            border-radius: 6px;
+            padding: 2px 8px;
+            letter-spacing: -0.05em;
+        }
+
+        .point-hint {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin-left: auto;
+        }
+
+        .point-box.revealed .point-hint { display: none; }
+
+        .nav-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin-top: 28px;
+        }
+
+        .nav-btn {
+            background-color: #ffffff;
+            color: #1e3a5f;
+            border: none;
+            border-radius: 50px;
+            padding: 13px 36px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Noto Sans JP', sans-serif;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background-color: #f4900c;
+            color: #ffffff;
+            transform: scale(1.03);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.35;
+            cursor: default;
+        }
+
+        .dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.35);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dot.active {
+            background-color: #f4900c;
+            transform: scale(1.4);
+        }
+
+        @media (max-width: 600px) {
+            .sentence { font-size: 1.25rem; }
+            .point-expr { min-width: unset; font-size: 0.95rem; }
+            .point-meaning { font-size: 0.95rem; }
+            .slide-card { padding: 32px 20px; }
+            .nav-btn { padding: 11px 24px; font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <div class="slide-header">
+        <span class="section-title" id="sectionTitle"></span>
+        <span class="slide-counter" id="slideCounter"></span>
+    </div>
+    <div class="slide-card">
+        <div class="sentence-area">
+            <p class="sentence" id="sentenceText"></p>
+        </div>
+        <div class="points-area" id="pointsArea"></div>
+    </div>
+</div>
+
+<div class="nav-area">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ 前へ</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">次へ ▶</button>
+</div>
+
+<script>
+const SLIDES = [
+    {
+        section: "不定詞（1） No.1",
+        sentence: "I <em>would like to</em> visit India <em>someday</em>.",
+        translation: "いつかインドを訪れたいものです。",
+        points: [
+            { expr: "would like to do", meaning: "〜したいものだ（want to のていねいな言い方）" },
+            { expr: "someday",          meaning: "いつか（未来のいつか）" }
+        ]
+    },
+    {
+        section: "不定詞（1） No.2",
+        sentence: "I'll <em>try to</em> speak in English.",
+        translation: "英語で話すように努力します。",
+        points: [
+            { expr: "try to do",  meaning: "〜しようと努力する・試みる" },
+            { expr: "cf. try doing", meaning: "ためしに〜してみる" }
+        ]
+    },
+    {
+        section: "不定詞（1） No.3",
+        sentence: "I <em>promised to</em> take them to the zoo.",
+        translation: "私は彼らを動物園に連れて行くと約束しました。",
+        points: [
+            { expr: "promise to do", meaning: "〜すると約束する" },
+            { expr: "take A to B",   meaning: "A を B へ連れて行く" }
+        ]
+    },
+    {
+        section: "不定詞（1） No.4",
+        sentence: "<em>Finally</em>, we <em>began to</em> run <em>short of</em> money.",
+        translation: "とうとうお金が不足し始めました。",
+        points: [
+            { expr: "begin to do",     meaning: "〜し始める" },
+            { expr: "run short of 〜", meaning: "〜が不足する・足りなくなる" },
+            { expr: "finally",         meaning: "とうとう・ついに" }
+        ]
+    },
+    {
+        section: "不定詞（1） No.5",
+        sentence: "Don't <em>forget to</em> turn off the lights.",
+        translation: "明かりを消し忘れないようにしてください。",
+        points: [
+            { expr: "forget to do",     meaning: "（今から）〜することを忘れる" },
+            { expr: "cf. forget doing", meaning: "（過去に）〜したことを忘れる" },
+            { expr: "turn off",         meaning: "（明かりなどを）消す" }
+        ]
+    },
+    {
+        section: "不定詞（2） No.1",
+        sentence: "<em>Would you like</em> something cold <em>to drink</em>?",
+        translation: "何か冷たい飲み物はいかがですか。",
+        points: [
+            { expr: "Would you like 〜?",         meaning: "〜はいかがですか（ていねいな勧め）" },
+            { expr: "something cold to drink", meaning: "何か冷たい飲み物（語順に注意）" }
+        ]
+    },
+    {
+        section: "不定詞（2） No.2",
+        sentence: "He has a large family <em>to support</em>.",
+        translation: "彼は扶養家族が多い。",
+        points: [
+            { expr: "a large family",  meaning: "大家族・扶養家族が多い" },
+            { expr: "… to support",    meaning: "養うべき〜（不定詞が名詞をうしろから修飾）" }
+        ]
+    },
+    {
+        section: "不定詞（2） No.3",
+        sentence: "Please lend me <em>something to write with</em>.",
+        translation: "何か書くものを貸してください。〈筆記具〉",
+        points: [
+            { expr: "something to write with", meaning: "何か書くもの（筆記具）" },
+            { expr: "with を忘れずに",          meaning: "write with 〜 =〜で書く（道具の with）" }
+        ]
+    },
+    {
+        section: "不定詞（2） No.4",
+        sentence: "What is <em>the best way to</em> learn English?",
+        translation: "英語を学ぶのに一番いい方法は何ですか。",
+        points: [
+            { expr: "the best way to do", meaning: "〜する一番いい方法" },
+            { expr: "way to do",          meaning: "〜する方法（不定詞の形容詞的用法）" }
+        ]
+    },
+    {
+        section: "不定詞（2） No.5",
+        sentence: "I have <em>nothing to do with</em> it.",
+        translation: "私はそれとはまったく関係がありません。",
+        points: [
+            { expr: "have nothing to do with 〜",   meaning: "〜とまったく関係がない" },
+            { expr: "cf. have something to do with 〜", meaning: "〜と何か関係がある" }
+        ]
+    },
+    { type: 'all' }
+];
+
+let current = 0;
+
+function toRevealable(html) {
+    return html.replace(/<em>(.*?)<\/em>/g,
+        '<span class="reveal-word masked" onclick="this.classList.toggle(\'masked\')">$1</span>');
+}
+
+function revealAll() {
+    document.querySelectorAll('.reveal-word.masked').forEach(el => el.classList.remove('masked'));
+}
+
+function render() {
+    const s = SLIDES[current];
+
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === SLIDES.length - 1;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+
+    if (s.type === 'all') {
+        document.getElementById('sectionTitle').textContent = '600 不定詞 全文一覧';
+        document.getElementById('slideCounter').textContent = `${current + 1} / ${SLIDES.length}`;
+        document.getElementById('sentenceText').innerHTML = `
+            <div style="text-align:right; margin-bottom:4px;">
+                <button onclick="revealAll()" style="background:#f4900c; color:#fff; border:none; border-radius:20px; padding:7px 20px; font-size:0.85rem; font-weight:700; cursor:pointer; font-family:inherit;">重要語句を一斉表示</button>
+            </div>
+        `;
+        const allSentences = SLIDES.slice(0, -1);
+        document.getElementById('pointsArea').innerHTML = `
+            <div style="display:flex; flex-direction:column; gap:0;">
+                ${allSentences.map((sl, i) => `
+                    <div style="display:flex; gap:12px; align-items:flex-start; padding:14px 0; border-bottom:1px solid #f0e8e0;">
+                        <span style="font-size:0.9rem; font-weight:700; color:#f4900c; min-width:24px; flex-shrink:0; padding-top:2px;">${i + 1}.</span>
+                        <div style="display:flex; flex-direction:column; gap:4px;">
+                            <span style="font-size:1rem; color:#1a2f4e; line-height:1.65;">${toRevealable(sl.sentence)}</span>
+                            <span style="font-size:0.88rem; color:#6b7280; line-height:1.5;">${sl.translation}</span>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        return;
+    }
+
+    document.getElementById('sectionTitle').textContent = `600 ${s.section}`;
+    document.getElementById('slideCounter').textContent = `${current + 1} / ${SLIDES.length}`;
+    document.getElementById('sentenceText').innerHTML = s.sentence;
+
+    document.getElementById('pointsArea').innerHTML = s.points.map(p => `
+        <div class="point-box" onclick="this.classList.toggle('revealed'); this.querySelector('.point-meaning').classList.toggle('hidden');">
+            <span class="point-expr">${p.expr}</span>
+            <span class="point-arrow">→</span>
+            <span class="point-meaning hidden">「${p.meaning}」</span>
+            <span class="point-hint">タップして表示</span>
+        </div>
+    `).join('');
+}
+
+function changeSlide(dir) {
+    current = Math.max(0, Math.min(SLIDES.length - 1, current + dir));
+    render();
+}
+
+// ドット生成
+const dotsEl = document.getElementById('dots');
+SLIDES.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => { current = i; render(); };
+    dotsEl.appendChild(d);
+});
+
+// キーボード操作
+document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  changeSlide(-1);
+    if (e.key === 'ArrowRight') changeSlide(1);
+});
+
+render();
+</script>
+</body>
+</html>
