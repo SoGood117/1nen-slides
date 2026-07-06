@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>600口語表現(1)(2)解説</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #1e3a5f;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .slide-container {
+            width: 100%;
+            max-width: 820px;
+        }
+
+        .slide-header {
+            background-color: #152b47;
+            color: #ffffff;
+            padding: 16px 28px;
+            border-radius: 14px 14px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .slide-counter {
+            font-size: 1rem;
+            opacity: 0.75;
+        }
+
+        .slide-card {
+            background-color: #ffffff;
+            padding: 52px 44px 44px;
+            border-radius: 0 0 14px 14px;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        .sentence-area {
+            text-align: center;
+        }
+
+        .sentence {
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: #1a2f4e;
+            line-height: 1.7;
+        }
+
+        .sentence em {
+            font-style: normal;
+            font-weight: 700;
+            color: #c85500;
+            border-bottom: 3px solid #f4900c;
+        }
+
+        .reveal-word {
+            font-style: normal;
+            font-weight: 700;
+            color: #c85500;
+            border-bottom: 3px solid #f4900c;
+            cursor: pointer;
+            border-radius: 3px;
+            padding: 0 1px;
+            transition: all 0.15s;
+        }
+
+        .reveal-word.masked {
+            background-color: #d1d5db;
+            color: transparent;
+            border-bottom-color: transparent;
+            border-radius: 4px;
+        }
+
+        .points-area {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .point-box {
+            background-color: #fff8f0;
+            border-left: 6px solid #f4900c;
+            border-radius: 8px;
+            padding: 16px 22px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.15s;
+        }
+
+        .point-box:hover {
+            background-color: #fff0dc;
+        }
+
+        .point-expr {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #c85500;
+            font-family: 'Courier New', monospace;
+            min-width: 180px;
+        }
+
+        .point-arrow {
+            color: #f4900c;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .point-meaning {
+            font-size: 1.1rem;
+            color: #1a2f4e;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .point-meaning.hidden {
+            background-color: #d1d5db;
+            color: transparent;
+            border-radius: 6px;
+            padding: 2px 8px;
+            letter-spacing: -0.05em;
+        }
+
+        .point-hint {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin-left: auto;
+        }
+
+        .point-box.revealed .point-hint { display: none; }
+
+        .nav-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin-top: 28px;
+        }
+
+        .nav-btn {
+            background-color: #ffffff;
+            color: #1e3a5f;
+            border: none;
+            border-radius: 50px;
+            padding: 13px 36px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Noto Sans JP', sans-serif;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background-color: #f4900c;
+            color: #ffffff;
+            transform: scale(1.03);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.35;
+            cursor: default;
+        }
+
+        .dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.35);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dot.active {
+            background-color: #f4900c;
+            transform: scale(1.4);
+        }
+
+        @media (max-width: 600px) {
+            .sentence { font-size: 1.25rem; }
+            .point-expr { min-width: unset; font-size: 0.95rem; }
+            .point-meaning { font-size: 0.95rem; }
+            .slide-card { padding: 32px 20px; }
+            .nav-btn { padding: 11px 24px; font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <div class="slide-header">
+        <span class="section-title" id="sectionTitle"></span>
+        <span class="slide-counter" id="slideCounter"></span>
+    </div>
+    <div class="slide-card">
+        <div class="sentence-area">
+            <p class="sentence" id="sentenceText"></p>
+        </div>
+        <div class="points-area" id="pointsArea"></div>
+    </div>
+</div>
+
+<div class="nav-area">
+    <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">◀ 前へ</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">次へ ▶</button>
+</div>
+
+<script>
+const SLIDES = [
+    {
+        section: "口語表現（1） No.1",
+        sentence: "<em>Good luck with</em> the game tomorrow!",
+        translation: "明日の試合がんばってね！",
+        points: [
+            { expr: "Good luck with 〜", meaning: "〜がうまくいくように・〜をがんばってね（幸運を祈る表現）" }
+        ]
+    },
+    {
+        section: "口語表現（1） No.2",
+        sentence: "<em>You can do it</em>! / <em>Hang in there</em>! / <em>Go for it</em>!",
+        translation: "がんばれ！〈その場で応援するときの掛け声〉",
+        points: [
+            { expr: "You can do it!",  meaning: "きみならできるよ！" },
+            { expr: "Hang in there!",  meaning: "もうひとふんばり！くじけるな！" },
+            { expr: "Go for it!",      meaning: "思いきってやってみろ！" }
+        ]
+    },
+    {
+        section: "口語表現（1） No.3",
+        sentence: "<em>Would you do me a favor</em>?",
+        translation: "お願いがあるのですが。",
+        points: [
+            { expr: "Would you do me a favor?", meaning: "お願いがあるのですが（頼みを聞いてくれますか）" },
+            { expr: "favor",                    meaning: "親切な行い・頼みごと" }
+        ]
+    },
+    {
+        section: "口語表現（1） No.4",
+        sentence: "“What do you want to do when you <em>grow up</em>?” “I want to be a <em>vet</em>.”",
+        translation: "「大人になったら何になりたいですか」「獣医です」",
+        points: [
+            { expr: "grow up", meaning: "大人になる・成長する" },
+            { expr: "vet",     meaning: "獣医（＝ veterinarian）" }
+        ]
+    },
+    {
+        section: "口語表現（1） No.5",
+        sentence: "“<em>How come</em> you got back so early?” “Henry was not at home.”",
+        translation: "「どうしてそんなに早く帰ってきたの」「ヘンリーが家にいなかったからだよ」",
+        points: [
+            { expr: "How come S+V?", meaning: "どうして〜なのですか（＝Why。あとは平叙文の語順）" },
+            { expr: "get back",      meaning: "帰ってくる・戻る" }
+        ]
+    },
+    {
+        section: "口語表現（2） No.1",
+        sentence: "I'm sorry, but I<em>'ve got to</em> go now.",
+        translation: "すみませんが、もうおいとましなければなりません。",
+        points: [
+            { expr: "have got to do", meaning: "〜しなければならない（＝have to do の口語）" }
+        ]
+    },
+    {
+        section: "口語表現（2） No.2",
+        sentence: "<em>Why don't you</em> ask the police officer over there?",
+        translation: "向こうにいる警察官に聞いてみたらどう？",
+        points: [
+            { expr: "Why don't you＋原形?", meaning: "〜したらどうですか（提案・勧誘）" }
+        ]
+    },
+    {
+        section: "口語表現（2） No.3",
+        sentence: "“I'm a <em>stranger</em> around here too. Sorry, I can't help you.” “Thanks <em>anyway</em>.”",
+        translation: "「私もこの辺は初めてなのです。すみませんがお役に立てません」「とにかくありがとう」",
+        points: [
+            { expr: "stranger", meaning: "その土地に不慣れな人・よそから来た人" },
+            { expr: "anyway",   meaning: "とにかく・いずれにしても" }
+        ]
+    },
+    {
+        section: "口語表現（2） No.4",
+        sentence: "“I have a <em>fever</em> today.” “Oh, <em>that's too bad</em>.”",
+        translation: "「今日は熱があります」「あら、それはお気の毒に」",
+        points: [
+            { expr: "fever",          meaning: "（病気による）熱　cf. temperature「温度」" },
+            { expr: "That's too bad.", meaning: "それはお気の毒に・それはいけませんね" }
+        ]
+    },
+    {
+        section: "口語表現（2） No.5",
+        sentence: "“Oh no, I've lost my ticket!” “<em>Calm down</em>, John. <em>Here it is</em>.”",
+        translation: "「ああ、チケットがない！」「ジョン、落ち着いて。ここにあるわよ」",
+        points: [
+            { expr: "calm down",  meaning: "落ち着く" },
+            { expr: "Here it is.", meaning: "（探し物が見つかって）はい、ここにあるよ" }
+        ]
+    },
+    { type: 'all' }
+];
+
+let current = 0;
+
+function toRevealable(html) {
+    return html.replace(/<em>(.*?)<\/em>/g,
+        '<span class="reveal-word masked" onclick="this.classList.toggle(\'masked\')">$1</span>');
+}
+
+function revealAll() {
+    document.querySelectorAll('.reveal-word.masked').forEach(el => el.classList.remove('masked'));
+}
+
+function render() {
+    const s = SLIDES[current];
+
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === SLIDES.length - 1;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+
+    if (s.type === 'all') {
+        document.getElementById('sectionTitle').textContent = '600 口語表現 全文一覧';
+        document.getElementById('slideCounter').textContent = `${current + 1} / ${SLIDES.length}`;
+        document.getElementById('sentenceText').innerHTML = `
+            <div style="text-align:right; margin-bottom:4px;">
+                <button onclick="revealAll()" style="background:#f4900c; color:#fff; border:none; border-radius:20px; padding:7px 20px; font-size:0.85rem; font-weight:700; cursor:pointer; font-family:inherit;">重要語句を一斉表示</button>
+            </div>
+        `;
+        const allSentences = SLIDES.slice(0, -1);
+        document.getElementById('pointsArea').innerHTML = `
+            <div style="display:flex; flex-direction:column; gap:0;">
+                ${allSentences.map((sl, i) => `
+                    <div style="display:flex; gap:12px; align-items:flex-start; padding:14px 0; border-bottom:1px solid #f0e8e0;">
+                        <span style="font-size:0.9rem; font-weight:700; color:#f4900c; min-width:24px; flex-shrink:0; padding-top:2px;">${i + 1}.</span>
+                        <div style="display:flex; flex-direction:column; gap:4px;">
+                            <span style="font-size:1rem; color:#1a2f4e; line-height:1.65;">${toRevealable(sl.sentence)}</span>
+                            <span style="font-size:0.88rem; color:#6b7280; line-height:1.5;">${sl.translation}</span>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        return;
+    }
+
+    document.getElementById('sectionTitle').textContent = `600 ${s.section}`;
+    document.getElementById('slideCounter').textContent = `${current + 1} / ${SLIDES.length}`;
+    document.getElementById('sentenceText').innerHTML = s.sentence;
+
+    document.getElementById('pointsArea').innerHTML = s.points.map(p => `
+        <div class="point-box" onclick="this.classList.toggle('revealed'); this.querySelector('.point-meaning').classList.toggle('hidden');">
+            <span class="point-expr">${p.expr}</span>
+            <span class="point-arrow">→</span>
+            <span class="point-meaning hidden">「${p.meaning}」</span>
+            <span class="point-hint">タップして表示</span>
+        </div>
+    `).join('');
+}
+
+function changeSlide(dir) {
+    current = Math.max(0, Math.min(SLIDES.length - 1, current + dir));
+    render();
+}
+
+// ドット生成
+const dotsEl = document.getElementById('dots');
+SLIDES.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => { current = i; render(); };
+    dotsEl.appendChild(d);
+});
+
+// キーボード操作
+document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  changeSlide(-1);
+    if (e.key === 'ArrowRight') changeSlide(1);
+});
+
+render();
+</script>
+</body>
+</html>
