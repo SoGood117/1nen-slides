@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英文ならべかえ｜600 分詞</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Noto Sans JP', sans-serif; }
+    .slide { display: none; }
+    .slide.active { display: flex; }
+    @keyframes pop { 0% { transform: scale(0.9); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    .pop { animation: pop 0.25s ease-out; }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-sky-50 to-indigo-100 min-h-screen overflow-x-hidden">
+
+  <!-- ナビ -->
+  <div class="fixed bottom-3 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4">
+    <button id="prevBtn" onclick="prevSlide()" class="bg-white/80 hover:bg-white text-indigo-700 w-11 h-11 rounded-full shadow-lg text-2xl font-black">‹</button>
+    <div id="pageDots" class="flex gap-2"></div>
+    <button id="nextBtn" onclick="nextSlide()" class="bg-white/80 hover:bg-white text-indigo-700 w-11 h-11 rounded-full shadow-lg text-2xl font-black">›</button>
+  </div>
+
+  <!-- ===== スライド1：タイトル ===== -->
+  <section class="slide active flex-col items-center justify-center min-h-screen p-6 text-center">
+    <div class="text-7xl mb-4">🧩</div>
+    <h1 class="text-4xl sm:text-5xl font-black text-indigo-900 mb-3 leading-tight">英文ならべかえ</h1>
+    <p class="text-indigo-600 font-bold text-lg mb-8">〜 600 分詞（1）（2） 〜</p>
+    <div class="bg-white/80 rounded-2xl shadow px-8 py-4 text-gray-600 font-bold">
+      カードを ならべて 英文を つくろう！
+    </div>
+    <p class="text-gray-400 text-sm mt-10">「›」ボタン（または → キー）で すすむ</p>
+  </section>
+
+  <!-- ===== スライド2：分詞のコツ ===== -->
+  <section class="slide flex-col items-center justify-center min-h-screen p-6 text-center">
+    <p class="text-indigo-500 font-bold mb-4 text-lg">分詞は 名詞を「かざる」ことば</p>
+    <div class="space-y-4 max-w-xl w-full">
+      <div class="bg-white rounded-2xl shadow p-5">
+        <p class="text-2xl sm:text-3xl font-black text-gray-800">a <span class="text-rose-500">sleeping</span> dog</p>
+        <p class="text-sm text-gray-500 mt-1">眠っている 犬　… <b class="text-rose-500">〜ing</b>＝「〜している」（現在分詞）</p>
+      </div>
+      <div class="bg-white rounded-2xl shadow p-5">
+        <p class="text-2xl sm:text-3xl font-black text-gray-800">a <span class="text-blue-500">broken</span> doll</p>
+        <p class="text-sm text-gray-500 mt-1">こわれた 人形　… <b class="text-blue-500">-ed</b>＝「〜される・された」（過去分詞）</p>
+      </div>
+    </div>
+    <p class="text-indigo-700 font-bold mt-6 text-base sm:text-lg">短いかざりは <b>名詞の前</b>、長いかざりは <b>名詞のうしろ</b>！</p>
+  </section>
+
+  <!-- ===== スライド3：ならべ方（前後） ===== -->
+  <section class="slide flex-col items-center justify-center min-h-screen p-6 text-center">
+    <p class="text-indigo-500 font-bold mb-2 text-lg">かざりが 長いと うしろから！</p>
+    <div class="bg-white rounded-2xl shadow p-6 max-w-lg w-full mb-4">
+      <p class="text-lg sm:text-2xl font-black leading-relaxed">
+        The young man
+        <span class="text-rose-500">sitting near the window</span>
+        is my cousin.
+      </p>
+      <p class="text-sm text-gray-500 mt-2">窓の近くに <b class="text-rose-500">座っている</b> 若い男性は 私のいとこです。</p>
+    </div>
+    <p class="text-gray-600 text-sm leading-relaxed max-w-md">
+      <b class="text-indigo-700">名詞（the man）</b> のうしろに
+      <b class="text-rose-600">分詞のかたまり（sitting …）</b> をつけて説明するよ。
+    </p>
+  </section>
+
+  <!-- ===== スライド4：答え合わせ ===== -->
+  <section class="slide flex-col min-h-screen">
+    <div class="bg-indigo-700 text-white px-4 pt-5 pb-4 text-center">
+      <p class="text-xs opacity-80 font-bold tracking-widest mb-1">答え合わせ</p>
+      <h2 class="text-xl sm:text-2xl font-black">タップで 1語ずつ 答えが出るよ</h2>
+      <p class="text-xs opacity-80 mt-1"><span class="text-rose-300 font-bold">ピンク＝分詞</span> に注目！</p>
+    </div>
+    <div class="flex justify-center gap-3 py-3">
+      <button onclick="toggleAll(true)" class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-black text-sm px-5 py-2 rounded-full shadow">ぜんぶ表示</button>
+      <button onclick="toggleAll(false)" class="bg-gray-100 hover:bg-gray-200 text-gray-600 font-black text-sm px-5 py-2 rounded-full shadow">ぜんぶ かくす</button>
+    </div>
+    <div id="answerList" class="max-w-2xl w-full mx-auto px-4 pb-4 space-y-2"></div>
+    <p class="text-center text-xs text-gray-400 pb-8">
+      色：<span class="text-rose-500 font-bold">分詞</span> ／ <span class="text-gray-700 font-bold">その他の語</span>
+    </p>
+  </section>
+
+  <script>
+    /* p のインデックス = 分詞（ピンク表示） */
+    const ANSWERS = [
+      { jp:"あの眠っている犬はとてもかわいい。",              words:["That","sleeping","dog","is","very","cute"],                       p:[1] },
+      { jp:"ゆで卵はお好きですか。",                          words:["Do","you","like","boiled","eggs"],                                p:[3] },
+      { jp:"あの壊れた人形はリンダのものです。",              words:["That","broken","doll","belongs","to","Linda"],                    p:[1] },
+      { jp:"窓の近くに座っている若い男性は私のいとこです。",  words:["The","young","man","sitting","near","the","window","is","my","cousin"], p:[3] },
+      { jp:"私たちの先生と話をしている人は誰ですか。",        words:["Who","is","the","man","speaking","to","our","teacher"],           p:[4] },
+      { jp:"彼女は立ってバスを待っていました。",              words:["She","stood","waiting","for","the","bus"],                        p:[2] },
+      { jp:"その犬は走って来ました。",                        words:["The","dog","came","running"],                                     p:[3] },
+      { jp:"その子どもは長いこと泣き続けました。",            words:["The","child","kept","crying","for","a","long","time"],            p:[3] },
+      { jp:"おじいさんは孫たちに囲まれて座っていました。",    words:["The","old","man","sat","surrounded","by","his","grandchildren"],   p:[4] },
+      { jp:"彼の名前は世界中に知れわたりました。",            words:["His","name","became","known","all","over","the","world"],         p:[3] },
+    ];
+
+    const revealed = ANSWERS.map(() => 0);
+
+    function renderWords(i) {
+      const a = ANSWERS[i];
+      const box = document.getElementById('words-' + i);
+      const n = revealed[i];
+      if (n === 0) { box.innerHTML = '<span class="text-indigo-300 text-sm font-bold">（タップで 1語ずつ 表示）</span>'; return; }
+      let html = '';
+      for (let k = 0; k < n; k++) {
+        const isP = a.p.includes(k);
+        const cls = isP ? 'text-rose-500' : 'text-gray-800';
+        const isNew = (k === n - 1) ? ' pop inline-block' : '';
+        html += `<span class="${cls}${isNew}">${a.words[k]}</span>&nbsp;`;
+      }
+      if (n === a.words.length) {
+        const q = a.jp.includes("？") || a.jp.includes("ですか");
+        html += `<span class="text-gray-800">${q ? '?' : '.'}</span>`;
+      }
+      box.innerHTML = html;
+    }
+
+    function revealNext(i) {
+      revealed[i]++;
+      if (revealed[i] > ANSWERS[i].words.length) revealed[i] = 0;
+      renderWords(i);
+    }
+
+    function renderAnswers() {
+      document.getElementById('answerList').innerHTML = ANSWERS.map((a, i) => `
+        <div onclick="revealNext(${i})" class="bg-white rounded-xl shadow border border-indigo-100 cursor-pointer select-none active:scale-[0.99] transition">
+          <div class="px-4 py-3 flex items-center gap-3">
+            <span class="text-xs font-black text-white bg-indigo-500 rounded-full w-6 h-6 flex items-center justify-center shrink-0">${i + 1}</span>
+            <span class="font-bold text-gray-800 text-sm sm:text-base">${a.jp}</span>
+          </div>
+          <div class="px-4 pb-3">
+            <div id="words-${i}" class="border-t border-dashed border-indigo-200 pt-2 text-lg sm:text-2xl font-black leading-relaxed min-h-[2.2rem] flex flex-wrap items-center"></div>
+          </div>
+        </div>`).join('');
+      ANSWERS.forEach((_, i) => renderWords(i));
+    }
+
+    function toggleAll(show) {
+      ANSWERS.forEach((a, i) => { revealed[i] = show ? a.words.length : 0; renderWords(i); });
+    }
+
+    /* ナビ */
+    let idx = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.getElementById('pageDots');
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'w-2 h-2 rounded-full bg-white/60';
+      d.onclick = () => showSlide(i);
+      dots.appendChild(d);
+    });
+    function showSlide(n) {
+      idx = Math.max(0, Math.min(slides.length - 1, n));
+      slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+      [...dots.children].forEach((d, i) => d.classList.toggle('bg-indigo-600', i === idx));
+      document.getElementById('prevBtn').style.visibility = idx === 0 ? 'hidden' : 'visible';
+      document.getElementById('nextBtn').style.visibility = idx === slides.length - 1 ? 'hidden' : 'visible';
+    }
+    function nextSlide() { showSlide(idx + 1); }
+    function prevSlide() { showSlide(idx - 1); }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    renderAnswers();
+    showSlide(0);
+  </script>
+</body>
+</html>
