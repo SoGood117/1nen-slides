@@ -85,18 +85,18 @@
   </section>
 
   <script>
-    /* p のインデックス = 分詞（ピンク表示） */
+    /* words = 意味のかたまり（ワークシートと同じ区切り） ／ p = 分詞のかたまり（ピンク表示） */
     const ANSWERS = [
-      { jp:"あの眠っている犬はとてもかわいい。",              words:["That","sleeping","dog","is","very","cute"],                       p:[1] },
-      { jp:"ゆで卵はお好きですか。",                          words:["Do","you","like","boiled","eggs"],                                p:[3] },
-      { jp:"あの壊れた人形はリンダのものです。",              words:["That","broken","doll","belongs","to","Linda"],                    p:[1] },
-      { jp:"窓の近くに座っている若い男性は私のいとこです。",  words:["The","young","man","sitting","near","the","window","is","my","cousin"], p:[3] },
-      { jp:"私たちの先生と話をしている人は誰ですか。",        words:["Who","is","the","man","speaking","to","our","teacher"],           p:[4] },
-      { jp:"彼女は立ってバスを待っていました。",              words:["She","stood","waiting","for","the","bus"],                        p:[2] },
-      { jp:"その犬は走って来ました。",                        words:["The","dog","came","running"],                                     p:[3] },
-      { jp:"その子どもは長いこと泣き続けました。",            words:["The","child","kept","crying","for","a","long","time"],            p:[3] },
-      { jp:"おじいさんは孫たちに囲まれて座っていました。",    words:["The","old","man","sat","surrounded","by","his","grandchildren"],   p:[4] },
-      { jp:"彼の名前は世界中に知れわたりました。",            words:["His","name","became","known","all","over","the","world"],         p:[3] },
+      { jp:"あの眠っている犬はとてもかわいい。",              words:["That","sleeping","dog","is very cute"],                    p:[1] },
+      { jp:"ゆで卵はお好きですか。",                          words:["Do you","like","boiled","eggs"],                           p:[2] },
+      { jp:"あの壊れた人形はリンダのものです。",              words:["That","broken","doll","belongs to Linda"],                 p:[1] },
+      { jp:"窓の近くに座っている若い男性は私のいとこです。",  words:["The young man","sitting","near the window","is","my cousin"], p:[1] },
+      { jp:"私たちの先生と話をしている人は誰ですか。",        words:["Who","is","the man","speaking to our teacher"],            p:[3] },
+      { jp:"彼女は立ってバスを待っていました。",              words:["She","stood","waiting for","the bus"],                     p:[2] },
+      { jp:"その犬は走って来ました。",                        words:["The","dog","came","running"],                              p:[3] },
+      { jp:"その子どもは長いこと泣き続けました。",            words:["The child","kept","crying","for a long time"],             p:[2] },
+      { jp:"おじいさんは孫たちに囲まれて座っていました。",    words:["The old man","sat","surrounded","by","his grandchildren"],  p:[2] },
+      { jp:"彼の名前は世界中に知れわたりました。",            words:["His name","became","known","all over the world"],          p:[2] },
     ];
 
     const revealed = ANSWERS.map(() => 0);
