@@ -42,6 +42,15 @@
   .a .why{display:block;color:var(--sub);font-weight:600;font-size:.92rem;margin-top:3px;}
   .tap{color:var(--sub);font-size:.82rem;margin-left:8px;}
   .note{color:#b45309;font-size:.85rem;}
+  .item{cursor:pointer;padding:5px 8px;border-radius:8px;margin:3px 0;font-size:1.05rem;line-height:1.6;transition:background .15s;}
+  .item:hover{background:#f1f5f9;}
+  .item.on{background:#f0fdf4;}
+  .item .mk{display:none;color:var(--green);font-weight:800;}
+  .item.on .mk{display:inline;}
+  .witem{display:inline-block;cursor:pointer;padding:2px 8px;margin:3px 2px;border-radius:8px;font-size:1.15rem;transition:background .15s;}
+  .witem:hover{background:#f1f5f9;}
+  .witem.on{background:#f0fdf4;}
+  .witem.on .acc{color:var(--red);text-decoration:underline;font-weight:900;}
 </style>
 </head>
 <body>
@@ -70,7 +79,9 @@
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問1　下線部の意味<span class="tap">（本文の点線語句と同じ）</span></div><div class="a">exactly＝正確に・ちょうど／ at the same time＝同時に／ in a group＝グループ[集団]で／ close＝親しい・仲の良い／ move＝動く／ in unison＝一斉に・そろって</div></div>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問3　②の them は誰のこと？（英語2語）</div><div class="a">these dancers</div></div>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問4　②(watch)・③(move) を 〜ing に</div><div class="a">② watching　　③ moving</div></div>
-    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問5　内容と一致＝T／不一致＝F<span class="tap">（クリックで解答・解説）</span></div><div class="qbody">1. Ken and Beth are dancing together.<br>2. Ken dances in a group.</div><div class="a">1 … <b>F</b>（ケンは動画を見ていて、今は一緒に踊っていない）<br>2 … <b>T</b>（④で「仲間みんなでそろって踊る」と言っている）</div></div>
+    <div class="qa"><div class="q">問5　内容と一致＝T／不一致＝F<span class="tap">（各文をクリックで解答）</span></div>
+      <div class="item" onclick="this.classList.toggle('on')">1. Ken and Beth are dancing together.<span class="mk"> … <b>F</b>（ケンは動画を見ていて、今は一緒に踊っていない）</span></div>
+      <div class="item" onclick="this.classList.toggle('on')">2. Ken dances in a group.<span class="mk"> … <b>T</b>（④で「仲間みんなでそろって踊る」と言っている）</span></div></div>
   </div>
 
   <!-- ===================== PART 2 ===================== -->
@@ -92,12 +103,17 @@
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問2　②( try ) を 〜ing に</div><div class="a">trying</div></div>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問3　④「いいえ、できません」となるよう空所を埋めよ</div><div class="a">No, we can't.</div></div>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問4　④it は何を指すか（日本語で）</div><div class="a">ヒップホップダンス（を練習すること）</div></div>
-    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問5　下線部の発音が同じ＝○／異なる＝×<span class="tap">（クリックで解答・解説）</span></div><div class="qbody">lose / move（　）　　dance / same（　）<br>past / watch（　）　　leg / them（　）</div><div class="a">lose / move … <b>○</b>（どちらも [uː]）／ dance / same … <b>×</b>（[æ]／[ei]）／ past / watch … <b>×</b>（[æ]／[ɑ]）／ leg / them … <b>○</b>（どちらも [e]）<span class="note">※発音は要最終確認</span></div></div>
+    <div class="qa"><div class="q">問5　下線部の発音が同じ＝○／異なる＝×<span class="tap">（各ペアをクリックで解答）</span></div>
+      <div class="item" onclick="this.classList.toggle('on')">lose / move<span class="mk"> … <b>○</b>（どちらも [uː]）</span></div>
+      <div class="item" onclick="this.classList.toggle('on')">dance / same<span class="mk"> … <b>×</b>（[æ]／[ei]）</span></div>
+      <div class="item" onclick="this.classList.toggle('on')">past / watch<span class="mk"> … <b>×</b>（[æ]／[ɑ]）</span></div>
+      <div class="item" onclick="this.classList.toggle('on')">leg / them<span class="mk"> … <b>○</b>（どちらも [e]）</span></div>
+      <div class="note">※発音は要最終確認</div></div>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問6　can を使って できることを英文で（3語以上・2文）</div><div class="a">【解答例（自由）】 I can play the piano.　/　I can run fast.<span class="why">主語 I＋can＋動詞の原形。ピリオドを忘れずに。自分のできることでOK。</span></div></div>
   </div>
 </div>
 <script>
-  function setAll(on){document.querySelectorAll('.chip,.blank,.qa').forEach(function(el){el.classList.toggle('on',on);});}
+  function setAll(on){document.querySelectorAll('.chip,.blank,.qa,.item,.witem').forEach(function(el){el.classList.toggle('on',on);});}
 </script>
 </body>
 </html>

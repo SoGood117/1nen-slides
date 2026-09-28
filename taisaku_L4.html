@@ -36,6 +36,15 @@
   .a .why{display:block;color:var(--sub);font-weight:600;font-size:.92rem;margin-top:3px;}
   .tap{color:var(--sub);font-size:.82rem;margin-left:8px;}
   .note{color:#b45309;font-size:.85rem;}
+  .item{cursor:pointer;padding:5px 8px;border-radius:8px;margin:3px 0;font-size:1.05rem;line-height:1.6;transition:background .15s;}
+  .item:hover{background:#f1f5f9;}
+  .item.on{background:#f0fdf4;}
+  .item .mk{display:none;color:var(--green);font-weight:800;}
+  .item.on .mk{display:inline;}
+  .witem{display:inline-block;cursor:pointer;padding:2px 8px;margin:3px 2px;border-radius:8px;font-size:1.15rem;transition:background .15s;}
+  .witem:hover{background:#f1f5f9;}
+  .witem.on{background:#f0fdf4;}
+  .witem.on .acc{color:var(--red);text-decoration:underline;font-weight:900;}
   .st{color:var(--red);text-decoration:underline;font-weight:900;}
 </style>
 </head>
@@ -69,7 +78,17 @@
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問2　②の理由（空所補充）</div><div class="a">たくさんの（外国）からの（観光客）が（友だち）へのお土産として使ったり、（余った小銭）をその機械に使ったりするから。</div></div>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問3　④They が指すものを選べ</div><div class="a">many tourists</div></div>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問4　④them が指すもの（英語2語）</div><div class="a">the machines</div></div>
-    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問5　最も強く読む部分<span class="tap">（クリックで解答・解説）</span></div><div class="qbody">de・par・ture　／　in・ter・na・tion・al　／　ma・chine　／　u・nique　／　stat・ue　／　at・tract　／　sym・bol</div><div class="a">de・<span class="st">par</span>・ture　／　in・ter・<span class="st">na</span>・tion・al　／　ma・<span class="st">chine</span>　／　u・<span class="st">nique</span>　／　<span class="st">stat</span>・ue　／　at・<span class="st">tract</span>　／　<span class="st">sym</span>・bol<span class="note">※アクセントは要最終確認</span></div></div>
+    <div class="qa"><div class="q">問5　最も強く読む部分<span class="tap">（各語をクリックで解答）</span></div>
+      <div class="qbody">
+        <span class="witem" onclick="this.classList.toggle('on')">de・<span class="acc">par</span>・ture</span>
+        <span class="witem" onclick="this.classList.toggle('on')">in・ter・<span class="acc">na</span>・tion・al</span>
+        <span class="witem" onclick="this.classList.toggle('on')">ma・<span class="acc">chine</span></span>
+        <span class="witem" onclick="this.classList.toggle('on')">u・<span class="acc">nique</span></span>
+        <span class="witem" onclick="this.classList.toggle('on')"><span class="acc">stat</span>・ue</span>
+        <span class="witem" onclick="this.classList.toggle('on')">at・<span class="acc">tract</span></span>
+        <span class="witem" onclick="this.classList.toggle('on')"><span class="acc">sym</span>・bol</span>
+      </div>
+      <div class="note">※アクセントは要最終確認</div></div>
   </div>
 
   <!-- ===================== PART 2 ===================== -->
@@ -93,11 +112,14 @@
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問1　下線部の意味</div><div class="a">unique＝独特の・個性的な／ example＝例／ the Statue of Liberty＝自由の女神像／ headgear＝かぶりもの／ mix＝混ざり合い・組み合わせ／ jokes＝冗談／ attract＝引きつける／ symbol＝象徴／ culture＝文化</div></div>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問2　①の例として本文の例を2つ</div><div class="a">・（くつろいだ[relaxed]）ポーズの（自由の女神像）<br>・（猫）用の（かぶりもの[headgear]）</div></div>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問3　⑥They が指すもの（英語2語）</div><div class="a">Capsule toys</div></div>
-    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問4　内容一致＝○／不一致＝×<span class="tap">（クリックで解答・解説）</span></div><div class="qbody">1. The Statue of Liberty with headgear is one example of a unique capsule toy.<br>2. Many people are happy because they can enjoy the mix of art and jokes.<br>3. Capsule toys attract people all over the world.</div><div class="a">1 … <b>×</b>（自由の女神像は「くつろいだポーズ」の例。かぶりものは「猫用」の別の例）<br>2 … <b>○</b>（④と一致）<br>3 … <b>○</b>（⑤と一致）</div></div>
+    <div class="qa"><div class="q">問4　内容一致＝○／不一致＝×<span class="tap">（各文をクリックで解答）</span></div>
+      <div class="item" onclick="this.classList.toggle('on')">1. The Statue of Liberty with headgear is one example of a unique capsule toy.<span class="mk"> … <b>×</b>（自由の女神像は「くつろいだポーズ」の例。かぶりものは「猫用」の別の例）</span></div>
+      <div class="item" onclick="this.classList.toggle('on')">2. Many people are happy because they can enjoy the mix of art and jokes.<span class="mk"> … <b>○</b>（④と一致）</span></div>
+      <div class="item" onclick="this.classList.toggle('on')">3. Capsule toys attract people all over the world.<span class="mk"> … <b>○</b>（⑤と一致）</span></div></div>
   </div>
 </div>
 <script>
-  function setAll(on){document.querySelectorAll('.chip,.qa').forEach(function(el){el.classList.toggle('on',on);});}
+  function setAll(on){document.querySelectorAll('.chip,.qa,.item,.witem').forEach(function(el){el.classList.toggle('on',on);});}
 </script>
 </body>
 </html>
