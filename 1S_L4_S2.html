@@ -71,7 +71,10 @@
         .kw-answer.kw-show { color:#ef4444 !important; }
         /* Checkの英文も1行 約8語で折り返し・左そろえ・左右余白均等 */
         #check-content p { max-width: 44ch; margin-left: auto; margin-right: auto; text-align: left; }
-    </style>
+            .comm-hide { border-radius: 6px; padding: 0 4px; transition: background .2s; }
+        .comm-hide:not(.reveal) { background: #94a3b8; }
+        .comm-hide:not(.reveal), .comm-hide:not(.reveal) * { color: transparent !important; text-decoration: none !important; }
+</style>
 </head>
 <body>
     <script>
@@ -253,11 +256,11 @@
             <div class="bg-orange-50 border-2 border-orange-200 p-4 rounded-2xl">
                 <p class="text-2xl font-bold text-gray-800">I'm looking for <span class="text-orange-500 font-black">[ to / a game / with / play ]</span> my friends.</p>
                 <div class="flex items-center gap-4 mt-3">
-                    <button onclick="document.getElementById('comm-s1-ans').classList.toggle('hidden')" class="bg-orange-400 text-white px-5 py-1 rounded-xl font-bold text-base hover:bg-orange-500 transition">解答を見る</button>
+                    <button onclick="document.getElementById('comm-s1-ans').classList.toggle('hidden'); this.closest('.slide').querySelectorAll('.comm-hide').forEach(e=>e.classList.toggle('reveal'))" class="bg-orange-400 text-white px-5 py-1 rounded-xl font-bold text-base hover:bg-orange-500 transition">解答を見る</button>
                     <p id="comm-s1-ans" class="hidden text-2xl font-bold text-red-500">→ I'm looking for <span class="text-blue-600 underline">a game to play with</span> my friends.</p>
                 </div>
             </div>
-            <div class="bg-gray-50 p-3 rounded-2xl border-l-8 border-green-500 text-2xl font-bold">A: I'm looking for a game to play with my friends.</div>
+            <div class="bg-gray-50 p-3 rounded-2xl border-l-8 border-green-500 text-2xl font-bold">A: I'm looking for <span class="comm-hide">a game to play with</span> my friends.</div>
             <div class="bg-green-100/50 p-3 rounded-2xl border-l-8 border-blue-500 text-2xl font-bold">B: I know a fun one!</div>
             <div class="bg-gray-50 p-3 rounded-2xl border-l-8 border-green-500 text-2xl font-bold">A: What type of game is it?</div>
             <div class="bg-green-100/50 p-3 rounded-2xl border-l-8 border-blue-500 text-2xl font-bold">
