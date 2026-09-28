@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L4 対策 解説</title>
+<style>
+  :root{--ink:#1f2937;--sub:#6b7280;--green:#15803d;--amber:#f59e0b;--red:#dc2626;--card:#fff;--bg:#f1f5f9;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Meiryo",sans-serif;padding:24px 16px 60px;}
+  .wrap{max-width:1000px;margin:0 auto;}
+  .title{text-align:center;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;color:#b45309;margin:0 0 4px;}
+  .subtitle{text-align:center;color:var(--sub);font-size:1rem;margin:0 0 20px;}
+  .bar{display:flex;gap:10px;justify-content:center;margin-bottom:18px;flex-wrap:wrap;}
+  .btn{border:none;background:var(--amber);color:#fff;font-weight:800;font-size:1rem;padding:8px 18px;border-radius:12px;cursor:pointer;transition:.15s;}
+  .btn:hover{filter:brightness(1.05);}
+  .btn.ghost{background:#fff;color:var(--ink);border:2px solid #e5e7eb;}
+  .part-head{font-size:1.5rem;font-weight:900;color:#0f766e;margin:26px 0 10px;padding-left:12px;border-left:8px solid #14b8a6;}
+  .card{background:var(--card);border-radius:16px;padding:22px 26px;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #e5e7eb;}
+  .card h2{margin:0 0 12px;font-size:1.2rem;color:var(--green);}
+  .hint{color:var(--sub);font-size:.92rem;margin:0 0 12px;}
+  .para{font-size:clamp(1.2rem,2.5vw,1.6rem);line-height:2.0;}
+  .num{color:var(--sub);font-weight:900;margin-right:2px;}
+  .chip{border-bottom:3px dotted var(--amber);cursor:pointer;padding:0 2px;border-radius:4px;transition:background .15s;}
+  .chip:hover{background:#fff7ed;}
+  .chip .ja{display:none;color:var(--green);font-weight:800;font-size:.72em;margin-left:6px;white-space:nowrap;}
+  .chip.on .ja{display:inline;}
+  .chip.on{background:#f0fdf4;border-bottom-color:var(--green);}
+  .box{border:2px solid #64748b;border-radius:6px;padding:0 6px;}
+  .qa{border-left:6px solid var(--amber);padding:6px 0 6px 16px;margin:12px 0;}
+  .q{font-weight:800;font-size:1.1rem;margin-bottom:6px;}
+  .a{display:none;color:var(--green);font-weight:800;font-size:1.1rem;}
+  .qa.on .a{display:block;}
+  .qa.on{border-left-color:var(--green);}
+  .a .why{display:block;color:var(--sub);font-weight:600;font-size:.92rem;margin-top:3px;}
+  .tap{color:var(--sub);font-size:.82rem;margin-left:8px;}
+  .note{color:#b45309;font-size:.85rem;}
+  .st{color:var(--red);text-decoration:underline;font-weight:900;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 class="title">Lesson 4　対策　解説</h1>
+  <p class="subtitle">1学年 英語　2学期中間考査 対策プリント　Part 1 &amp; Part 2</p>
+  <div class="bar">
+    <button class="btn" onclick="setAll(true)">すべての解答を表示</button>
+    <button class="btn ghost" onclick="setAll(false)">すべて隠す</button>
+  </div>
+
+  <!-- ===================== PART 1 ===================== -->
+  <div class="part-head">Part 1　（成田空港のカプセルトイ）</div>
+
+  <div class="card">
+    <h2>本文</h2>
+    <p class="hint">🟠 点線の語句 / □They □them をタップすると意味・解答が出ます。</p>
+    <div class="para">
+      <span class="num">①</span>This is the <span class="chip" onclick="this.classList.toggle('on')">departure<span class="ja">出発</span></span> lounge at Narita <span class="chip" onclick="this.classList.toggle('on')">International<span class="ja">国際の</span></span> <span class="chip" onclick="this.classList.toggle('on')">Airport<span class="ja">空港</span></span>.
+      <span class="num">②</span>There are a lot of capsule toy <span class="chip" onclick="this.classList.toggle('on')">machines<span class="ja">機械</span></span>.
+      <span class="num">③</span>Many <span class="chip" onclick="this.classList.toggle('on')">tourists<span class="ja">観光客</span></span> from <span class="chip" onclick="this.classList.toggle('on')">abroad<span class="ja">外国（から）</span></span> like the machines.
+      <span class="num">④</span><span class="chip box" onclick="this.classList.toggle('on')">They<span class="ja">＝ many tourists</span></span> often use <span class="chip box" onclick="this.classList.toggle('on')">them<span class="ja">＝ the machines</span></span> to get small gift for their friends.
+      <span class="num">⑤</span>They can also <span class="chip" onclick="this.classList.toggle('on')">spend<span class="ja">（お金を）使う</span></span> their <span class="chip" onclick="this.classList.toggle('on')">extra coins<span class="ja">余った小銭</span></span> in these machines.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>設問の解答</h2>
+    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問1　下線部の意味</div><div class="a">departure＝出発／ International＝国際の／ Airport＝空港／ machines＝機械／ tourists＝観光客／ abroad＝外国（から）／ spend＝（お金を）使う／ extra coins＝余った小銭</div></div>
+    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問2　②の理由（空所補充）</div><div class="a">たくさんの（外国）からの（観光客）が（友だち）へのお土産として使ったり、（余った小銭）をその機械に使ったりするから。</div></div>
+    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問3　④They が指すものを選べ</div><div class="a">many tourists</div></div>
+    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問4　④them が指すもの（英語2語）</div><div class="a">the machines</div></div>
+    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問5　最も強く読む部分</div><div class="a">de・<span class="st">par</span>・ture　／　in・ter・<span class="st">na</span>・tion・al　／　ma・<span class="st">chine</span><br><span class="st">u</span>・nique … <span class="st">nique</span>を強く（u・<span class="st">nique</span>）／　<span class="st">stat</span>・ue　／　at・<span class="st">tract</span>　／　<span class="st">sym</span>・bol<span class="note">※アクセントは要最終確認</span></div></div>
+  </div>
+
+  <!-- ===================== PART 2 ===================== -->
+  <div class="part-head">Part 2　（カプセルトイは unique）</div>
+
+  <div class="card">
+    <h2>本文</h2>
+    <p class="hint">🟠 点線の語句 / □They をタップすると意味・解答が出ます。</p>
+    <div class="para">
+      <span class="num">①</span>Capsule toys are so <span class="chip" onclick="this.classList.toggle('on')">unique<span class="ja">独特の・個性的な</span></span>.
+      <span class="num">②</span>One <span class="chip" onclick="this.classList.toggle('on')">example<span class="ja">例</span></span> is <span class="chip" onclick="this.classList.toggle('on')">the Statue of Liberty<span class="ja">自由の女神像</span></span> in a relaxed pose.
+      <span class="num">③</span>Another is a <span class="chip" onclick="this.classList.toggle('on')">headgear<span class="ja">かぶりもの</span></span> for cats.
+      <span class="num">④</span>Many people are happy to see the <span class="chip" onclick="this.classList.toggle('on')">mix<span class="ja">混ざり合い・組み合わせ</span></span> of art and <span class="chip" onclick="this.classList.toggle('on')">jokes<span class="ja">冗談</span></span>.
+      <span class="num">⑤</span>Capsule toys <span class="chip" onclick="this.classList.toggle('on')">attract<span class="ja">引きつける</span></span> people around the world.
+      <span class="num">⑥</span><span class="chip box" onclick="this.classList.toggle('on')">They<span class="ja">＝ Capsule toys</span></span> are a <span class="chip" onclick="this.classList.toggle('on')">symbol<span class="ja">象徴</span></span> of Japanese <span class="chip" onclick="this.classList.toggle('on')">culture<span class="ja">文化</span></span> now.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>設問の解答</h2>
+    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問1　下線部の意味</div><div class="a">unique＝独特の・個性的な／ example＝例／ the Statue of Liberty＝自由の女神像／ headgear＝かぶりもの／ mix＝混ざり合い・組み合わせ／ jokes＝冗談／ attract＝引きつける／ symbol＝象徴／ culture＝文化</div></div>
+    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問2　①の例として本文の例を2つ</div><div class="a">・（くつろいだ[relaxed]）ポーズの（自由の女神像）<br>・（猫）用の（かぶりもの[headgear]）</div></div>
+    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問3　⑥They が指すもの（英語2語）</div><div class="a">Capsule toys</div></div>
+    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問4　内容一致＝○／不一致＝×</div><div class="a">1. The Statue of Liberty with headgear … <b>×</b><span class="why">自由の女神像は「くつろいだポーズ」の例。かぶりものは「猫用」の別の例。</span>2. Many people are happy because they can enjoy the mix of art and jokes. … <b>○</b><span class="why">④と一致。</span>3. Capsule toys attract people all over the world. … <b>○</b><span class="why">⑤と一致。</span></div></div>
+  </div>
+</div>
+<script>
+  function setAll(on){document.querySelectorAll('.chip,.qa').forEach(function(el){el.classList.toggle('on',on);});}
+</script>
+</body>
+</html>
