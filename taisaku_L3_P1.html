@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L3 Part1 解説</title>
+<style>
+  :root{
+    --ink:#1f2937; --sub:#6b7280; --green:#15803d; --amber:#f59e0b;
+    --red:#dc2626; --card:#ffffff; --bg:#f1f5f9;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",YuGothic,"Meiryo",sans-serif;
+    padding:24px 16px 60px;
+  }
+  .wrap{max-width:1000px; margin:0 auto;}
+  .title{text-align:center; font-size:clamp(1.6rem,4vw,2.4rem); font-weight:900; color:#b45309; margin:0 0 4px;}
+  .subtitle{text-align:center; color:var(--sub); font-size:1rem; margin:0 0 20px;}
+  .bar{display:flex; gap:10px; justify-content:center; margin-bottom:18px; flex-wrap:wrap;}
+  .btn{border:none; background:var(--amber); color:#fff; font-weight:800; font-size:1rem;
+       padding:8px 18px; border-radius:12px; cursor:pointer; transition:.15s;}
+  .btn:hover{filter:brightness(1.05);}
+  .btn.ghost{background:#fff; color:var(--ink); border:2px solid #e5e7eb;}
+  .card{background:var(--card); border-radius:16px; padding:22px 26px; margin-bottom:18px;
+        box-shadow:0 2px 12px rgba(0,0,0,.06); border:1px solid #e5e7eb;}
+  .card h2{margin:0 0 14px; font-size:1.3rem; color:var(--green);}
+  .hint{color:var(--sub); font-size:.95rem; margin:0 0 14px;}
+  /* passage */
+  .line{display:flex; gap:14px; align-items:flex-start; margin:10px 0; font-size:clamp(1.25rem,2.6vw,1.7rem); line-height:1.9;}
+  .who{flex:0 0 auto; font-weight:900; color:#2563eb; min-width:64px;}
+  .who.beth{color:#db2777;} .who.ken{color:#2563eb;}
+  .num{color:var(--sub); font-weight:900; margin-right:2px;}
+  /* clickable reveal chips */
+  .chip{border-bottom:3px dotted var(--amber); cursor:pointer; padding:0 2px; border-radius:4px; transition:background .15s; position:relative;}
+  .chip:hover{background:#fff7ed;}
+  .chip .ja{display:none; color:var(--green); font-weight:800; font-size:.72em; margin-left:6px; white-space:nowrap;}
+  .chip.on .ja{display:inline;}
+  .chip.on{background:#f0fdf4; border-bottom-color:var(--green);}
+  .box{border:2px solid #64748b; border-radius:6px; padding:0 6px; border-bottom:2px solid #64748b;}
+  .blank{color:#b45309; font-weight:800; cursor:pointer; padding:0 2px; border-radius:4px;}
+  .blank:hover{background:#fff7ed;}
+  .blank .ja{display:none; color:var(--green); margin-left:4px;}
+  .blank.on .ja{display:inline;}
+  /* answers list */
+  .qa{border-left:6px solid var(--amber); padding:6px 0 6px 16px; margin:14px 0;}
+  .q{font-weight:800; font-size:1.15rem; margin-bottom:6px;}
+  .a{display:none; color:var(--green); font-weight:800; font-size:1.15rem;}
+  .qa.on .a{display:block;}
+  .qa.on{border-left-color:var(--green);}
+  .a .why{display:block; color:var(--sub); font-weight:600; font-size:.95rem; margin-top:3px;}
+  .tap{color:var(--sub); font-size:.85rem; margin-left:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1 class="title">Lesson 3　Part 1　解説</h1>
+  <p class="subtitle">1学年 英語　2学期中間考査 対策プリント　（Beth &amp; Ken の対話）</p>
+
+  <div class="bar">
+    <button class="btn" onclick="setAll(true)">すべての解答を表示</button>
+    <button class="btn ghost" onclick="setAll(false)">すべて隠す</button>
+  </div>
+
+  <!-- 本文 -->
+  <div class="card">
+    <h2>本文</h2>
+    <p class="hint">🟠 点線の語句 / (　) / □them をタップすると、意味・解答が本文の中に出ます。</p>
+
+    <div class="line"><span class="who beth">Beth:</span><div><span class="num">①</span>Hi, Ken. What are you doing?</div></div>
+
+    <div class="line"><span class="who ken">Ken:</span><div><span class="num">②</span>I'm <span class="blank" onclick="this.classList.toggle('on')">( watch )<span class="ja">→ watching</span></span> a video clip. Look at these dancers. I really like <span class="chip box" onclick="this.classList.toggle('on')">them<span class="ja">＝ these dancers（これらのダンサー）</span></span>.</div></div>
+
+    <div class="line"><span class="who beth">Beth:</span><div><span class="num">③</span>Cool! They are <span class="blank" onclick="this.classList.toggle('on')">( move )<span class="ja">→ moving</span></span> together <span class="chip" onclick="this.classList.toggle('on')">exactly<span class="ja">正確に・ちょうど</span></span> <span class="chip" onclick="this.classList.toggle('on')">at the same time<span class="ja">同時に</span></span>. Ken, do you dance <span class="chip" onclick="this.classList.toggle('on')">in a group<span class="ja">グループ[集団]で</span></span> too?</div></div>
+
+    <div class="line"><span class="who ken">Ken:</span><div><span class="num">④</span>Yes. We are very <span class="chip" onclick="this.classList.toggle('on')">close<span class="ja">親しい・仲の良い</span></span> friends, so we all <span class="chip" onclick="this.classList.toggle('on')">move<span class="ja">動く</span></span> <span class="chip" onclick="this.classList.toggle('on')">in unison<span class="ja">一斉に・そろって</span></span> well.</div></div>
+  </div>
+
+  <!-- 設問の解答 -->
+  <div class="card">
+    <h2>設問の解答</h2>
+
+    <div class="qa" onclick="this.classList.toggle('on')">
+      <div class="q">問1　下線部の意味<span class="tap">（タップで表示 / 本文の点線語句と同じ）</span></div>
+      <div class="a">exactly＝正確に・ちょうど／ at the same time＝同時に／ in a group＝グループ[集団]で／ close＝親しい・仲の良い／ move＝動く／ in unison＝一斉に・そろって</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('on')">
+      <div class="q">問3　②の them は誰のことですか？（英語2語）</div>
+      <div class="a">these dancers</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('on')">
+      <div class="q">問4　②(watch)・③(move) を 〜ing に直して書け。</div>
+      <div class="a">② watching　　③ moving</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('on')">
+      <div class="q">問5　内容と一致＝T／一致しない＝F</div>
+      <div class="a">1. Ken and Beth are dancing together. … <b>F</b>
+        <span class="why">ケンは動画を見ていて、今は一緒に踊っていない。</span>
+        2. Ken dances in a group. … <b>T</b>
+        <span class="why">④で「仲間みんなでそろって踊る」と言っている。</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setAll(on){
+    document.querySelectorAll('.chip,.blank,.qa').forEach(function(el){
+      el.classList.toggle('on', on);
+    });
+  }
+</script>
+</body>
+</html>
