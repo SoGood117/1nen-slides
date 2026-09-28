@@ -33,11 +33,13 @@
         .highlight-static { font-weight: normal; color: #1f2937 !important; border-bottom: none !important; padding: 0; margin: 0; display: inline; }
         .hidden-answer { display: inline-block; color: transparent !important; border-bottom: 3px solid #3b82f6 !important; padding: 0 8px; margin: 0 4px; cursor: pointer; min-width: 120px; text-align: center; vertical-align: baseline; white-space: nowrap; transition: color 0.2s; }
         .hidden-answer.show { color: #ef4444 !important; font-weight: bold; }
-        .phrase-card { background: white; border-radius: 12px; padding: 15px 20px; margin-bottom: 12px; border: 2px solid #e5e7eb; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; width: 100%; }
-        .phrase-card:hover { border-color: #3b82f6; transform: translateX(5px); }
-        .phrase-en { font-size: clamp(1.2rem, 2.5vh, 2.0rem); font-weight: bold; color: #1f2937; }
-        .phrase-ja { font-size: clamp(1.0rem, 2.1vh, 1.7rem); color: #3b82f6; font-weight: 900; margin-top: 6px; opacity: 0; transition: opacity 0.3s; }
-        .phrase-card.active .phrase-ja { opacity: 1; }
+        .phrase-card { background: #ffffff; border-radius: 14px; padding: 16px 22px; margin-bottom: 14px; border: 2px solid #e5e7eb; border-left: 8px solid #f59e0b; cursor: pointer; transition: all 0.2s; width: 100%; }
+        .phrase-card:hover { border-color: #f59e0b; box-shadow: 0 4px 14px rgba(0,0,0,0.10); }
+        .phrase-card.active { border-left-color: #15803d; background: #f8fafc; }
+        .ph-line { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 10px; row-gap: 2px; margin: 3px 0; line-height: 1.45; }
+        .ph-en { font-size: clamp(1.35rem, 2.9vh, 2.1rem); font-weight: 800; color: #1f2937; letter-spacing: 0.2px; }
+        .ph-ja { font-size: clamp(1.05rem, 2.2vh, 1.6rem); color: #15803d; font-weight: 800; opacity: 0; transition: opacity 0.25s; }
+        .phrase-card.active .ph-ja { opacity: 1; }
         .slide-title { font-size: clamp(2.0rem, 4.5vh, 3.5rem); font-weight: 900; margin-bottom: 0.75rem; text-align: center; }
         .content-box { flex: 1; width: 100%; max-width: 100%; overflow-y: auto; border-radius: 1.5rem; padding: 1.5rem 2rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); background-color: white; }
         .check-bracket { color: #3b82f6; font-weight: bold; width: 20px; display: inline-block; text-align: center; }
@@ -87,11 +89,32 @@
                 "They are a {symbol} of Japanese culture now."
             ],
             translationPhrases: [
-                { en: "Capsule toys are so unique.", ja: "カプセルトイはとても個性的です。" },
-                { en: "One example is the Statue of Liberty in a relaxed pose. Another is headgear for cats.", ja: "一例はくつろいだポーズの自由の女神像です。もう一つは猫用のかぶりものです。" },
-                { en: "Many people are happy to see the mix of art and jokes.", ja: "多くの人々は芸術とジョークの融合を見て喜びます。" },
-                { en: "Capsule toys attract people around the world.", ja: "カプセルトイは世界中の人々を引きつけます。" },
-                { en: "They are a symbol of Japanese culture now.", ja: "それらは今や日本文化の象徴です。" }
+                { chunks: [
+                    { en: "Capsule toys", ja: "（カプセルトイは）" },
+                    { en: "are so unique.", ja: "（とても個性的です。）" }
+                ]},
+                { chunks: [
+                    { en: "One example is", ja: "（一例は）" },
+                    { en: "the Statue of Liberty", ja: "（自由の女神像です）" },
+                    { en: "in a relaxed pose.", ja: "（くつろいだ姿勢の）" },
+                    { en: "Another is", ja: "（もう一つは）" },
+                    { en: "headgear for cats.", ja: "（猫用のかぶりものです。）" }
+                ]},
+                { chunks: [
+                    { en: "Many people", ja: "（多くの人々は）" },
+                    { en: "are happy to see", ja: "（見て喜びます）" },
+                    { en: "the mix of art and jokes.", ja: "（芸術とジョークの融合を）" }
+                ]},
+                { chunks: [
+                    { en: "Capsule toys", ja: "（カプセルトイは）" },
+                    { en: "attract people", ja: "（人々を引きつけます）" },
+                    { en: "around the world.", ja: "（世界中の）" }
+                ]},
+                { chunks: [
+                    { en: "They are now", ja: "（それらは今や）" },
+                    { en: "a symbol of", ja: "（〜の象徴です）" },
+                    { en: "Japanese culture.", ja: "（日本文化の）" }
+                ]}
             ],
             checks: [
                 { q: "1. 多くの人々が見て喜ぶのは何？", sub: "Many people are happy to see the <span class='check-bracket'>[</span> {mix} <span class='check-bracket'>]</span> of art and jokes." },
@@ -424,7 +447,7 @@
                 const card = document.createElement('div');
                 card.className = "phrase-card";
                 card.onclick = () => card.classList.toggle('active');
-                card.innerHTML = `<div class="phrase-en">${phrase.en}</div><div class="phrase-ja">${phrase.ja}</div>`;
+                card.innerHTML = phrase.chunks.map(c => `<div class="ph-line"><span class="ph-en">${c.en}</span><span class="ph-ja">${c.ja}</span></div>`).join('');
                 transContent.appendChild(card);
             });
             document.getElementById('new-words-grid').innerHTML = '';
