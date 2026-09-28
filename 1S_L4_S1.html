@@ -33,13 +33,14 @@
         .highlight-static { font-weight: normal; color: #1f2937 !important; border-bottom: none !important; padding: 0; margin: 0; display: inline; }
         .hidden-answer { display: inline-block; color: transparent !important; border-bottom: 3px solid #3b82f6 !important; padding: 0 8px; margin: 0 4px; cursor: pointer; min-width: 120px; text-align: center; vertical-align: baseline; white-space: nowrap; transition: color 0.2s; }
         .hidden-answer.show { color: #ef4444 !important; font-weight: bold; }
-        .phrase-card { background: #ffffff; border-radius: 14px; padding: 16px 22px; margin-bottom: 14px; border: 2px solid #e5e7eb; border-left: 8px solid #f59e0b; cursor: pointer; transition: all 0.2s; width: 100%; }
+        .phrase-card { background: #ffffff; border-radius: 14px; padding: 12px 18px; margin-bottom: 14px; border: 2px solid #e5e7eb; border-left: 8px solid #f59e0b; transition: all 0.2s; width: 100%; }
         .phrase-card:hover { border-color: #f59e0b; box-shadow: 0 4px 14px rgba(0,0,0,0.10); }
-        .phrase-card.active { border-left-color: #15803d; background: #f8fafc; }
-        .ph-line { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 10px; row-gap: 2px; margin: 3px 0; line-height: 1.45; }
+        .ph-line { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 12px; row-gap: 2px; margin: 2px 0; padding: 4px 8px; border-radius: 8px; line-height: 1.45; cursor: pointer; transition: background 0.15s; }
+        .ph-line:hover { background: #f1f5f9; }
+        .ph-line.show { background: #f0fdf4; }
         .ph-en { font-size: clamp(1.35rem, 2.9vh, 2.1rem); font-weight: 800; color: #1f2937; letter-spacing: 0.2px; }
-        .ph-ja { font-size: clamp(1.05rem, 2.2vh, 1.6rem); color: #15803d; font-weight: 800; opacity: 0; transition: opacity 0.25s; }
-        .phrase-card.active .ph-ja { opacity: 1; }
+        .ph-ja { font-size: clamp(1.05rem, 2.2vh, 1.6rem); color: #15803d; font-weight: 800; opacity: 0; transition: opacity 0.2s; }
+        .ph-line.show .ph-ja { opacity: 1; }
         .slide-title { font-size: clamp(2.0rem, 4.5vh, 3.5rem); font-weight: 900; margin-bottom: 0.75rem; text-align: center; }
         .content-box { flex: 1; width: 100%; max-width: 100%; overflow-y: auto; border-radius: 1.5rem; padding: 1.5rem 2rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); background-color: white; }
         .check-bracket { color: #3b82f6; font-weight: bold; width: 20px; display: inline-block; text-align: center; }
@@ -90,29 +91,29 @@
             ],
             translationPhrases: [
                 { chunks: [
-                    { en: "This is", ja: "（ここは）" },
-                    { en: "the departure lounge", ja: "（出発ロビーです）" },
-                    { en: "at Narita International Airport.", ja: "（成田国際空港にある）" }
+                    { en: "This is", ja: "ここは" },
+                    { en: "the departure lounge", ja: "出発ロビーです" },
+                    { en: "at Narita International Airport.", ja: "成田国際空港にある" }
                 ]},
                 { chunks: [
-                    { en: "There are", ja: "（〜があります）" },
-                    { en: "a lot of", ja: "（たくさんの）" },
-                    { en: "capsule toy machines.", ja: "（カプセルトイの機械が）" }
+                    { en: "There are", ja: "〜があります" },
+                    { en: "a lot of", ja: "たくさんの" },
+                    { en: "capsule toy machines.", ja: "カプセルトイの機械が" }
                 ]},
                 { chunks: [
-                    { en: "Many tourists", ja: "（多くの観光客が）" },
-                    { en: "from abroad", ja: "（海外からの）" },
-                    { en: "like the machines.", ja: "（その機械を気に入っています）" }
+                    { en: "Many tourists", ja: "多くの観光客が" },
+                    { en: "from abroad", ja: "海外からの" },
+                    { en: "like the machines.", ja: "その機械を気に入っています" }
                 ]},
                 { chunks: [
-                    { en: "They often use them", ja: "（彼らはよくそれらを使います）" },
-                    { en: "to get small gifts", ja: "（ちょっとしたお土産を得るために）" },
-                    { en: "for their friends.", ja: "（友だちへの）" }
+                    { en: "They often use them", ja: "彼らはよくそれらを使います" },
+                    { en: "to get small gifts", ja: "ちょっとしたお土産を得るために" },
+                    { en: "for their friends.", ja: "友だちへの" }
                 ]},
                 { chunks: [
-                    { en: "They can also spend", ja: "（使うこともできます）" },
-                    { en: "their extra coins", ja: "（余った小銭を）" },
-                    { en: "in these machines.", ja: "（これらの機械で）" }
+                    { en: "They can also spend", ja: "使うこともできます" },
+                    { en: "their extra coins", ja: "余った小銭を" },
+                    { en: "in these machines.", ja: "これらの機械で" }
                 ]}
             ],
             checks: [
@@ -444,8 +445,8 @@
             SLIDE_DATA.translationPhrases.forEach(phrase => {
                 const card = document.createElement('div');
                 card.className = "phrase-card";
-                card.onclick = () => card.classList.toggle('active');
                 card.innerHTML = phrase.chunks.map(c => `<div class="ph-line"><span class="ph-en">${c.en}</span><span class="ph-ja">${c.ja}</span></div>`).join('');
+                card.querySelectorAll('.ph-line').forEach(line => { line.onclick = () => line.classList.toggle('show'); });
                 transContent.appendChild(card);
             });
             document.getElementById('new-words-grid').innerHTML = '';
