@@ -127,6 +127,9 @@
 
   .controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
   .hint{font-size:12.5px;color:#ffd24a;margin:4px 2px;min-height:18px;}
+  #itemBar{text-align:center;margin:2px 0 6px;min-height:30px;}
+  .btn.herb{background:#1e5a2a;border-color:#5bd66b;box-shadow:0 4px 0 #0c2a14;font-size:14px;padding:9px 14px;}
+  .herb-empty{font-size:12px;color:#6a7aa8;}
 
   /* end */
   #endScreen{text-align:center;padding:24px 16px;}
@@ -174,6 +177,7 @@
     </div>
 
     <div id="msg">モンスターが あらわれた！</div>
+    <div id="itemBar"></div>
 
     <div id="quizArea"></div>
     <div class="hint" id="hintLine"></div>
@@ -198,7 +202,7 @@ const PAL={
  't':'#2a4fc0','G':'#e0b44c','B':'#7a4b22','M':'#dfe6f2','m':'#9aa6c0','c':'#4aa3e0',
  'C':'#286eb4','w':'#f5faff','p':'#9646b4','P':'#642882','g':'#78b45a','r':'#d24646',
  'R':'#963028','y':'#f0dc5a','k':'#46465a','K':'#2d2d3c','f':'#f0f0fa','a':'#aa78dc',
- 'A':'#7850aa','u':'#e6e1d2','U':'#b4afa0'
+ 'A':'#7850aa','u':'#e6e1d2','U':'#b4afa0','b':'#50301a'
 };
 const SPR={
 hero:[
@@ -221,36 +225,17 @@ priest:[
 "....oSESSESo....","....oSSSSSSo....",".....oSSSSo.....","...ouuurruuuo...",
 "..ouuurrruuuuo..",".oSuuurrruuuSo..",".oSuuuuuuuuuSo..","..ouuuuuuuuuo...",
 "..oUuuuuuuUUo...","..oUUuuuuUUUo...","..oUUUUUUUUUo...","...ooooooooo...."],
-slime:[
-".....oooo.......","...ooccccoo.....","..occccccccoo...",".occccccccccco..",
-".occccccccccco..","occccccccccccco.","occwwcccwwcccco.","occwEccccwEcco..",
-"occccccccccccco.","occcccwwcccccco.","occccccccccccco.",".occccccccccco..",
-".oCccccccccCo...","..oCCcccccCCo...","...ooCCCCCCoo...",".....oooooo....."],
-bat:[
-"................","o..............o","oo...oooo...oo..","ooo.oppppo.ooo..",
-".opppppppppppo..",".oppppppppppppo.",".oppEppppEpppo..","..opppppppppo...",
-"..ooppwwppoo....","...oppppppo.....","....oppppo......","....oo..oo......",
-"................","................","................","................"],
-ghost:[
-".....oooo.......","...ooffffoo.....","..offffffffo....",".offffffffffo...",
-".offEffffEffo...",".offffffffffo...",".offfffffffffo..",".offfoooofffo...",
-".offffffffffo...",".offffffffffo...",".offffffffffo...",".offffffffffo...",
-".offoffoffoffo..","..o..o..o..o....","................","................"],
-golem:[
-"...kkkkkkkk.....","..kKKKKKKKKk....","..kKkKKKKkKk....","..kKKKKKKKKk....",
-"..kKKwwwwKKk....","..kKwEKKEwKk....","..kKKKKKKKKk....",".kkKKKKKKKKkk...",
-"kKKkKKKKKKkKKk..","kKKkKKKKKKkKKk..","kKKkKKKKKKkKKk..",".kkKKKKKKKKkk...",
-"...kKKKKKKk.....","...kKk..kKk.....","..kKKk..kKKk....","..kkk....kkk...."],
-dragon:[
-"....o......o....","...opo....opo...","...opo.oo.opo...","..oopoopppoopoo.",
-".oprrrrrrrrrrpo.",".oprEprrrrpErpo.","oprrrrrwwrrrrrpo","oprrrwwwwwwrrrpo",
-".oprrRRRRRRrrpo.",".oprrrrrrrrrrpo.","..oprrrrrrrrpo..","..oorRRRRRRroo..",
-"...oprrrrrrpo...","...oRRo..oRRo...","..oRRo....oRRo..","..ooo......ooo.."],
+slime:["......oooo......","....ooccccoo....","...occcccccco...","..occcccccccco..",".occcccccccccco.",".occwwcccccccco.","occwwccccccccccc","occcccccccccccco","occcEEcccccEEcco","occcEEcccccEEcco","occccccccccccccc","occccccwwwcccccc",".occcccccccccco.","..oCcccccccccCo.","...oCCCCCCCCCo..",".....oooooooo..."],
+bat:["................","oo..........oo..","ooo........ooo..","opoo..pp..oopo..","oppoooppooooppo.",".opppppppppppo..",".oppEwppppwEppo.",".opppppppppppo..","..oppwwwwwwppo..","..oppwwwwwwppo..","...oppppppppo...","....oppppppo....",".....o....o.....","....oo....oo....","................","................"],
+ghost:[".....oooooo.....","...offffffffo...","..offffffffffo..",".offffffffffffo.",".offffffffffffo.",".offEEffffEEffo.",".offEEffffEEffo.",".offffffffffffo.",".fffffwwwwffffff",".offffwwwwffffo.",".offffffffffffo.",".offffffffffffo.",".offffffffffffo.",".offoffooffoffo.","..o.oo.oo.oo.o..","................"],
+golem:["..kkkkkkkkkk....",".kKKKKKKKKKKk...",".kKkkKKKKkkKk...",".kKKKKKKKKKKk...","kkKKyyKKyyKKkk..","kKKKyyKKyyKKKk..","kKKKKKKKKKKKKk..","kKKKKKKKKKKKKk..","kkKKKKKKKKKKkk..","KkkKKKKKKKKkkK..","KKkKKKKKKKKkKK..","KKkkKKKKKKkkKK..",".kkKKKKKKKKkk...","..kKKk..kKKk....","..kKKk..kKKk....","..kkkk..kkkk...."],
+dragon:["...o........o...","..opo......opo..","..opo.oooo.opo..",".oopoprrrrpoopo.",".oprrrrrrrrrrpo.","oprrrEwwwwErrrpo","oprrrrwwwwrrrrpo","oprrRRRRRRRRrrpo",".oprrrrrrrrrrpo.","..oprrrrrrrrpo..","..oorRRRRRRroo..","...oprrrrrrpo...","...oRRo..oRRo...","..oRRo....oRRo..","..ooo......ooo..","................"],
 boss:[
 "..y........y....",".yyy......yyy...","oPyPo....oPyPo..","PPoooPPPPoooPP..",
 "PProprrrrporPP..","PProyErrrEyorPP.","PPrrrrwwrrrrPP..","oPrrwwwwwwwwrrPo",
 ".oPrrRRRRRRrrPo.",".oPPrryyyyrrPPo.","..oPrrRRRRrrPo..","...oPrRRRRrPo...",
-"...oPRRooRRPo...","..oRRoo..ooRRo..",".oyo........oyo.",".o............o."]
+"...oPRRooRRPo...","..oRRoo..ooRRo..",".oyo........oyo.",".o............o."],
+coffin:["...oooooooooo...","...oBBBBBBBBo...","...oBBBuuBBBo...","...oBBBuuBBBo...","...oBBBuuBBBo...","...ouuuuuuuuo...","...oBBBuuBBBo...","...oBBBuuBBBo...","...oBBBBBBBBo...","...oBBBBBBBBo...","...oBBBBBBBBo...","...oBBBBBBBBo...","...oBBBBBBBBo...","...obbbbbbbbo...","...oooooooooo...","................"]
 };
 function makeSprite(name,scale){
   const g=SPR[name],cv=document.createElement('canvas');
@@ -298,7 +283,9 @@ const SFX={
   defeat(){tone(400,'square',0.1,0.18,0,120);tone(140,'square',0.25,0.16,0.1,60);},
   levelup(){[523,659,784,1047].forEach((f,i)=>tone(f,'square',0.14,0.18,i*0.1));},
   join(){[392,523,659].forEach((f,i)=>tone(f,'triangle',0.16,0.18,i*0.09));},
-  clear(){[523,523,523,659,784,0,659,784,1047].forEach((f,i)=>{if(f)tone(f,'square',0.22,0.2,i*0.17);});}
+  clear(){[523,523,523,659,784,0,659,784,1047].forEach((f,i)=>{if(f)tone(f,'square',0.22,0.2,i*0.17);});},
+  heal(){[523,659,784].forEach((f,i)=>tone(f,'sine',0.18,0.16,i*0.07));tone(1047,'sine',0.3,0.14,0.21);},
+  dead(){[392,330,294,196].forEach((f,i)=>tone(f,'triangle',0.32,0.18,i*0.24));}
 };
 /* タイトルのやる気ソング（約5秒・ファミコン風） */
 function playTitleBGM(){
@@ -384,7 +371,7 @@ const COMPANIONS={2:{name:"せんし",sprite:"warrior",line:"「おれも つれ
                   8:{name:"そうりょ",sprite:"priest",line:"「正しい答えで いやしを」　そうりょ が 仲間になった！ (正解でHP回復)"}};
 
 /* ===== ゲーム状態 ===== */
-const S={i:0,lv:1,maxhp:30,hp:30,party:["hero"],tries:0,hasPriest:false};
+const S={i:0,lv:1,maxhp:30,hp:30,party:["hero"],tries:0,hasPriest:false,herbs:1};
 const $=id=>document.getElementById(id);
 
 /* タイトルの表紙イラスト（Geminiで生成） */
@@ -398,7 +385,7 @@ function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.re
 
 function startGame(){
   SFX.select();
-  S.i=0;S.lv=1;S.maxhp=30;S.hp=30;S.party=["hero"];S.hasPriest=false;
+  S.i=0;S.lv=1;S.maxhp=30;S.hp=30;S.party=["hero"];S.hasPriest=false;S.herbs=1;
   show('battleScreen');loadBattle();
 }
 
@@ -420,7 +407,7 @@ function loadBattle(){
   es.classList.remove('hit');
   $('enemyName').textContent=e.name;
   $('enemyHp').style.width='100%';
-  renderParty();renderHeroHp();
+  renderParty();renderHeroHp();renderItems();
   $('hintLine').textContent='';
   setMsg((e.boss?'<b>'+e.name+'</b> が たちはだかった！ ':'')+'<b>'+e.name+'</b> が あらわれた！　完了形のことばで たたかえ！');
   // ミックス：1問ごとに 3択 ⇔ 並べ替え
@@ -508,6 +495,7 @@ function afterWin(){
   SFX.levelup();
   if(COMPANIONS[S.i]){const c=COMPANIONS[S.i];S.party.push(c.sprite);
     if(c.sprite==='priest')S.hasPriest=true;extra='　'+c.line;setTimeout(SFX.join,500);}
+  if(Math.random()<0.5){S.herbs++;extra+='　<span class="msg-good">🌿 やくそうを 1こ 拾った！（×'+S.herbs+'）</span>';}
   S.i++;
   if(S.i>=ENEMIES.length){endGame();return;}
   renderParty();
@@ -521,10 +509,7 @@ function wrong(q,btn){
   SFX.miss();
   const dmg=6+S.i;
   S.hp=Math.max(0,S.hp-dmg);renderHeroHp();
-  if(S.hp<=0){
-    S.hp=S.maxhp;renderHeroHp();
-    setMsg('<span class="msg-bad">たおれた…！</span> でも 気合で ふっかつ！ HP全回復！　もういちど 正しい文を考えよう。','');
-  }
+  if(S.hp<=0){gameOver();return;}
   if(S.tries===1){
     $('hintLine').textContent='💡 ヒント：主語＋ have / has ＋ 過去分詞 の形。正しい語順を もう一度！';
     setMsg('<span class="msg-bad">ミス！ '+ENEMIES[S.i].name+'の こうげき！ '+dmg+'の ダメージ。</span> やり直してOK！','');
@@ -538,6 +523,39 @@ function wrong(q,btn){
   $('enemyHp').style.width='0%';
   $('controls').innerHTML='<button class="btn primary" id="nextBtn">▶ つぎへ</button>';
   $('nextBtn').onclick=afterWin;
+}
+
+/* ---- やくそう（回復アイテム） ---- */
+function renderItems(){
+  const bar=$('itemBar');if(!bar)return;
+  if(S.herbs>0){
+    bar.innerHTML='<button class="btn herb" id="herbBtn">🌿 やくそうを つかう（×'+S.herbs+'）</button>';
+    $('herbBtn').onclick=useHerb;
+  }else{bar.innerHTML='<span class="herb-empty">🌿 やくそう ×0</span>';}
+}
+function useHerb(){
+  if(S.herbs<=0)return;
+  if(S.hp>=S.maxhp){setMsg('HPは まんたんだ！ やくそうは とっておこう。','');return;}
+  S.herbs--;const heal=14;S.hp=Math.min(S.maxhp,S.hp+heal);
+  SFX.heal();renderHeroHp();renderItems();
+  setMsg('<span class="msg-good">🌿 やくそうを つかった！ HPが '+heal+' かいふく！</span>','');
+}
+
+/* ---- 死亡（HP0）＋棺 ---- */
+function gameOver(){
+  SFX.dead();
+  const es=$('enemySprite');es.innerHTML='';es.classList.remove('hit');
+  es.appendChild(makeSprite('coffin',10));
+  $('enemyName').textContent='';$('enemyHp').style.width='0%';
+  const p=$('party');p.innerHTML='';const cf=makeSprite('coffin',3);cf.className='p';p.appendChild(cf);
+  setMsg('<span class="msg-bad">⚰️ ゆうしゃは しんでしまった…</span><br>でも あきらめなければ 何度でも よみがえる。','');
+  $('hintLine').innerHTML='✅ 正解は：<b style="color:#5bd66b">'+Q[S.i].en+'</b>';
+  $('quizArea').innerHTML='';
+  const bar=$('itemBar');if(bar)bar.innerHTML='';
+  $('controls').innerHTML='<button class="btn primary" id="reviveBtn">⚰ さいしょから</button>'+
+    '<button class="btn" id="contBtn">この たたかいから 再開</button>';
+  $('reviveBtn').onclick=startGame;
+  $('contBtn').onclick=()=>{S.hp=S.maxhp;renderHeroHp();renderParty();loadBattle();};
 }
 
 function endGame(){
