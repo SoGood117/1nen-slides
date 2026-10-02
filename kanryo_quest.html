@@ -202,7 +202,7 @@ const PAL={
  't':'#2a4fc0','G':'#e0b44c','B':'#7a4b22','M':'#dfe6f2','m':'#9aa6c0','c':'#4aa3e0',
  'C':'#286eb4','w':'#f5faff','p':'#9646b4','P':'#642882','g':'#78b45a','r':'#d24646',
  'R':'#963028','y':'#f0dc5a','k':'#46465a','K':'#2d2d3c','f':'#f0f0fa','a':'#aa78dc',
- 'A':'#7850aa','u':'#e6e1d2','U':'#b4afa0','b':'#50301a'
+ 'A':'#7850aa','u':'#e6e1d2','U':'#b4afa0','b':'#50301a','L':'#9c6433'
 };
 const SPR={
 hero:[
@@ -235,7 +235,7 @@ boss:[
 "PProprrrrporPP..","PProyErrrEyorPP.","PPrrrrwwrrrrPP..","oPrrwwwwwwwwrrPo",
 ".oPrrRRRRRRrrPo.",".oPPrryyyyrrPPo.","..oPrrRRRRrrPo..","...oPrRRRRrPo...",
 "...oPRRooRRPo...","..oRRoo..ooRRo..",".oyo........oyo.",".o............o."],
-coffin:["................",".....oooooo.....","....oBBBBBBbo...","...oBBBBBBBBbo..","..oBBBgBBgBBBbo.","..oBBggBBggBBbo.","..oBBBgggggBBbo.","..oBBBBBgBBBBbo.","..oBBBBBgBBBBbo.","..oBBBBBBBBBBbo.","...oBBBBBBBBbbo.","....oBBBBBBbbo..","....obbbbbbbo...",".....obbbbbo....",".....oooooo.....","................"]
+coffin:["...oooooooooo...","...oLLLLLLLLo...","...oBBgBBgBBo...","...oBggBBggBo...","...oBBgggggBo...","...oBBBgggBBo...","...oBBBBgBBBo...","...oBBBBgBBBo...","...oLLLLLLLLo...","...oBBBBBBBBo...","...oBBBBBBBBo...","...oBBBBBBBBo...","...oBBBBBBBBo...","...obbbbbbbbo...","...oooooooooo...","................"]
 };
 function makeSprite(name,scale){
   const g=SPR[name],cv=document.createElement('canvas');
@@ -386,26 +386,8 @@ function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.re
 function startGame(){
   SFX.select();
   S.i=0;S.lv=1;S.maxhp=30;S.hp=30;S.party=["hero"];S.hasPriest=false;S.herbs=1;S.streak=0;
-  S.order=buildOrder();            // 例文の出題順（毎回ランダム・後半ほど長い文）
+  S.order=shuffle(Q.map((q,i)=>i));   // 例文の出題順を毎回ランダムに（重複なし）
   show('battleScreen');loadBattle();
-}
-
-/* 例文を「やさしい→むずかしい」の3つの山に分け、各山の中をシャッフル。
-   → 毎回ちがう並びになり、かつ後半ほど語数が多い文が出る。 */
-function buildOrder(){
-  const idx=Q.map((q,i)=>i);
-  idx.sort((a,b)=>Q[a].en.split(' ').length - Q[b].en.split(' ').length);
-  const n=idx.length, t=Math.ceil(n/3);
-  let out=[];
-  for(let s=0;s<n;s+=t){out=out.concat(shuffle(idx.slice(s,s+t)));}
-  return out;
-}
-
-/* たたかいの番号で出題形式を決める：前半=3択/短い並べ替え、中盤=並べ替え、後半=文を入力 */
-function battleFormat(i){
-  if(i>=7) return 'type';
-  if(i>=4) return 'sort';
-  return (i%2===0) ? 'choice' : 'sort';
 }
 
 function renderParty(){
@@ -430,11 +412,8 @@ function loadBattle(){
   renderParty();renderHeroHp();renderItems();
   $('hintLine').textContent='';
   setMsg((e.boss?'<b>'+e.name+'</b> が たちはだかった！ ':'')+'<b>'+e.name+'</b> が あらわれた！　完了形のことばで たたかえ！');
-  // 出題形式：前半=3択/短い並べ替え、中盤=並べ替え、後半=文を入力
-  const fmt=battleFormat(S.i);
-  if(fmt==='choice') buildChoice(q);
-  else if(fmt==='sort') buildSort(q);
-  else buildType(q);
+  // ミックス：1問ごとに 3択 ⇔ 並べ替え
+  if(S.i%2===0) buildChoice(q); else buildSort(q);
 }
 
 function setMsg(html,cls){const m=$('msg');m.innerHTML=html;m.className=cls||'';}
@@ -465,7 +444,9 @@ function buildSort(q){
   area.innerHTML='<div class="jp-q">'+q.jp+'</div>'+
     '<div class="answer-line" id="ansLine"></div>'+
     '<div class="pool" id="pool"></div>';
-  const order=shuffle(q.words.map((w,i)=>({w,i})));
+  // 単語をしっかりシャッフル（最初から正解の順に並ばないよう混ぜ直す）
+  let order=q.words.map((w,i)=>({w,i}));
+  if(order.length>1){let n=0;do{order=shuffle(order);}while(order.every((o,p)=>o.i===p)&&n++<10);}
   const pool=$('pool');
   order.forEach(o=>{
     const c=document.createElement('button');c.className='chip';c.textContent=o.w;c.dataset.i=o.i;
@@ -497,34 +478,6 @@ function submitSort(q){
   if(ok) win(q); else wrong(q,null);
 }
 
-/* ---- 入力（英文をタイプして こうげき） ---- */
-function buildType(q){
-  const area=$('quizArea');
-  area.innerHTML='<div class="jp-q">'+q.jp+'</div>'+
-    '<div style="text-align:center;margin-top:6px;">'+
-    '<input id="typeInput" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="英文を入力しよう" '+
-    'style="width:92%;max-width:520px;font-size:17px;padding:10px 12px;border-radius:8px;border:2px solid #53b9ff;background:#0e1430;color:#f5faff;outline:none;">'+
-    '<div style="font-size:11px;color:#9aa6c0;margin-top:6px;">※ 大文字・小文字や、文末のピリオド「.」「?」のちがいは 気にしなくてOK</div></div>';
-  $('controls').innerHTML='<button class="btn primary" id="atkBtn">⚔ こうげき！</button>';
-  const inp=$('typeInput');
-  $('atkBtn').onclick=()=>submitType(q);
-  inp.addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();submitType(q);}});
-  setTimeout(()=>inp.focus(),60);
-}
-/* くらべる前に：小文字化・カーリー引用符を普通のアポストロフィに・句読点は無視・空白をそろえる */
-function normEn(s){
-  return s.toLowerCase()
-    .replace(/[‘’]/g,"'")
-    .replace(/[.,!?;:"“”]/g,'')
-    .replace(/\s+/g,' ').trim();
-}
-function submitType(q){
-  const inp=$('typeInput');if(!inp||inp.disabled)return;
-  const v=inp.value.trim();
-  if(!v){setMsg('英文を 入力してね。','msg-bad');return;}
-  if(normEn(v)===normEn(q.en)) win(q); else wrong(q,null);
-}
-
 /* ---- 勝ち / まちがい ---- */
 function win(q){
   S.streak++;                 // 連続正解カウントを+1
@@ -540,7 +493,6 @@ function win(q){
   if(S.streak>=3){S.herbs++;S.streak=0;herbMsg='　<span class="msg-good">🌿 3もん れんぞくせいかい！ やくそうを 1こ もらった！（×'+S.herbs+'）</span>';setTimeout(SFX.heal,420);}
   setMsg(head+'<b>'+q.en+'</b>　正しい完了形だ！　<span class="msg-good">'+ENEMIES[S.i].name+'を たおした！</span>'+herbMsg,'');
   renderItems();              // やくそうの数の表示を更新
-  const ti=$('typeInput');if(ti){ti.disabled=true;ti.blur();}  // 入力モード：正解後の二重送信を防ぐ
   $('controls').innerHTML='<button class="btn primary" id="nextBtn">▶ つぎへ</button>';
   $('atkBtn')&&( $('atkBtn').disabled=true);
   $('nextBtn').onclick=afterWin;
