@@ -371,7 +371,7 @@ const COMPANIONS={2:{name:"せんし",sprite:"warrior",line:"「おれも つれ
                   8:{name:"そうりょ",sprite:"priest",line:"「正しい答えで いやしを」　そうりょ が 仲間になった！ (正解でHP回復)"}};
 
 /* ===== ゲーム状態 ===== */
-const S={i:0,lv:1,maxhp:30,hp:30,party:["hero"],tries:0,hasPriest:false,herbs:1};
+const S={i:0,lv:1,maxhp:30,hp:30,party:["hero"],tries:0,hasPriest:false,herbs:1,streak:0};
 const $=id=>document.getElementById(id);
 
 /* タイトルの表紙イラスト（Geminiで生成） */
@@ -385,7 +385,7 @@ function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.re
 
 function startGame(){
   SFX.select();
-  S.i=0;S.lv=1;S.maxhp=30;S.hp=30;S.party=["hero"];S.hasPriest=false;S.herbs=1;
+  S.i=0;S.lv=1;S.maxhp=30;S.hp=30;S.party=["hero"];S.hasPriest=false;S.herbs=1;S.streak=0;
   show('battleScreen');loadBattle();
 }
 
@@ -476,6 +476,7 @@ function submitSort(q){
 
 /* ---- 勝ち / まちがい ---- */
 function win(q){
+  S.streak++;                 // 連続正解カウントを+1
   const es=$('enemySprite');es.classList.add('hit');
   $('enemyHp').style.width='0%';
   if(S.hasPriest&&S.hp<S.maxhp){S.hp=Math.min(S.maxhp,S.hp+4);renderHeroHp();}
@@ -483,7 +484,11 @@ function win(q){
   if(crit){SFX.critical();}else{SFX.attack();}
   setTimeout(SFX.defeat,crit?260:160);
   const head=crit?'💥 <b style="color:#ffd24a">かいしんの いちげき！！</b>　':'⚔ こうげき！　';
-  setMsg(head+'<b>'+q.en+'</b>　正しい完了形だ！　<span class="msg-good">'+ENEMIES[S.i].name+'を たおした！</span>','');
+  // 3問連続で正解したときだけ、やくそうを1こもらえる（もらったらカウントは0に戻す）
+  let herbMsg='';
+  if(S.streak>=3){S.herbs++;S.streak=0;herbMsg='　<span class="msg-good">🌿 3もん れんぞくせいかい！ やくそうを 1こ もらった！（×'+S.herbs+'）</span>';setTimeout(SFX.heal,420);}
+  setMsg(head+'<b>'+q.en+'</b>　正しい完了形だ！　<span class="msg-good">'+ENEMIES[S.i].name+'を たおした！</span>'+herbMsg,'');
+  renderItems();              // やくそうの数の表示を更新
   $('controls').innerHTML='<button class="btn primary" id="nextBtn">▶ つぎへ</button>';
   $('atkBtn')&&( $('atkBtn').disabled=true);
   $('nextBtn').onclick=afterWin;
@@ -495,7 +500,6 @@ function afterWin(){
   SFX.levelup();
   if(COMPANIONS[S.i]){const c=COMPANIONS[S.i];S.party.push(c.sprite);
     if(c.sprite==='priest')S.hasPriest=true;extra='　'+c.line;setTimeout(SFX.join,500);}
-  if(Math.random()<0.5){S.herbs++;extra+='　<span class="msg-good">🌿 やくそうを 1こ 拾った！（×'+S.herbs+'）</span>';}
   S.i++;
   if(S.i>=ENEMIES.length){endGame();return;}
   renderParty();
@@ -506,23 +510,21 @@ function afterWin(){
 }
 function wrong(q,btn){
   S.tries++;
+  S.streak=0;                 // ミスしたら連続正解カウントは0に戻る
   SFX.miss();
   const dmg=6+S.i;
   S.hp=Math.max(0,S.hp-dmg);renderHeroHp();
+  // まちがえた選択肢は押せないようにする（同じミスで二重にダメージを受けないため）
+  if(btn){btn.onclick=null;btn.disabled=true;}
   if(S.hp<=0){gameOver();return;}
+  // 敵は倒れない。正解するまで たたかい続ける。
   if(S.tries===1){
     $('hintLine').textContent='💡 ヒント：主語＋ have / has ＋ 過去分詞 の形。正しい語順を もう一度！';
-    setMsg('<span class="msg-bad">ミス！ '+ENEMIES[S.i].name+'の こうげき！ '+dmg+'の ダメージ。</span> やり直してOK！','');
-    if(btn){btn.classList.remove('ng');btn.onclick&&null;}
-    return;
+  }else{
+    // 2回目以降は正解を見せて助ける（それでも自分で正しく答えないと倒せない）
+    $('hintLine').innerHTML='✅ 正解は：<b style="color:#5bd66b">'+q.en+'</b>';
   }
-  // 2回目以降：正解を見せて 進める
-  $('hintLine').innerHTML='✅ 正解は：<b style="color:#5bd66b">'+q.en+'</b>';
-  setMsg('<span class="msg-bad">もう一度ミス。</span> 正解を かくにんして つぎへ進もう。','');
-  document.querySelectorAll('.choice').forEach(c=>{c.onclick=null;if(c.textContent===q.en)c.classList.add('ok');});
-  $('enemyHp').style.width='0%';
-  $('controls').innerHTML='<button class="btn primary" id="nextBtn">▶ つぎへ</button>';
-  $('nextBtn').onclick=afterWin;
+  setMsg('<span class="msg-bad">ミス！ '+ENEMIES[S.i].name+'の こうげき！ '+dmg+'の ダメージ。</span> せいかいする まで たたかおう！','');
 }
 
 /* ---- やくそう（回復アイテム） ---- */
