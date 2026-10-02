@@ -54,6 +54,8 @@
     animation:bob 1s steps(2) infinite;image-rendering:pixelated;}
   @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-6px);}}
   .note{font-size:12.5px;color:#9fb0e8;line-height:1.7;margin:12px 4px 0;}
+  .bgm-hint{font-size:12px;color:#ffd24a;margin:2px 0 8px;animation:blink 1.2s steps(2) infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.4;}}
   .qr-box{display:flex;align-items:center;justify-content:center;gap:12px;
     margin:14px auto 2px;background:#fff;border:3px solid var(--border);
     border-radius:12px;padding:10px 14px;max-width:360px;}
@@ -139,6 +141,7 @@
     <div class="title-logo">KANRYO<br>QUEST</div>
     <div class="title-sub">～ 完了形クエスト ～</div>
     <div class="stage-art" id="stageArt"></div>
+    <p class="bgm-hint" id="bgmHint">🔊 画面にタッチすると音楽が流れるよ</p>
     <p style="font-size:13px;color:#cfe0ff;margin:0 0 6px;">
       勇者よ、<b style="color:var(--accent)">完了形のことば</b>で<br>モンスターをたおし、仲間を集めて旅をしよう！
     </p>
@@ -242,7 +245,12 @@ dragon:[
 "....o......o....","...opo....opo...","...opo.oo.opo...","..oopoopppoopoo.",
 ".oprrrrrrrrrrpo.",".oprEprrrrpErpo.","oprrrrrwwrrrrrpo","oprrrwwwwwwrrrpo",
 ".oprrRRRRRRrrpo.",".oprrrrrrrrrrpo.","..oprrrrrrrrpo..","..oorRRRRRRroo..",
-"...oprrrrrrpo...","...oRRo..oRRo...","..oRRo....oRRo..","..ooo......ooo.."]
+"...oprrrrrrpo...","...oRRo..oRRo...","..oRRo....oRRo..","..ooo......ooo.."],
+boss:[
+"..y........y....",".yyy......yyy...","oPyPo....oPyPo..","PPoooPPPPoooPP..",
+"PProprrrrporPP..","PProyErrrEyorPP.","PPrrrrwwrrrrPP..","oPrrwwwwwwwwrrPo",
+".oPrrRRRRRRrrPo.",".oPPrryyyyrrPPo.","..oPrrRRRRrrPo..","...oPrRRRRrPo...",
+"...oPRRooRRPo...","..oRRoo..ooRRo..",".oyo........oyo.",".o............o."]
 };
 function makeSprite(name,scale){
   const g=SPR[name],cv=document.createElement('canvas');
@@ -292,6 +300,26 @@ const SFX={
   join(){[392,523,659].forEach((f,i)=>tone(f,'triangle',0.16,0.18,i*0.09));},
   clear(){[523,523,523,659,784,0,659,784,1047].forEach((f,i)=>{if(f)tone(f,'square',0.22,0.2,i*0.17);});}
 };
+/* タイトルのやる気ソング（約5秒・ファミコン風） */
+function playTitleBGM(){
+  if(playTitleBGM.done)return;playTitleBGM.done=true;
+  const c=actx();if(!c)return;
+  const N={G4:392,C5:523.25,D5:587.33,E5:659.25,F5:698.46,G5:783.99,A5:880,B5:987.77,C6:1046.5};
+  const mel=[['G4',.15],['C5',.15],['E5',.15],['G5',.35],['E5',.15],['G5',.45],
+    ['A5',.2],['G5',.2],['E5',.2],['C5',.35],['D5',.15],['E5',.15],['F5',.15],['G5',.35],
+    ['G5',.2],['A5',.2],['B5',.2],['C6',.6]];
+  let t=0.05;mel.forEach(([n,d])=>{tone(N[n],'square',d*0.9,0.15,t);t+=d;});
+  const B={C3:130.81,G3:196,A3:220,F3:174.61};
+  const bass=[['C3',.8],['G3',.6],['A3',.75],['C3',.6],['F3',.6],['G3',.6],['C3',.7]];
+  let b=0.05;bass.forEach(([n,d])=>{tone(B[n],'triangle',d*0.95,0.11,b);b+=d;});
+  const hint=$('bgmHint');if(hint)hint.style.visibility='hidden';
+}
+/* 最初のタッチ/キーで曲スタート（自動再生はブラウザが止めるため） */
+(function armBGM(){
+  const h=()=>{if($('titleScreen').classList.contains('active'))playTitleBGM();
+    window.removeEventListener('pointerdown',h);window.removeEventListener('keydown',h);};
+  window.addEventListener('pointerdown',h);window.addEventListener('keydown',h);
+})();
 
 /* ===== 問題データ（600 完了形） ===== */
 const Q=[
@@ -348,7 +376,7 @@ const ENEMIES=[
  {name:"のろいのたま",sprite:"ghost",scale:8},
  {name:"てつゴーレム",sprite:"golem",scale:9},
  {name:"ワイバーン",sprite:"dragon",scale:8},
- {name:"完了形の魔王ドラゴン",sprite:"dragon",scale:11,boss:true}
+ {name:"完了形の魔王ドラゴン",sprite:"boss",scale:12,boss:true}
 ];
 /* 仲間（この たたかいの あとで 加わる） */
 const COMPANIONS={2:{name:"せんし",sprite:"warrior",line:"「おれも つれて行ってくれ！」　せんし が 仲間になった！"},
