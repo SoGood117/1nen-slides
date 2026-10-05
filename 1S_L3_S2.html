@@ -67,6 +67,19 @@
     </style>
 </head>
 <body>
+<style>
+/* --- 1nen standard upgrade --- */
+.ph-line{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:12px;row-gap:2px;margin:2px 0;padding:4px 8px;border-radius:8px;line-height:1.45;cursor:pointer;transition:background .15s;}
+.ph-line:hover{background:#f1f5f9;}
+.ph-line.show{background:#f0fdf4;}
+.ph-en{font-size:clamp(1.35rem,2.9vh,2.1rem);font-weight:800;color:#1f2937;letter-spacing:.2px;}
+.ph-ja{font-size:clamp(1.05rem,2.2vh,1.6rem);color:#15803d;font-weight:800;opacity:0;transition:opacity .2s;}
+.ph-line.show .ph-ja{opacity:1;}
+.comm-hide{border-radius:6px;padding:0 4px;transition:background .2s;}
+.comm-hide:not(.reveal){background:#94a3b8;}
+.comm-hide:not(.reveal),.comm-hide:not(.reveal) *{color:transparent !important;text-decoration:none !important;}
+.kw-illust img{width:100%;height:auto;border-radius:10px;display:block;}
+</style>
     <script>
         const SLIDE_DATA = {
             title: "Lesson 3: Love for Dance",
@@ -84,12 +97,12 @@
                 "Ken:  \"Good idea.  You can do it!\""
             ],
             translationPhrases: [
-                { en: "Ken: \"What kind of dance will you do for the P.E. class?\"", ja: "ケン：「体育の授業でどんなダンスをするの？」" },
-                { en: "Beth: \"I'm trying hip-hop dance with my friends.\"", ja: "ベス：「友だちとヒップホップダンスに挑戦しているんだ。」" },
-                { en: "Ken: \"Oh, interesting! Can you dance very well?\"", ja: "ケン：「へえ、面白いね！とても上手に踊れるの？」" },
-                { en: "Beth: \"No, we can't. The hip-hop dance is hard for us.", ja: "ベス：「いいえ、踊れないよ。ヒップホップダンスは私たちには難しいの。" },
-                { en: "So we're practicing it through videos on social media.\"", ja: "だからソーシャルメディアの動画で練習しているんだ。」" },
-                { en: "Ken: \"Good idea. You can do it!\"", ja: "ケン：「いい考えだね。きっとできるよ！」" }
+                { chunks: [{ en: "What kind of dance", ja: "どんなダンスを" }, { en: "will you do", ja: "するの" }, { en: "for the P.E. class?", ja: "体育の授業で" }] },
+                { chunks: [{ en: "I'm trying", ja: "挑戦している" }, { en: "hip-hop dance", ja: "ヒップホップを" }, { en: "with my friends.", ja: "友だちと" }] },
+                { chunks: [{ en: "Oh, interesting!", ja: "面白いね" }, { en: "Can you dance", ja: "踊れるの" }, { en: "very well?", ja: "とても上手に" }] },
+                { chunks: [{ en: "No, we can't.", ja: "いいえ踊れない" }, { en: "The hip-hop dance", ja: "ヒップホップは" }, { en: "is hard for us.", ja: "私たちには難しい" }] },
+                { chunks: [{ en: "So we're practicing it", ja: "だから練習している" }, { en: "through videos", ja: "動画で" }, { en: "on social media.", ja: "SNSの" }] },
+                { chunks: [{ en: "Good idea.", ja: "いい考え" }, { en: "You can do it!", ja: "きっとできる" }] },
             ],
             checks: [
                 { q: "1. ベスが友だちと挑戦しているダンスは？", sub: "Beth is trying <span class='check-bracket'>[</span> {hip-hop} <span class='check-bracket'>]</span> dance with her friends." },
@@ -320,13 +333,13 @@
             <div class="bg-orange-50 border-2 border-orange-200 p-4 rounded-2xl">
                 <p class="text-2xl font-bold text-gray-800"><span class="text-orange-500 font-black">[ can / dance / I ]</span>.</p>
                 <div class="flex items-center gap-4 mt-3">
-                    <button onclick="document.getElementById('comm-s2-ans').classList.toggle('hidden')" class="bg-orange-400 text-white px-5 py-1 rounded-xl font-bold text-base hover:bg-orange-500 transition">解答を見る</button>
+                    <button onclick="document.getElementById('comm-s2-ans').classList.toggle('hidden'); this.closest('.slide').querySelectorAll('.comm-hide').forEach(e=>e.classList.toggle('reveal'))" class="bg-orange-400 text-white px-5 py-1 rounded-xl font-bold text-base hover:bg-orange-500 transition">解答を見る</button>
                     <p id="comm-s2-ans" class="hidden text-2xl font-bold text-red-500">→ <span class="text-blue-600 underline">I can dance</span>.</p>
                 </div>
             </div>
             <div class="bg-gray-50 p-4 rounded-2xl border-l-8 border-green-500 text-3xl font-bold">A: What are you good at?</div>
             <div class="bg-green-100/50 p-4 rounded-2xl border-l-8 border-blue-500 text-3xl font-bold">
-                B: <span id="target-word" class="text-blue-800 underline decoration-4">I can dance</span>.
+                B: <span class="comm-hide"><span id="target-word" class="text-blue-800 underline decoration-4">I can dance</span></span>.
             </div>
             <div class="bg-gray-50 p-4 rounded-2xl border-l-8 border-green-500 text-3xl font-bold">A: That's cool!</div>
             <div id="dialogue-options" class="mt-1 grid grid-cols-3 gap-3"></div>
@@ -513,8 +526,8 @@
             SLIDE_DATA.translationPhrases.forEach(phrase => {
                 const card = document.createElement('div');
                 card.className = "phrase-card";
-                card.onclick = () => card.classList.toggle('active');
-                card.innerHTML = `<div class="phrase-en">${phrase.en}</div><div class="phrase-ja">${phrase.ja}</div>`;
+                card.innerHTML = phrase.chunks.map(c => `<div class="ph-line"><span class="ph-en">${c.en}</span><span class="ph-ja">${c.ja}</span></div>`).join("");
+                card.querySelectorAll('.ph-line').forEach(line => { line.onclick = () => line.classList.toggle('show'); });
                 transContent.appendChild(card);
             });
             document.getElementById('new-words-grid').innerHTML = '';
@@ -525,7 +538,7 @@
                 const btn = document.createElement('button');
                 btn.className = "bg-white border-2 border-green-200 p-4 rounded-xl font-bold hover:bg-green-500 hover:text-white transition text-xl shadow-sm";
                 btn.innerText = opt;
-                btn.onclick = () => document.getElementById('target-word').innerText = opt;
+                btn.onclick = () => { const _t=document.getElementById('target-word'); _t.innerText = opt; const _h=_t.closest('.comm-hide'); if(_h) _h.classList.add('reveal'); };
                 optDiv.appendChild(btn);
             });
             ttsInitContent();
