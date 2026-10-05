@@ -211,8 +211,8 @@
                 { en: "heart-shaped", ja: "ハート型の" }
             ],
             dialogue: {
-                target: "a great mountain",
-                options: ["a beautiful rainbow", "a clear beach", "a shooting star"]
+                target: "nice",
+                options: ["beautiful", "great", "amazing"]
             }
         };
     </script>
@@ -333,32 +333,25 @@
         <div id="check-content" class="content-box flex flex-col justify-center space-y-6 text-check border border-orange-100"></div>
     </div>
     <!-- Slide 7: Dialogue (Communicate) -->
-    <div class="slide bg-green-50">
+<div class="slide bg-green-50">
         <h2 class="slide-title text-green-700">Communicate</h2>
-        <div class="content-box border border-green-100 flex flex-col justify-start space-y-4">
-            <p class="text-gray-500 text-base text-center">① [ ]内の語を並べかえましょう。　② 下線部を変えて対話をしましょう。</p>
+        <div class="content-box border border-green-100 flex flex-col justify-start space-y-3" style="padding:1.5rem;">
+            <p class="text-gray-500 text-base text-center">① [ ]内の語を，意味の通るように並べかえましょう。　② 例を参考に，好きな絵画や写真を説明する対話をしましょう。</p>
             <div class="bg-orange-50 border-2 border-orange-200 p-4 rounded-2xl">
-                <p class="text-2xl font-bold text-gray-800">It's <span class="text-orange-500 font-black">[ great / a / mountain ]</span>.</p>
+                <p class="text-2xl font-bold text-gray-800"><span class="text-orange-500 font-black">[ nice / it / is ]</span>! Is the artist famous?</p>
                 <div class="flex items-center gap-4 mt-3">
                     <button onclick="document.getElementById('comm-s1-ans').classList.toggle('hidden'); this.closest('.slide').querySelectorAll('.comm-hide').forEach(e=>e.classList.toggle('reveal'))" class="bg-orange-400 text-white px-5 py-1 rounded-xl font-bold text-base hover:bg-orange-500 transition">解答を見る</button>
-                    <p id="comm-s1-ans" class="hidden text-2xl font-bold text-red-500">→ It's <span class="text-blue-600 underline">a great mountain</span>.</p>
+                    <p id="comm-s1-ans" class="hidden text-2xl font-bold text-red-500">→ <span class="text-blue-600 underline">It is nice</span>! Is the artist famous?</p>
                 </div>
             </div>
-            <div class="bg-gray-50 p-6 rounded-2xl border-l-8 border-green-500 text-4xl font-bold">
-                A: This is my favorite picture.
-            </div>
-            <div class="bg-green-100/50 p-6 rounded-2xl border-l-8 border-blue-500 text-4xl font-bold">
-                B: What is this?
-            </div>
-            <div class="bg-gray-50 p-6 rounded-2xl border-l-8 border-green-500 text-4xl font-bold">
-                A: It's <span class="comm-hide"><span id="target-word" class="text-blue-800 underline decoration-4">a great mountain</span></span>.
-            </div>
-            <div class="bg-green-100/50 p-6 rounded-2xl border-l-8 border-blue-500 text-4xl font-bold">
-                B: Wow!
-            </div>
-            <div id="dialogue-options" class="mt-6 grid grid-cols-3 gap-4"></div>
+            <div class="bg-gray-50 p-4 rounded-2xl border-l-8 border-green-500 text-3xl font-bold">A: This is my favorite picture.</div>
+            <div class="bg-green-100/50 p-4 rounded-2xl border-l-8 border-blue-500 text-3xl font-bold">B: It is <span class="comm-hide"><span id="target-word" class="text-blue-800 underline decoration-4">nice</span></span>! Is the artist famous?</div>
+            <div class="bg-gray-50 p-4 rounded-2xl border-l-8 border-green-500 text-3xl font-bold">A: Yes. She is very popular in the art world.</div>
+            <div class="bg-green-100/50 p-4 rounded-2xl border-l-8 border-blue-500 text-3xl font-bold">B: I see.</div>
+            <div id="dialogue-options" class="mt-2 grid grid-cols-3 gap-3"></div>
         </div>
     </div>
+    
     <!-- Slide 8: Quiz Mode -->
     <div class="slide bg-blue-50">
         <div class="w-full max-w-6xl flex justify-between items-center mb-4">

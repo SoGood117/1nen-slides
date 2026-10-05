@@ -215,7 +215,7 @@
             ],
             dialogue: {
                 target: "Matsushima",
-                options: ["Otome Waterfall", "Miyakojima Island", "Lake Biwa"]
+                options: ["Todaiji Temple", "Otome Waterfall", "Miyako Island"]
             }
         };
     </script>
@@ -336,32 +336,25 @@
         <div id="check-content" class="content-box flex flex-col justify-center space-y-6 text-check border border-orange-100"></div>
     </div>
     <!-- Slide 7: Dialogue (Communicate) -->
-    <div class="slide bg-green-50">
+<div class="slide bg-green-50">
         <h2 class="slide-title text-green-700">Communicate</h2>
-        <div class="content-box border border-green-100 flex flex-col justify-start space-y-4">
-            <p class="text-gray-500 text-base text-center">① [ ]内の語を並べかえましょう。　② 下線部を変えて対話をしましょう。</p>
+        <div class="content-box border border-green-100 flex flex-col justify-start space-y-3" style="padding:1.5rem;">
+            <p class="text-gray-500 text-base text-center">① [ ]内の語を，意味の通るように並べかえましょう。　② 例を参考に，お互いの好きな場所を知るための対話をしましょう。</p>
             <div class="bg-orange-50 border-2 border-orange-200 p-4 rounded-2xl">
-                <p class="text-2xl font-bold text-gray-800"><span class="text-orange-500 font-black">[ you / Do / have ]</span> a favorite place?</p>
+                <p class="text-2xl font-bold text-gray-800"><span class="text-orange-500 font-black">[ like / I / Matsushima ]</span>.</p>
                 <div class="flex items-center gap-4 mt-3">
                     <button onclick="document.getElementById('comm-s1-ans').classList.toggle('hidden'); this.closest('.slide').querySelectorAll('.comm-hide').forEach(e=>e.classList.toggle('reveal'))" class="bg-orange-400 text-white px-5 py-1 rounded-xl font-bold text-base hover:bg-orange-500 transition">解答を見る</button>
-                    <p id="comm-s1-ans" class="hidden text-2xl font-bold text-red-500">→ <span class="text-blue-600 underline">Do you have</span> a favorite place?</p>
+                    <p id="comm-s1-ans" class="hidden text-2xl font-bold text-red-500">→ <span class="text-blue-600 underline">I like Matsushima</span>.</p>
                 </div>
             </div>
-            <div class="bg-gray-50 p-6 rounded-2xl border-l-8 border-green-500 text-4xl font-bold">
-                A: Do you have a favorite place?
-            </div>
-            <div class="bg-green-100/50 p-6 rounded-2xl border-l-8 border-blue-500 text-4xl font-bold">
-                B: Yes. I like <span class="comm-hide"><span id="target-word" class="text-blue-800 underline decoration-4">Matsushima</span></span>. How about you?
-            </div>
-            <div class="bg-gray-50 p-6 rounded-2xl border-l-8 border-green-500 text-4xl font-bold">
-                A: I like <span class="text-red-600 underline decoration-4">Lake Biwa</span>.
-            </div>
-            <div class="bg-green-100/50 p-6 rounded-2xl border-l-8 border-blue-500 text-4xl font-bold">
-                B: I see.
-            </div>
-            <div id="dialogue-options" class="mt-6 grid grid-cols-3 gap-4"></div>
+            <div class="bg-gray-50 p-4 rounded-2xl border-l-8 border-green-500 text-3xl font-bold">A: Do you have a favorite place?</div>
+            <div class="bg-green-100/50 p-4 rounded-2xl border-l-8 border-blue-500 text-3xl font-bold">B: Yes. I like <span class="comm-hide"><span id="target-word" class="text-blue-800 underline decoration-4">Matsushima</span></span>. How about you?</div>
+            <div class="bg-gray-50 p-4 rounded-2xl border-l-8 border-green-500 text-3xl font-bold">A: I like Lake Biwa.</div>
+            <div class="bg-green-100/50 p-4 rounded-2xl border-l-8 border-blue-500 text-3xl font-bold">B: I see.</div>
+            <div id="dialogue-options" class="mt-2 grid grid-cols-3 gap-3"></div>
         </div>
     </div>
+    
     <!-- Slide 8: Quiz Mode -->
     <div class="slide bg-blue-50">
         <div class="w-full max-w-6xl flex justify-between items-center mb-4">

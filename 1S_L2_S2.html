@@ -392,32 +392,25 @@
         <div id="check-content" class="content-box flex flex-col justify-center space-y-6 text-check border border-orange-100"></div>
     </div>
     <!-- Slide 8: Communicate -->
-    <div class="slide bg-green-50">
+<div class="slide bg-green-50">
         <h2 class="slide-title text-green-700">Communicate</h2>
-        <div class="content-box border border-green-100 flex flex-col justify-start space-y-4">
-            <p class="text-gray-500 text-base text-center">① [ ]内の語を並べかえましょう。　② 下線部を変えて対話をしましょう。</p>
+        <div class="content-box border border-green-100 flex flex-col justify-start space-y-3" style="padding:1.5rem;">
+            <p class="text-gray-500 text-base text-center">① [ ]内の語を，意味の通るように並べかえましょう。　② 例を参考に，過去に読んだ作品などについて説明する対話をしましょう。</p>
             <div class="bg-orange-50 border-2 border-orange-200 p-4 rounded-2xl">
-                <p class="text-2xl font-bold text-gray-800">Was <span class="text-orange-500 font-black">[ interesting / it ]</span>?</p>
+                <p class="text-2xl font-bold text-gray-800"><span class="text-orange-500 font-black">[ interesting / it / was ]</span>?</p>
                 <div class="flex items-center gap-4 mt-3">
                     <button onclick="document.getElementById('comm-s1-ans').classList.toggle('hidden'); this.closest('.slide').querySelectorAll('.comm-hide').forEach(e=>e.classList.toggle('reveal'))" class="bg-orange-400 text-white px-5 py-1 rounded-xl font-bold text-base hover:bg-orange-500 transition">解答を見る</button>
-                    <p id="comm-s1-ans" class="hidden text-2xl font-bold text-red-500">→ Was <span class="text-blue-600 underline">it interesting</span>?</p>
+                    <p id="comm-s1-ans" class="hidden text-2xl font-bold text-red-500">→ <span class="text-blue-600 underline">Was it interesting</span>?</p>
                 </div>
             </div>
-            <div class="bg-gray-50 p-6 rounded-2xl border-l-8 border-green-500 text-4xl font-bold">
-                A: Did you read the new comic book?
-            </div>
-            <div class="bg-green-100/50 p-6 rounded-2xl border-l-8 border-blue-500 text-4xl font-bold">
-                B: Yes, I read it last weekend.
-            </div>
-            <div class="bg-gray-50 p-6 rounded-2xl border-l-8 border-green-500 text-4xl font-bold">
-                A: Was it <span class="comm-hide"><span id="target-word" class="text-blue-800 underline decoration-4">interesting</span></span>?
-            </div>
-            <div class="bg-green-100/50 p-6 rounded-2xl border-l-8 border-blue-500 text-4xl font-bold">
-                B: Yes, I liked the story.
-            </div>
-            <div id="dialogue-options" class="mt-6 grid grid-cols-3 gap-4"></div>
+            <div class="bg-gray-50 p-4 rounded-2xl border-l-8 border-green-500 text-3xl font-bold">A: Did you read the new comic book?</div>
+            <div class="bg-green-100/50 p-4 rounded-2xl border-l-8 border-blue-500 text-3xl font-bold">B: Yes, I read it last weekend.</div>
+            <div class="bg-gray-50 p-4 rounded-2xl border-l-8 border-green-500 text-3xl font-bold">A: Was it <span class="comm-hide"><span id="target-word" class="text-blue-800 underline decoration-4">interesting</span></span>?</div>
+            <div class="bg-green-100/50 p-4 rounded-2xl border-l-8 border-blue-500 text-3xl font-bold">B: Yes, I liked the story.</div>
+            <div id="dialogue-options" class="mt-2 grid grid-cols-3 gap-3"></div>
         </div>
     </div>
+    
     <!-- Slide 9: Quiz Mode -->
     <div class="slide bg-blue-50">
         <div class="w-full max-w-6xl flex justify-between items-center mb-4">
