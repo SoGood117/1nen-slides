@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 6: A Dog Trainer - Focus &amp; Try</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;900&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; overflow: hidden; background-color: #f3f4f6; }
+        .slide { display: none; height: 100vh; width: 100vw; padding: 4vh 4vw 84px; flex-direction: column; align-items: center; }
+        .slide.active { display: flex; }
+        .bg-capsule {
+            background: linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42)),
+                linear-gradient(135deg, #f59e0b 0%, #ec4899 50%, #3b82f6 100%);
+        }
+        .slide-title { font-size: clamp(2.0rem, 4.5vh, 3.5rem); font-weight: 900; margin-bottom: 0.75rem; text-align: center; }
+        .content-box { flex: 1; width: 100%; max-width: 100%; overflow-y: auto; border-radius: 1.5rem; padding: 1.5rem 2rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); background-color: white; }
+        .hidden-answer { display: inline-block; color: transparent !important; border-bottom: 3px solid #3b82f6 !important; padding: 0 8px; margin: 0 4px; cursor: pointer; min-width: 100px; text-align: center; vertical-align: baseline; white-space: nowrap; transition: color 0.2s; }
+        .hidden-answer.show { color: #ef4444 !important; font-weight: bold; }
+        .example-sentence { font-size: 2.4rem; line-height: 1.6; margin-bottom: 0.5rem; font-weight: bold; color: #1f2937; }
+        .example-ja { font-size: 1.7rem; color: #6b7280; margin-bottom: 1.5rem; }
+        .keyword { color: #ef4444; font-weight: 900; }
+        .grammar-box { background: #f0f9ff; border-left: 6px solid #3b82f6; padding: 1.2rem 1.5rem; border-radius: 0 12px 12px 0; margin-bottom: 1.2rem; font-size: 2.0rem; line-height: 1.8; }
+        .qa-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 0.6rem; }
+        .qa-label { background: #3b82f6; color: white; font-size: 1rem; font-weight: 900; padding: 2px 10px; border-radius: 6px; white-space: nowrap; margin-top: 4px; }
+        .qa-text { font-size: 2.2rem; font-weight: bold; line-height: 1.6; }
+        .qa-ja { font-size: 1.5rem; color: #6b7280; margin-left: 60px; margin-bottom: 0.8rem; }
+        .use-table { width: 100%; border-collapse: collapse; font-size: 1.5rem; margin-top: 0.8rem; }
+        .use-table th { background: #1e40af; color: white; padding: 10px 12px; text-align: center; font-weight: 900; }
+        .use-table td { border: 1px solid #dbeafe; padding: 10px 14px; vertical-align: top; }
+        .use-table tr:nth-child(even) td { background: #eff6ff; }
+        .use-table .use-name { font-weight: 900; color: #1e3a8a; white-space: nowrap; }
+        .use-table .use-ja { font-size: 1.15rem; color: #6b7280; }
+        .use-table .to { color: #ef4444; font-weight: 900; }
+        .try-q { font-size: 2.4rem; line-height: 1.7; margin-bottom: 0.2rem; font-weight: bold; }
+        .try-ja { font-size: 1.7rem; color: #6b7280; margin-bottom: 1.3rem; }
+        .word-bank { display: inline-flex; gap: 12px; flex-wrap: wrap; padding: 12px 20px; background: #fef3c7; border-radius: 12px; margin-bottom: 1.5rem; }
+        .word-bank span { font-size: 2.0rem; font-weight: bold; color: #92400e; }
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide active bg-capsule text-white justify-center text-center">
+        <h1 class="text-6xl md:text-7xl font-black mb-8 px-6">Lesson 6: A Dog Trainer</h1>
+        <p class="text-4xl opacity-90">Focus &amp; Try &mdash; 比較</p>
+    </div>
+
+    <!-- Slide 2: Focus ① -->
+    <div class="slide bg-white">
+        <h2 class="slide-title text-teal-600">Focus ①</h2>
+        <div class="content-box bg-teal-50 border border-teal-100">
+            <p class="text-xl font-black text-teal-700 mb-4">比較表現（原級）　「〜と同じくらい…」</p>
+
+            <p class="example-sentence">Knowing dogs' favorites is <span class="keyword">as important as</span> their training.</p>
+            <p class="example-ja">イヌの好きなものを知ることは，訓練と同じくらい大切です。</p>
+
+            <div class="grammar-box">
+                <strong>&lt;as ＋ 形容詞［副詞］の原級 ＋ as ～&gt;</strong> の形で，「<strong>〜と同じくらい…</strong>」を表します。
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Focus ② -->
+    <div class="slide bg-white">
+        <h2 class="slide-title text-teal-600">Focus ②</h2>
+        <div class="content-box bg-teal-50 border border-teal-100" style="padding:2rem;">
+            <p class="text-xl font-black text-teal-700 mb-3">比較級「〜よりも…」・最上級「（〜の中で）最も…」</p>
+
+            <div class="qa-row">
+                <span class="qa-label">比較級</span>
+                <span class="qa-text">Ito says this job is <span class="keyword">harder than</span> she thought.</span>
+            </div>
+            <p class="qa-ja">伊藤さんはこの仕事は思っていたより大変だと言います。　&lt;比較級 ＋ than ～&gt;</p>
+
+            <div class="qa-row">
+                <span class="qa-label">最上級</span>
+                <span class="qa-text">Dogs are one of <span class="keyword">the most loyal</span> animals.</span>
+            </div>
+            <p class="qa-ja" style="margin-bottom:1rem;">イヌは最も忠実な動物の一つです。　&lt;the ＋ 最上級（＋in / of ～）&gt;</p>
+
+            <p class="text-lg font-black text-gray-500 mb-2">比較級・最上級の作り方</p>
+            <table class="use-table">
+                <thead>
+                    <tr><th>原級</th><th>比較級（〜より）</th><th>最上級（最も〜）</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="use-name">fast</td><td>fast<span class="to">er</span></td><td>fast<span class="to">est</span></td></tr>
+                    <tr><td class="use-name">early</td><td>earl<span class="to">ier</span></td><td>earl<span class="to">iest</span></td></tr>
+                    <tr><td class="use-name">difficult</td><td><span class="to">more</span> difficult</td><td><span class="to">most</span> difficult</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Slide 4: Try 1 -->
+    <div class="slide bg-yellow-50">
+        <h2 class="slide-title text-orange-600">Try 1</h2>
+        <div class="content-box border border-orange-100">
+            <p class="text-xl font-black text-orange-600 mb-4">日本語に合うように，最も適する語を下から選んで（　）に入れましょう。</p>
+            <div class="word-bank mb-5">
+                <span>true</span><span>/</span><span>interest</span><span>/</span><span>best</span>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">① Ken has a strong ( <span class="hidden-answer" onclick="this.classList.toggle('show')">interest</span> ) in science.</p>
+                <p class="try-ja">　ケンは科学に強い関心を持っています。</p>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">② He is doing his ( <span class="hidden-answer" onclick="this.classList.toggle('show')">best</span> ) to become a scientist.</p>
+                <p class="try-ja">　彼は科学者になるために全力をつくしています。</p>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">③ Surely his dream will come ( <span class="hidden-answer" onclick="this.classList.toggle('show')">true</span> ).</p>
+                <p class="try-ja">　きっと彼の夢は実現するでしょう。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Try 2 -->
+    <div class="slide bg-yellow-50">
+        <h2 class="slide-title text-orange-600">Try 2</h2>
+        <div class="content-box border border-orange-100">
+            <p class="text-xl font-black text-orange-600 mb-4">日本語に合うように，［　］内の語の形を必要に応じて変えましょう。</p>
+            <div class="mb-6">
+                <p class="try-q">① Which is ( <span class="hidden-answer" onclick="this.classList.toggle('show')">higher</span> ), that building or that tower?　<span style="color:#9ca3af;font-size:1.4rem;">［ high ］</span></p>
+                <p class="try-ja">　あのビルとあのタワーではどちらが高いですか。</p>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">② I think the tower is as ( <span class="hidden-answer" onclick="this.classList.toggle('show')">high</span> ) as the building.　<span style="color:#9ca3af;font-size:1.4rem;">［ high ］</span></p>
+                <p class="try-ja">　私はそのタワーはそのビルと同じくらい高いと思います。</p>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">③ I think the tower is a little ( <span class="hidden-answer" onclick="this.classList.toggle('show')">lower</span> ) than the building.　<span style="color:#9ca3af;font-size:1.4rem;">［ low ］</span></p>
+                <p class="try-ja">　私はそのタワーのほうがそのビルよりも少し低いと思います。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Try 3 -->
+    <div class="slide bg-yellow-50">
+        <h2 class="slide-title text-orange-600">Try 3</h2>
+        <div class="content-box border border-orange-100">
+            <p class="text-xl font-black text-orange-600 mb-4">日本語に合うように，［　］内の語を並べかえましょう。</p>
+            <div class="mb-6">
+                <p class="try-q">① Takeo is one of <span class="text-orange-500 font-black">[ the / interesting / most ]</span> students in our class.</p>
+                <p class="try-ja">→ Takeo is one of <span class="hidden-answer" onclick="this.classList.toggle('show')">the most interesting</span> students ...（武夫はクラスの中で最も興味深い生徒の1人です。）</p>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">② He dances <span class="text-orange-500 font-black">[ any / better / than ]</span> other dancer.</p>
+                <p class="try-ja">→ He dances <span class="hidden-answer" onclick="this.classList.toggle('show')">better than any</span> other dancer.（彼はほかのどのダンサーよりも上手に踊ります。）</p>
+            </div>
+            <div class="mb-6">
+                <p class="try-q">③ He is <span class="text-orange-500 font-black">[ as / as / funny ]</span> a comedian.</p>
+                <p class="try-ja">→ He is <span class="hidden-answer" onclick="this.classList.toggle('show')">as funny as</span> a comedian.（彼はコメディアンと同じくらいおもしろいです。）</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="fixed bottom-6 left-0 right-0 flex justify-center space-x-4">
+        <button onclick="prevSlide()" class="bg-black/70 text-white px-6 py-2 rounded-xl font-bold hover:bg-black transition">PREV</button>
+        <div id="slide-indicator" class="bg-white px-6 py-2 rounded-xl font-bold border shadow-sm">1 / 6</div>
+        <button onclick="nextSlide()" class="bg-black/70 text-white px-6 py-2 rounded-xl font-bold hover:bg-black transition">NEXT</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 6;
+        function updateSlideDisplay() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((s, i) => s.classList.toggle('active', i === currentSlide));
+            document.getElementById('slide-indicator').innerText = `${currentSlide + 1} / ${totalSlides}`;
+        }
+        function nextSlide() { if (currentSlide < totalSlides - 1) { currentSlide++; updateSlideDisplay(); } }
+        function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlideDisplay(); } }
+        // --- 自動フィット: 枠があふれる時だけ、収まる倍率に中身を縮める ---
+        function fitOne(box, avail){
+            let wrap = box.querySelector(':scope > .fit-wrap');
+            if(!wrap){
+                const isGrid = box.classList.contains('grid');
+                wrap = document.createElement('div');
+                wrap.className = 'fit-wrap';
+                wrap.style.width = '100%';
+                wrap.style.transformOrigin = 'top center';
+                if(isGrid){
+                    let cols = 1, gap = '1.25rem';
+                    box.classList.forEach(c=>{ const m=c.match(/^(?:md:)?grid-cols-(\d+)$/); if(m) cols=Math.max(cols,parseInt(m[1])); });
+                    box.classList.forEach(c=>{ const m=c.match(/^gap-(\d+)$/); if(m) gap=(parseInt(m[1])*0.25)+'rem'; });
+                    wrap.style.display = 'grid';
+                    wrap.style.gridTemplateColumns = 'repeat(' + cols + ',minmax(0,1fr))';
+                    wrap.style.gap = gap;
+                    [...box.classList].forEach(c=>{ if(/^(grid$|(?:md:)?grid-cols-\d+$|grid-rows-|gap-\d+$)/.test(c)){ box.classList.remove(c);} });
+                    box.style.display = 'block';
+                } else {
+                    [...box.classList].forEach(c=>{ if(/^(gap-\d+$|space-[xy]-\d+$)/.test(c)){ box.classList.remove(c); wrap.classList.add(c);} });
+                }
+                while(box.firstChild){ wrap.appendChild(box.firstChild); }
+                box.appendChild(wrap);
+            }
+            wrap.style.transform = 'none';
+            const need = wrap.scrollHeight;
+            if(need > avail - 1 && need > 0){
+                wrap.style.transform = 'scale(' + (avail / need) + ')';
+                return true;
+            }
+            return false;
+        }
+        function fitActiveSlide(){
+            const s = document.querySelector('.slide.active');
+            if(!s) return;
+            const nav = document.querySelector('.fixed.bottom-6, .fixed.bottom-4');
+            const navTop = nav ? nav.getBoundingClientRect().top : window.innerHeight;
+            s.querySelectorAll('.content-box').forEach(box=>{
+                box.style.overflow = 'hidden';
+                const cs = getComputedStyle(box);
+                const pt = parseFloat(cs.paddingTop) || 0, pb = parseFloat(cs.paddingBottom) || 0;
+                const shrank = fitOne(box, box.clientHeight - pt - pb);
+                if(!box.classList.contains('grid')) box.style.justifyContent = shrank ? 'flex-start' : '';
+            });
+            s.querySelectorAll('.w-full.max-w-6xl').forEach(cont=>{
+                const r = cont.getBoundingClientRect();
+                fitOne(cont, (navTop - 12) - r.top);
+            });
+        }
+        const _origUpdateSlideDisplay = updateSlideDisplay;
+        updateSlideDisplay = function(){ _origUpdateSlideDisplay(); requestAnimationFrame(fitActiveSlide); };
+        window.addEventListener('load', () => requestAnimationFrame(fitActiveSlide));
+        window.addEventListener('resize', () => requestAnimationFrame(fitActiveSlide));
+        if(document.fonts && document.fonts.ready){ document.fonts.ready.then(() => requestAnimationFrame(fitActiveSlide)); }
+        setTimeout(fitActiveSlide, 400);
+
+        document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') nextSlide(); if (e.key === 'ArrowLeft') prevSlide(); });
+    </script>
+</body>
+</html>
