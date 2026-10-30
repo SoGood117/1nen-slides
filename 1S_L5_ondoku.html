@@ -18,6 +18,14 @@
     .lesson-label { font-size: 12px; color: #999; margin-bottom: 4px; }
     h1 { font-size: 20px; border-bottom: 3px solid #e07a8b; padding-bottom: 6px; margin-bottom: 8px; }
     .note { font-size: 12px; color: #888; margin-bottom: 24px; }
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
     .section-label {
       display: inline-block;
       background: #e07a8b;
@@ -26,9 +34,21 @@
       font-weight: 700;
       padding: 3px 14px;
       border-radius: 4px;
-      margin-bottom: 14px;
-      margin-top: 20px;
     }
+    .reveal-all {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      color: #c0392b;
+      background: #fff;
+      border: 1.5px solid #e07a8b;
+      border-radius: 14px;
+      padding: 4px 14px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .reveal-all:hover { background: #fde8e8; }
+    .reveal-all.active { background: #1b5e20; border-color: #1b5e20; color: #fff; }
     .sentence {
       display: flex;
       align-items: baseline;
@@ -64,6 +84,7 @@
       h1 { font-size: 17px; }
       .sentence { font-size: 15px; }
       .hint { cursor: default; }
+      .reveal-all { display: none; }
     }
   </style>
 </head>
@@ -73,81 +94,106 @@
   <h1>The History of Chocolate　音読シート</h1>
   <p class="note">（　）のヒントを見て英文を言いましょう。タップすると英語が出てきます。</p>
 
-  <div class="section-label">Section 1</div>
+  <div class="section-head">
+    <span class="section-label">Section 1</span>
+    <button class="reveal-all" data-section="1">答えを全部表示</button>
+  </div>
 
-  <div class="sentence">
+  <div class="sentence" data-section="1">
     <span class="num">①</span>
     <span class="text">Today, we can <span class="hint" data-en="easily">（簡単に①）</span>enjoy eating chocolate.</span>
   </div>
 
-  <div class="sentence">
+  <div class="sentence" data-section="1">
     <span class="num">②</span>
     <span class="text">It is a <span class="hint" data-en="solid">（固形の①）</span>and sweet food.</span>
   </div>
 
-  <div class="sentence">
+  <div class="sentence" data-section="1">
     <span class="num">③</span>
     <span class="text">However, chocolate was <span class="hint" data-en="once">（かつて①）</span>a <span class="hint" data-en="bitter">（苦い①）</span>drink.</span>
   </div>
 
-  <div class="sentence">
+  <div class="sentence" data-section="1">
     <span class="num">④</span>
     <span class="text">About 500 years ago in <span class="hint" data-en="Central America">（中央アメリカ②）</span>, only rich people could drink chocolate.</span>
   </div>
 
-  <div class="sentence">
+  <div class="sentence" data-section="1">
     <span class="num">⑤</span>
     <span class="text">They <span class="hint" data-en="believed in">（～を信じた②）</span>its <span class="hint" data-en="special">（特別な①）</span>powers.</span>
   </div>
 
-  <div class="sentence">
+  <div class="sentence" data-section="1">
     <span class="num">⑥</span>
     <span class="text">They drank it as <span class="hint" data-en="medicine">（薬①）</span>.</span>
   </div>
 
-  <div class="section-label">Section 2</div>
+  <div class="section-head">
+    <span class="section-label">Section 2</span>
+    <button class="reveal-all" data-section="2">答えを全部表示</button>
+  </div>
 
-  <div class="sentence">
+  <div class="sentence" data-section="2">
     <span class="num">①</span>
     <span class="text">In the 16th century, the Spanish <span class="hint" data-en="conquered">（征服した①）</span>most of Central America.</span>
   </div>
 
-  <div class="sentence">
+  <div class="sentence" data-section="2">
     <span class="num">②</span>
     <span class="text">They didn't like the <span class="hint" data-en="taste">（味①）</span>of chocolate <span class="hint" data-en="at first">（最初は②）</span>.</span>
   </div>
 
-  <div class="sentence">
+  <div class="sentence" data-section="2">
     <span class="num">③</span>
     <span class="text">However, when chocolate <span class="hint" data-en="reached">（届いた①）</span><span class="hint" data-en="Europe">（ヨーロッパ①）</span>, the rich <span class="hint" data-en="added">（加えた①）</span><span class="hint" data-en="sugar">（砂糖①）</span>to it.</span>
   </div>
 
-  <div class="sentence">
+  <div class="sentence" data-section="2">
     <span class="num">④</span>
     <span class="text">Drinking chocolate became a popular <span class="hint" data-en="pastime">（娯楽①）</span>.</span>
   </div>
 
-  <div class="sentence">
+  <div class="sentence" data-section="2">
     <span class="num">⑤</span>
     <span class="text">In the 19th century, a <span class="hint" data-en="British">（英国の①）</span>company <span class="hint" data-en="created">（作り出した①）</span>a solid chocolate.</span>
   </div>
 
-  <div class="sentence">
+  <div class="sentence" data-section="2">
     <span class="num">⑥</span>
     <span class="text">It <span class="hint" data-en="spread">（広がった①）</span><span class="hint" data-en="around the world">（世界中に③）</span>.</span>
   </div>
 
   <script>
+    function revealHint(el) {
+      if (el.classList.contains('revealed')) return;
+      el.dataset.ja = el.textContent;
+      el.textContent = el.dataset.en;
+      el.classList.add('revealed');
+    }
+    function hideHint(el) {
+      if (!el.classList.contains('revealed')) return;
+      el.textContent = el.dataset.ja;
+      el.classList.remove('revealed');
+    }
+
+    // 個別タップで表示／非表示を切り替え
     document.querySelectorAll('.hint').forEach(el => {
       el.addEventListener('click', () => {
-        if (el.classList.contains('revealed')) {
-          el.textContent = el.dataset.ja;
-          el.classList.remove('revealed');
-        } else {
-          el.dataset.ja = el.textContent;
-          el.textContent = el.dataset.en;
-          el.classList.add('revealed');
-        }
+        if (el.classList.contains('revealed')) hideHint(el);
+        else revealHint(el);
+      });
+    });
+
+    // セクションごとの「答えを全部表示」ボタン
+    document.querySelectorAll('.reveal-all').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sec = btn.dataset.section;
+        const hints = document.querySelectorAll('.sentence[data-section="' + sec + '"] .hint');
+        const show = !btn.classList.contains('active');
+        hints.forEach(h => show ? revealHint(h) : hideHint(h));
+        btn.classList.toggle('active', show);
+        btn.textContent = show ? 'ヒントに戻す' : '答えを全部表示';
       });
     });
   </script>
