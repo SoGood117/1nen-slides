@@ -40,16 +40,19 @@
   .a .why{display:block;color:var(--sub);font-weight:600;font-size:.92rem;margin-top:3px;}
   .a b{color:var(--red);}
   .tap{color:var(--sub);font-size:.82rem;margin-left:8px;}
-  .item{cursor:pointer;padding:5px 8px;border-radius:8px;margin:3px 0;font-size:1.05rem;line-height:1.6;transition:background .15s;}
+  .sub{font-weight:800;font-size:1.05rem;color:#1d4ed8;margin:14px 0 4px;}
+  .item{cursor:pointer;padding:6px 10px;border-radius:8px;margin:4px 0;font-size:1.08rem;line-height:1.7;transition:background .15s;border-left:4px solid #e5e7eb;}
   .item:hover{background:#f1f5f9;}
-  .item.on{background:#f0fdf4;}
+  .item.on{background:#f0fdf4;border-left-color:var(--green);}
+  .item .no{color:var(--sub);font-weight:900;margin-right:6px;}
   .item .mk{display:none;color:var(--green);font-weight:800;}
   .item.on .mk{display:inline;}
   .item .mk b{color:var(--red);}
+  .item .why{display:none;color:var(--sub);font-weight:600;font-size:.9rem;margin-left:6px;}
+  .item.on .why{display:inline;}
   .witem{display:inline-block;cursor:pointer;padding:2px 8px;margin:3px 2px;border-radius:8px;font-size:1.15rem;transition:background .15s;}
   .witem:hover{background:#f1f5f9;}
   .witem.on{background:#f0fdf4;}
-  .witem .acc{color:inherit;}
   .witem.on .acc{color:var(--red);text-decoration:underline;font-weight:900;}
 </style>
 </head>
@@ -69,12 +72,12 @@
     <h2>本文</h2>
     <p class="hint">🟠 点線の語句 / □They をタップすると意味・解答が出ます。</p>
     <div class="para">
-      <span class="num">①</span>Today, we can easily enjoy eating <span class="chip" onclick="this.classList.toggle('on')">chocolate<span class="ja">チョコレート（今は固形で甘い食べ物）</span></span>.
+      Today, we can easily enjoy eating <span class="num">①</span><span class="chip" onclick="this.classList.toggle('on')">chocolate<span class="ja">チョコレート（＝固形で甘い食べ物）</span></span>.
       It is a solid and sweet food.
       However, chocolate was once a <span class="chip" onclick="this.classList.toggle('on')">bitter<span class="ja">苦い</span></span> drink.
-      <span class="num">②</span>About 500 years ago in <span class="chip" onclick="this.classList.toggle('on')">Central America<span class="ja">中央アメリカ</span></span>, only <span class="chip box" onclick="this.classList.toggle('on')">rich people<span class="ja">金持ち（＝③They）</span></span> could drink chocolate.
-      <span class="num">③</span><span class="chip box" onclick="this.classList.toggle('on')">They<span class="ja">＝ rich people</span></span> <span class="chip" onclick="this.classList.toggle('on')">believed in<span class="ja">〜を信じた</span></span> its special <span class="chip" onclick="this.classList.toggle('on')">(④ powers)<span class="ja">特別な力</span></span>.
-      They drank it as <span class="chip" onclick="this.classList.toggle('on')">⑤medicine<span class="ja">薬</span></span>.
+      About <span class="num">②</span>500 years ago in <span class="chip" onclick="this.classList.toggle('on')">Central America<span class="ja">中央アメリカ</span></span>, only <span class="chip box" onclick="this.classList.toggle('on')">rich people<span class="ja">金持ち（＝③They）</span></span> could drink chocolate.
+      <span class="num">③</span><span class="chip box" onclick="this.classList.toggle('on')">They<span class="ja">＝ rich people</span></span> <span class="chip" onclick="this.classList.toggle('on')">believed in<span class="ja">〜を信じた</span></span> its special <span class="chip" onclick="this.classList.toggle('on')">(④)<span class="ja">powers＝特別な力</span></span>.
+      They drank it as <span class="num">⑤</span><span class="chip" onclick="this.classList.toggle('on')">medicine<span class="ja">薬</span></span>.
     </div>
   </div>
 
@@ -86,7 +89,7 @@
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問4　(④) に入る語を選べ（ア taste／イ powers／ウ price）</div><div class="a">→ <b>イ powers</b>（特別な力を信じていた）</div></div>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問5　下線部⑤ medicine の意味</div><div class="a">→ <b>薬</b></div></div>
     <div class="qa"><div class="q">問6　内容一致＝○／不一致＝×<span class="tap">（文をタップで解答）</span></div>
-      <div class="item" onclick="this.classList.toggle('on')">Long ago, all of the people drank chocolate in Central America.<span class="mk"> … <b>×</b>（飲めたのは rich people（金持ち）だけ）</span></div></div>
+      <div class="item" onclick="this.classList.toggle('on')">Long ago, all of the people drank chocolate in Central America.<span class="mk"> … <b>×</b></span><span class="why">飲めたのは rich people（金持ち）だけ</span></div></div>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問7　Who could drink chocolate about 500 years ago?</div><div class="a">→ Only (<b>rich</b>) (<b>people</b>) could.</div></div>
   </div>
 
@@ -98,11 +101,11 @@
     <p class="hint">🟠 点線の語句をタップすると意味が出ます（⑥〜⑨は問1の答え）。</p>
     <div class="para">
       In the 16th century, the Spanish <span class="chip" onclick="this.classList.toggle('on')">conquered<span class="ja">征服した</span></span> most of Central America.
-      They didn't like the <span class="chip" onclick="this.classList.toggle('on')">⑥taste<span class="ja">味</span></span> of chocolate at first.
-      However, when chocolate <span class="chip" onclick="this.classList.toggle('on')">⑦reached<span class="ja">到達した（reach）</span></span> Europe, the rich <span class="chip" onclick="this.classList.toggle('on')">added<span class="ja">加えた</span></span> sugar to it.
-      Drinking chocolate <span class="chip" onclick="this.classList.toggle('on')">⑧became<span class="ja">〜になった（become）</span></span> a popular <span class="chip" onclick="this.classList.toggle('on')">pastime<span class="ja">娯楽・気晴らし</span></span>.
+      They didn't like the <span class="num">⑥</span><span class="chip" onclick="this.classList.toggle('on')">taste<span class="ja">味</span></span> of chocolate at first.
+      However, when chocolate <span class="num">⑦</span><span class="chip" onclick="this.classList.toggle('on')">reached<span class="ja">到達した（reach）</span></span> Europe, the rich <span class="chip" onclick="this.classList.toggle('on')">added<span class="ja">加えた</span></span> sugar to it.
+      Drinking chocolate <span class="num">⑧</span><span class="chip" onclick="this.classList.toggle('on')">became<span class="ja">〜になった（become）</span></span> a popular <span class="chip" onclick="this.classList.toggle('on')">pastime<span class="ja">娯楽・気晴らし</span></span>.
       In the 19th century, a British company <span class="chip" onclick="this.classList.toggle('on')">created<span class="ja">作り出した</span></span> a solid chocolate.
-      It <span class="chip" onclick="this.classList.toggle('on')">⑨spread<span class="ja">広まった（spread）</span></span> around the world.
+      It <span class="num">⑨</span><span class="chip" onclick="this.classList.toggle('on')">spread<span class="ja">広まった（spread）</span></span> around the world.
     </div>
   </div>
 
@@ -110,8 +113,8 @@
     <h2>設問の解答</h2>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問1　下線部⑥〜⑨の単語の意味</div><div class="a">⑥ taste＝<b>味</b>／ ⑦ reached＝<b>到達した（reach）</b>／ ⑧ became＝<b>〜になった（become）</b>／ ⑨ spread＝<b>広まった（spread）</b></div></div>
     <div class="qa"><div class="q">問2　内容一致＝○／不一致＝×<span class="tap">（各文をタップで解答）</span></div>
-      <div class="item" onclick="this.classList.toggle('on')">(1) The Spanish liked chocolate very much when they tried it.<span class="mk"> … <b>×</b>（最初は味が好きでなかった）</span></div>
-      <div class="item" onclick="this.classList.toggle('on')">(2) A British company made a solid chocolate in the 19th century.<span class="mk"> … <b>○</b>（19世紀にイギリスの会社が固形チョコを作った）</span></div></div>
+      <div class="item" onclick="this.classList.toggle('on')">(1) The Spanish liked chocolate very much when they tried it.<span class="mk"> … <b>×</b></span><span class="why">最初は味が好きでなかった</span></div>
+      <div class="item" onclick="this.classList.toggle('on')">(2) A British company made a solid chocolate in the 19th century.<span class="mk"> … <b>○</b></span><span class="why">19世紀にイギリスの会社が固形チョコを作った</span></div></div>
     <div class="qa" onclick="this.classList.toggle('on')"><div class="q">問3　What did a British company create in the 19th century?</div><div class="a">→ It created a (<b>solid</b>) (<b>chocolate</b>).</div></div>
     <div class="qa"><div class="q">問4　最も強く読む部分<span class="tap">（各語をタップで解答）</span></div>
       <div class="qbody">
@@ -127,22 +130,63 @@
   <div class="gram-head">文法　6　疑問文・否定文（グリーンプレップ p.42〜47）</div>
 
   <div class="card">
-    <h2>設問の解答</h2>
-    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">① Do / Does を入れる（1〜5）＋ 全文を疑問文に（6〜8）</div><div class="a">1 <b>Do</b>／ 2 <b>Does</b>／ 3 <b>Do</b>／ 4 <b>Does</b>／ 5 <b>Does</b><br>6 <b>Do you drink coffee in the afternoon?</b><br>7 <b>Does Yuki write e-mails every day?</b>（writes→write）<br>8 <b>Do your parents live in Sendai?</b></div></div>
-    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">② 次の英文を疑問文に（be動詞・一般動詞に注意）</div><div class="a">1 <b>Did she ask a lot of questions?</b>（過去）<br>2 <b>Did they buy ice creams?</b>（過去）<br>3 <b>Is Takeshi a high school student?</b>（be動詞）<br>4 <b>Were you tired yesterday?</b>（be動詞・過去）</div></div>
-    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">③ （　）から選んで○で囲む</div><div class="a">1 <b>don't</b>／ 2 <b>doesn't</b>／ 3 <b>didn't</b>（last night）／ 4 <b>don't</b>／ 5 <b>didn't</b>（last night）</div></div>
-    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">④ 並べ替え（不要な語が1つ）</div><div class="a">1 <b>He didn't buy a newspaper this morning.</b>（不要：bought）<br>2 <b>Did you bring your dictionary today?</b>（不要：brought）</div></div>
-    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">⑤ 否定文に</div><div class="a">1 <b>My father is not (isn't) a police officer.</b><br>2 <b>I am not (I'm not) sleepy.</b><br>3 <b>Mika was not (wasn't) angry yesterday.</b><br>4 <b>You were not (weren't) very tired.</b><br>5 <b>Kazu and Ichiro are not (aren't) in Japan.</b></div></div>
+    <p class="hint">🟢 各英文をタップすると、解答（赤）と解説が出ます。「すべての解答を表示」で一括表示。</p>
+
+    <div class="sub">① （　）に Do / Does を入れる（1〜5）／ 全文を疑問文に（6〜8）</div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>（　）you eat natto every day?<span class="mk"> → <b>Do</b></span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>（　）he get up at six every morning?<span class="mk"> → <b>Does</b></span><span class="why">he（3人称単数）</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">3</span>（　）they play baseball in New Zealand?<span class="mk"> → <b>Do</b></span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">4</span>（　）your father cook dinner sometimes?<span class="mk"> → <b>Does</b></span><span class="why">your father（3単）</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">5</span>（　）Ichiro drive a car?<span class="mk"> → <b>Does</b></span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">6</span>You drink coffee in the afternoon.<span class="mk"> → <b>Do you drink coffee in the afternoon?</b></span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">7</span>Yuki writes e-mails every day.<span class="mk"> → <b>Does Yuki write e-mails every day?</b></span><span class="why">writes → write</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">8</span>Your parents live in Sendai.<span class="mk"> → <b>Do your parents live in Sendai?</b></span></div>
+
+    <div class="sub">② 次の英文を疑問文に（be動詞・一般動詞に注意）</div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>She asked a lot of questions.<span class="mk"> → <b>Did she ask a lot of questions?</b></span><span class="why">過去・一般動詞</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>They bought ice creams.<span class="mk"> → <b>Did they buy ice creams?</b></span><span class="why">過去・一般動詞</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">3</span>Takeshi is a high school student.<span class="mk"> → <b>Is Takeshi a high school student?</b></span><span class="why">be動詞</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">4</span>You were tired yesterday.<span class="mk"> → <b>Were you tired yesterday?</b></span><span class="why">be動詞・過去</span></div>
+
+    <div class="sub">③ （　）から選んで○で囲む</div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>You （ don't ／ doesn't ／ didn't ） play the piano now.<span class="mk"> → <b>don't</b></span><span class="why">現在・you</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>Bob speaks English but he （ don't ／ doesn't ／ didn't ） speak Japanese.<span class="mk"> → <b>doesn't</b></span><span class="why">現在・3単</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">3</span>She （ don't ／ doesn't ／ didn't ） do her homework last night.<span class="mk"> → <b>didn't</b></span><span class="why">last night（過去）</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">4</span>Yuki and Takeshi （ don't ／ doesn't ／ didn't ） watch TV on Sundays.<span class="mk"> → <b>don't</b></span><span class="why">現在・複数</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">5</span>I （ don't ／ doesn't ／ didn't ） sleep well last night.<span class="mk"> → <b>didn't</b></span><span class="why">last night（過去）</span></div>
+
+    <div class="sub">④ 並べ替え（不要な語が1つ）</div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>彼は今朝、新聞を買いませんでした。<span class="mk"> → <b>He didn't buy a newspaper this morning.</b></span><span class="why">不要：bought</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>あなたは今日、辞書を持ってきましたか？<span class="mk"> → <b>Did you bring your dictionary today?</b></span><span class="why">不要：brought</span></div>
+
+    <div class="sub">⑤ 否定文に</div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>My father is a police officer.<span class="mk"> → <b>My father is not (isn't) a police officer.</b></span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>I am sleepy.<span class="mk"> → <b>I am not (I'm not) sleepy.</b></span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">3</span>Mika was angry yesterday.<span class="mk"> → <b>Mika was not (wasn't) angry yesterday.</b></span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">4</span>You were very tired.<span class="mk"> → <b>You were not (weren't) very tired.</b></span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">5</span>Kazu and Ichiro are in Japan.<span class="mk"> → <b>Kazu and Ichiro are not (aren't) in Japan.</b></span></div>
   </div>
 
   <!-- ===================== EXERCISE 3 ===================== -->
   <div class="gram-head">文法　EXERCISE 3（動詞の過去形・並べ替え）</div>
 
   <div class="card">
-    <h2>設問の解答</h2>
-    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">① （　）内の動詞を過去形に＋和訳</div><div class="a">1 <b>found</b>／私はソファの下で車のかぎを見つけました。<br>2 <b>met</b>／ジュディーは駅でおじさんに会いました。<br>3 <b>cut</b>／アヤはガラスで指を切りました。（形は同じ）<br>4 <b>caught</b>／タロウとイチロウは池でカエルを捕まえました。</div></div>
-    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">④ 並べ替え（文頭は大文字）</div><div class="a">1 <b>The concert began at seven and ended at nine thirty.</b><br>2 <b>Did you see our cat?</b><br>3 <b>I didn't talk with Tom yesterday.</b></div></div>
-    <div class="qa" onclick="this.classList.toggle('on')"><div class="q">⑤ 疑問文と否定文に</div><div class="a">1. Kathy's dress was beautiful.<br>　疑問文 <b>Was Kathy's dress beautiful?</b>／ 否定文 <b>Kathy's dress was not (wasn't) beautiful.</b><br>2. Tom and Bob ate lunch today.<br>　疑問文 <b>Did Tom and Bob eat lunch today?</b>／ 否定文 <b>Tom and Bob did not (didn't) eat lunch today.</b></div></div>
+    <p class="hint">🟢 各英文をタップすると、解答（赤）と解説が出ます。</p>
+
+    <div class="sub">① （　）内の動詞を過去形に＋和訳</div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>I （ find ） my car key under the sofa.<span class="mk"> → <b>found</b></span><span class="why">私はソファの下で車のかぎを見つけました。</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>Judy （ meet ） her uncle at the station.<span class="mk"> → <b>met</b></span><span class="why">ジュディーは駅でおじさんに会いました。</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">3</span>Aya （ cut ） her finger on some glass.<span class="mk"> → <b>cut</b></span><span class="why">形は同じ。アヤはガラスで指を切りました。</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">4</span>Taro and Ichiro （ catch ） frogs in the pond.<span class="mk"> → <b>caught</b></span><span class="why">タロウとイチロウは池でカエルを捕まえました。</span></div>
+
+    <div class="sub">④ 並べ替え（文頭は大文字）</div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>そのコンサートは7時に始まって、9時半に終わった。<span class="mk"> → <b>The concert began at seven and ended at nine thirty.</b></span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>うちのネコを見ましたか？<span class="mk"> → <b>Did you see our cat?</b></span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">3</span>僕は昨日トムとしゃべらなかった。<span class="mk"> → <b>I didn't talk with Tom yesterday.</b></span></div>
+
+    <div class="sub">⑤ 疑問文と否定文に</div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>Kathy's dress was beautiful.<span class="mk"> → 疑問 <b>Was Kathy's dress beautiful?</b>／ 否定 <b>Kathy's dress was not (wasn't) beautiful.</b></span><span class="why">be動詞・過去</span></div>
+    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>Tom and Bob ate lunch today.<span class="mk"> → 疑問 <b>Did Tom and Bob eat lunch today?</b>／ 否定 <b>Tom and Bob did not (didn't) eat lunch today.</b></span><span class="why">一般動詞・過去（ate→eat）</span></div>
   </div>
 
 </div>
