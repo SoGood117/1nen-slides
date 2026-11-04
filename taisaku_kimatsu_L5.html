@@ -54,6 +54,23 @@
   .witem:hover{background:#f1f5f9;}
   .witem.on{background:#f0fdf4;}
   .witem.on .acc{color:var(--red);text-decoration:underline;font-weight:900;}
+  /* --- 文法 穴埋め方式 --- */
+  .gq{cursor:pointer;padding:7px 10px;border-radius:8px;margin:5px 0;font-size:1.08rem;line-height:2.0;border-left:4px solid #e5e7eb;transition:.12s;}
+  .gq:hover{background:#f8fafc;}
+  .gq.on{background:#f0fdf4;border-left-color:var(--green);}
+  .gq .no{color:var(--sub);font-weight:900;margin-right:6px;}
+  .gq .ar{color:var(--green);font-weight:900;margin:0 4px;}
+  .blank{display:inline-block;min-width:2.3em;border-bottom:2px solid #94a3b8;text-align:center;padding:0 5px;}
+  .blank .fill{color:transparent;font-weight:900;}
+  .gq.on .blank{border-bottom-color:var(--red);}
+  .gq.on .blank .fill{color:var(--red);}
+  .fillblock{color:transparent;font-weight:900;}
+  .gq.on .fillblock{color:var(--red);}
+  .pk{padding:0 4px;border-radius:999px;}
+  .gq.on .pk{color:var(--red);font-weight:900;box-shadow:0 0 0 2px var(--red);}
+  .hintv{color:var(--sub);font-size:.9em;}
+  .exp{display:none;color:var(--sub);font-size:.9rem;margin-left:8px;}
+  .gq.on .exp{display:inline;}
 </style>
 </head>
 <body>
@@ -130,68 +147,68 @@
   <div class="gram-head">文法　6　疑問文・否定文（グリーンプレップ p.42〜47）</div>
 
   <div class="card">
-    <p class="hint">🟢 各英文をタップすると、解答（赤）と解説が出ます。「すべての解答を表示」で一括表示。</p>
+    <p class="hint">🟢 各英文（空所や文）をタップすると、答えがその場に赤で入り、解説が出ます。「すべての解答を表示」で一括も可。</p>
 
     <div class="sub">① （　）に Do / Does を入れる（1〜5）／ 全文を疑問文に（6〜8）</div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>（　）you eat natto every day?<span class="mk"> → <b>Do</b></span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>（　）he get up at six every morning?<span class="mk"> → <b>Does</b></span><span class="why">he（3人称単数）</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">3</span>（　）they play baseball in New Zealand?<span class="mk"> → <b>Do</b></span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">4</span>（　）your father cook dinner sometimes?<span class="mk"> → <b>Does</b></span><span class="why">your father（3単）</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">5</span>（　）Ichiro drive a car?<span class="mk"> → <b>Does</b></span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">6</span>You drink coffee in the afternoon.<span class="mk"> → <b>Do you drink coffee in the afternoon?</b></span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">7</span>Yuki writes e-mails every day.<span class="mk"> → <b>Does Yuki write e-mails every day?</b></span><span class="why">writes → write</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">8</span>Your parents live in Sendai.<span class="mk"> → <b>Do your parents live in Sendai?</b></span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">1</span>（<span class="blank"><span class="fill">Do</span></span>）you eat natto every day?</div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">2</span>（<span class="blank"><span class="fill">Does</span></span>）he get up at six every morning?<span class="exp">he は3人称単数 → Does</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">3</span>（<span class="blank"><span class="fill">Do</span></span>）they play baseball in New Zealand?</div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">4</span>（<span class="blank"><span class="fill">Does</span></span>）your father cook dinner sometimes?<span class="exp">your father（3単）→ Does</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">5</span>（<span class="blank"><span class="fill">Does</span></span>）Ichiro drive a car?</div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">6</span>You drink coffee in the afternoon.<span class="ar">→</span><span class="blank"><span class="fill">Do</span></span> you drink coffee in the afternoon?</div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">7</span>Yuki writes e-mails every day.<span class="ar">→</span><span class="blank"><span class="fill">Does</span></span> Yuki <span class="blank"><span class="fill">write</span></span> e-mails every day?<span class="exp">writes → write（原形）</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">8</span>Your parents live in Sendai.<span class="ar">→</span><span class="blank"><span class="fill">Do</span></span> your parents live in Sendai?</div>
 
     <div class="sub">② 次の英文を疑問文に（be動詞・一般動詞に注意）</div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>She asked a lot of questions.<span class="mk"> → <b>Did she ask a lot of questions?</b></span><span class="why">過去・一般動詞</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>They bought ice creams.<span class="mk"> → <b>Did they buy ice creams?</b></span><span class="why">過去・一般動詞</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">3</span>Takeshi is a high school student.<span class="mk"> → <b>Is Takeshi a high school student?</b></span><span class="why">be動詞</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">4</span>You were tired yesterday.<span class="mk"> → <b>Were you tired yesterday?</b></span><span class="why">be動詞・過去</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">1</span>She asked a lot of questions.<span class="ar">→</span><span class="blank"><span class="fill">Did</span></span> she <span class="blank"><span class="fill">ask</span></span> a lot of questions?<span class="exp">過去・一般動詞 → Did ＋ 原形</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">2</span>They bought ice creams.<span class="ar">→</span><span class="blank"><span class="fill">Did</span></span> they <span class="blank"><span class="fill">buy</span></span> ice creams?<span class="exp">bought → buy（原形）</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">3</span>Takeshi is a high school student.<span class="ar">→</span><span class="blank"><span class="fill">Is</span></span> Takeshi a high school student?<span class="exp">be動詞 → 前に出す</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">4</span>You were tired yesterday.<span class="ar">→</span><span class="blank"><span class="fill">Were</span></span> you tired yesterday?<span class="exp">be動詞・過去</span></div>
 
-    <div class="sub">③ （　）から選んで○で囲む</div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>You （ don't ／ doesn't ／ didn't ） play the piano now.<span class="mk"> → <b>don't</b></span><span class="why">現在・you</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>Bob speaks English but he （ don't ／ doesn't ／ didn't ） speak Japanese.<span class="mk"> → <b>doesn't</b></span><span class="why">現在・3単</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">3</span>She （ don't ／ doesn't ／ didn't ） do her homework last night.<span class="mk"> → <b>didn't</b></span><span class="why">last night（過去）</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">4</span>Yuki and Takeshi （ don't ／ doesn't ／ didn't ） watch TV on Sundays.<span class="mk"> → <b>don't</b></span><span class="why">現在・複数</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">5</span>I （ don't ／ doesn't ／ didn't ） sleep well last night.<span class="mk"> → <b>didn't</b></span><span class="why">last night（過去）</span></div>
+    <div class="sub">③ （　）から正しいものを選ぶ（タップで○がつく）</div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">1</span>You （ <span class="pk">don't</span> / doesn't / didn't ） play the piano now.<span class="exp">現在・you</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">2</span>Bob speaks English but he （ don't / <span class="pk">doesn't</span> / didn't ） speak Japanese.<span class="exp">現在・3単</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">3</span>She （ don't / doesn't / <span class="pk">didn't</span> ） do her homework last night.<span class="exp">last night（過去）</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">4</span>Yuki and Takeshi （ <span class="pk">don't</span> / doesn't / didn't ） watch TV on Sundays.<span class="exp">現在・複数</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">5</span>I （ don't / doesn't / <span class="pk">didn't</span> ） sleep well last night.<span class="exp">last night（過去）</span></div>
 
     <div class="sub">④ 並べ替え（不要な語が1つ）</div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>彼は今朝、新聞を買いませんでした。<span class="mk"> → <b>He didn't buy a newspaper this morning.</b></span><span class="why">不要：bought</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>あなたは今日、辞書を持ってきましたか？<span class="mk"> → <b>Did you bring your dictionary today?</b></span><span class="why">不要：brought</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">1</span>彼は今朝、新聞を買いませんでした。<span class="ar">→</span><span class="fillblock">He didn't buy a newspaper this morning.</span><span class="exp">不要：bought</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">2</span>あなたは今日、辞書を持ってきましたか？<span class="ar">→</span><span class="fillblock">Did you bring your dictionary today?</span><span class="exp">不要：brought</span></div>
 
-    <div class="sub">⑤ 否定文に</div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>My father is a police officer.<span class="mk"> → <b>My father is not (isn't) a police officer.</b></span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>I am sleepy.<span class="mk"> → <b>I am not (I'm not) sleepy.</b></span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">3</span>Mika was angry yesterday.<span class="mk"> → <b>Mika was not (wasn't) angry yesterday.</b></span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">4</span>You were very tired.<span class="mk"> → <b>You were not (weren't) very tired.</b></span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">5</span>Kazu and Ichiro are in Japan.<span class="mk"> → <b>Kazu and Ichiro are not (aren't) in Japan.</b></span></div>
+    <div class="sub">⑤ 否定文に（not を入れる）</div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">1</span>My father is <span class="blank"><span class="fill">not</span></span> a police officer.<span class="exp">be動詞 → is not（isn't）</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">2</span>I am <span class="blank"><span class="fill">not</span></span> sleepy.<span class="exp">am not（I'm not）</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">3</span>Mika was <span class="blank"><span class="fill">not</span></span> angry yesterday.<span class="exp">was not（wasn't）</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">4</span>You were <span class="blank"><span class="fill">not</span></span> very tired.<span class="exp">were not（weren't）</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">5</span>Kazu and Ichiro are <span class="blank"><span class="fill">not</span></span> in Japan.<span class="exp">are not（aren't）</span></div>
   </div>
 
   <!-- ===================== EXERCISE 3 ===================== -->
   <div class="gram-head">文法　EXERCISE 3（動詞の過去形・並べ替え）</div>
 
   <div class="card">
-    <p class="hint">🟢 各英文をタップすると、解答（赤）と解説が出ます。</p>
+    <p class="hint">🟢 空所や文をタップすると、答えがその場に赤で入り、和訳・解説が出ます。</p>
 
     <div class="sub">① （　）内の動詞を過去形に＋和訳</div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>I （ find ） my car key under the sofa.<span class="mk"> → <b>found</b></span><span class="why">私はソファの下で車のかぎを見つけました。</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>Judy （ meet ） her uncle at the station.<span class="mk"> → <b>met</b></span><span class="why">ジュディーは駅でおじさんに会いました。</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">3</span>Aya （ cut ） her finger on some glass.<span class="mk"> → <b>cut</b></span><span class="why">形は同じ。アヤはガラスで指を切りました。</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">4</span>Taro and Ichiro （ catch ） frogs in the pond.<span class="mk"> → <b>caught</b></span><span class="why">タロウとイチロウは池でカエルを捕まえました。</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">1</span>I （<span class="blank"><span class="fill">found</span></span>）my car key under the sofa. <span class="hintv">（find）</span><span class="exp">私はソファの下で車のかぎを見つけました。</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">2</span>Judy （<span class="blank"><span class="fill">met</span></span>）her uncle at the station. <span class="hintv">（meet）</span><span class="exp">ジュディーは駅でおじさんに会いました。</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">3</span>Aya （<span class="blank"><span class="fill">cut</span></span>）her finger on some glass. <span class="hintv">（cut）</span><span class="exp">形は同じ。アヤはガラスで指を切りました。</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">4</span>Taro and Ichiro （<span class="blank"><span class="fill">caught</span></span>）frogs in the pond. <span class="hintv">（catch）</span><span class="exp">タロウとイチロウは池でカエルを捕まえました。</span></div>
 
     <div class="sub">④ 並べ替え（文頭は大文字）</div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>そのコンサートは7時に始まって、9時半に終わった。<span class="mk"> → <b>The concert began at seven and ended at nine thirty.</b></span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>うちのネコを見ましたか？<span class="mk"> → <b>Did you see our cat?</b></span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">3</span>僕は昨日トムとしゃべらなかった。<span class="mk"> → <b>I didn't talk with Tom yesterday.</b></span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">1</span>そのコンサートは7時に始まって、9時半に終わった。<span class="ar">→</span><span class="fillblock">The concert began at seven and ended at nine thirty.</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">2</span>うちのネコを見ましたか？<span class="ar">→</span><span class="fillblock">Did you see our cat?</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">3</span>僕は昨日トムとしゃべらなかった。<span class="ar">→</span><span class="fillblock">I didn't talk with Tom yesterday.</span></div>
 
     <div class="sub">⑤ 疑問文と否定文に</div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">1</span>Kathy's dress was beautiful.<span class="mk"> → 疑問 <b>Was Kathy's dress beautiful?</b>／ 否定 <b>Kathy's dress was not (wasn't) beautiful.</b></span><span class="why">be動詞・過去</span></div>
-    <div class="item" onclick="this.classList.toggle('on')"><span class="no">2</span>Tom and Bob ate lunch today.<span class="mk"> → 疑問 <b>Did Tom and Bob eat lunch today?</b>／ 否定 <b>Tom and Bob did not (didn't) eat lunch today.</b></span><span class="why">一般動詞・過去（ate→eat）</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">1</span>Kathy's dress was beautiful.<br>　疑問文 <span class="blank"><span class="fill">Was</span></span> Kathy's dress beautiful?　／　否定文 Kathy's dress was <span class="blank"><span class="fill">not</span></span> beautiful.<span class="exp">be動詞・過去</span></div>
+    <div class="gq" onclick="this.classList.toggle('on')"><span class="no">2</span>Tom and Bob ate lunch today.<br>　疑問文 <span class="blank"><span class="fill">Did</span></span> Tom and Bob <span class="blank"><span class="fill">eat</span></span> lunch today?　／　否定文 Tom and Bob <span class="blank"><span class="fill">did not</span></span> eat lunch today.<span class="exp">一般動詞・過去（ate→eat）</span></div>
   </div>
 
 </div>
 <script>
-  function setAll(on){document.querySelectorAll('.chip,.qa,.item,.witem').forEach(function(el){el.classList.toggle('on',on);});}
+  function setAll(on){document.querySelectorAll('.chip,.qa,.item,.witem,.gq').forEach(function(el){el.classList.toggle('on',on);});}
 </script>
 </body>
 </html>
